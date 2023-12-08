@@ -1,9 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Update="Data\SeedingData\City.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\SeedingData\Country.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\SeedingData\District.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\SeedingData\Type.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\SeedingData\Ward.txt">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
