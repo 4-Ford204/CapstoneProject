@@ -1,0 +1,10 @@
+﻿1, Bar
+2, Bida
+3, Cafe
+4, Karaoke
+5, Lounge
+6, Pub
+7, Quán ăn
+8, Quán điện tử
+9, Rạp phim
+10, Spa

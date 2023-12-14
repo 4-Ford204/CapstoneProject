@@ -40,7 +40,15 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            Name = "Đà Nẵng"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Country", b =>
@@ -56,7 +64,14 @@ namespace BusinessObjects.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Việt Nam"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.District", b =>
@@ -77,7 +92,45 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Districts");
+                    b.ToTable("Districts", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            Name = "Hải Châu"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CityId = 1,
+                            Name = "Cẩm Lệ"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 1,
+                            Name = "Liên Chiểu"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 1,
+                            Name = "Thanh Khê"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CityId = 1,
+                            Name = "Sơn Trà"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CityId = 1,
+                            Name = "Ngũ Hành Sơn"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
@@ -93,7 +146,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.User", b =>
@@ -134,6 +187,9 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("SaltPassword")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -141,7 +197,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Venue", b =>
@@ -186,7 +242,1885 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("WardId");
 
-                    b.ToTable("Venues");
+                    b.ToTable("Venues", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06455997394997,108.22441916780322",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipMm8Z4o8Fb7MjSkSxRNFs65YxDPhEOSL8OfU1o1=s1360-w1360-h1020",
+                            LowerPrice = 30f,
+                            Name = "Reply 1988 Cafe",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "20 Lê Hồng Phong",
+                            UpperPrice = 49f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.067049562217697,108.22367868214609",
+                            Image = "https://dw82ptradz9jo.cloudfront.net/daylog/6319f8b27597e2539ed6481d/755c281a-7b27-4e95-be1c-1f0c000f42c2",
+                            LowerPrice = 35f,
+                            Name = "Boulevard Gelato & Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "77 Trần Quốc Toản",
+                            UpperPrice = 65f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.069789196796957,108.22523309107305",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipPMUVsOGYKBOSYDkF-I7V7ky0PW2hq1SQih8vsC=w768-h768-n-o-v1",
+                            LowerPrice = 35f,
+                            Name = "WONDERLUST Bakery & Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "96 Trần Phú",
+                            UpperPrice = 155f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07962272110566,108.22717654302866",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/96-Coffee-and-Apartment-Quan-cafe-voi-khong-gian-cuc-chat-bat-tron-con-tim-gioi-tre-11-1636927232.jpg",
+                            LowerPrice = 28f,
+                            Name = "96 Coffee & Apartment",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "28 Bạch Đằng",
+                            UpperPrice = 38f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05704072643852,108.22436636780321",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/Cafe-de-Ante-Quan-cafe-mang-dam-chat-vintage-day-lang-man-tai-Da-Nang-05-1637013714.jpg",
+                            LowerPrice = 25f,
+                            Name = "Ante Café",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "43 Trần Văn Trứ",
+                            UpperPrice = 50f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.067167444338654,108.22330615181086",
+                            Image = "https://danalocal.info/wp-content/uploads/2023/10/check-in-quan-ca-phe-phong-cach-nhat-ban-voi-khoang-san-vuon-rong-rai-2-1.jpg",
+                            LowerPrice = 25f,
+                            Name = "HICHI Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "56 Trần Quốc Toản",
+                            UpperPrice = 55f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.073313650548595,108.22335093711116",
+                            Image = "https://cdn.vn.alongwalk.info/wp-content/uploads/2022/12/31181333/image-goc-nha-tui-minh-nham-nhi-tach-tra-hoai-niem-c7346a30206043852d5a7d46491f60d4.jpg",
+                            LowerPrice = 15f,
+                            Name = "Trà Quán-Góc Nhà Tụi Mình",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "36/36 Lê Duẩn",
+                            UpperPrice = 60f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.069849295973697,108.22418666088257",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t1.6435-9/107259580_10157712282849005_362475914545938565_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7f8c78&_nc_ohc=04xUzuKLDo0AX9wMZOV&_nc_ht=scontent.fhan2-3.fna&oh=00_AfCzXSqdGDWUeTql6eBJM0mp6XVmcxB_FVwH2_-4aItK6A&oe=659680D0",
+                            LowerPrice = 29f,
+                            Name = "Cộng Cà phê",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "39-41 Nguyễn Thái Học",
+                            UpperPrice = 69f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.070848223645793,108.22682929057149",
+                            Image = "https://d3tosvr3yotk6r.cloudfront.net/Content/UserUploads/Images/Locations/4/13/medium_Highlands%20Coffee%202.jpeg",
+                            LowerPrice = 29f,
+                            Name = "Highlands Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "74 Bạch Đằng",
+                            UpperPrice = 69f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.072521502062475,108.21730632326984",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/The-59-Cafe-Quan-cafe-nup-hem-voi-ve-dep-hoai-co-dac-biet-12-1637006703.jpg",
+                            LowerPrice = 27f,
+                            Name = "The 59 Café",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "K59 Hải Phòng",
+                            UpperPrice = 45f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.076285050379397,108.21567723069205",
+                            Image = "https://gotadi.com/tour/wp-content/uploads/2021/10/22-quan-cafe-checkin-dep-o-da-nang.jpg.jpg",
+                            LowerPrice = 25f,
+                            Name = "Fil’s Cafe",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "225/3 Đống Đa",
+                            UpperPrice = 45f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.056527828829243,108.22443508214609",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/337854213_757650695946874_6606077903618022803_n.jpg?stp=cp6_dst-jpg&_nc_cat=101&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=JUcXk7NCsTcAX9XyzKJ&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDIXL61lioInKZDXg7hOybGBQrttOSgqAuYey6vawayNg&oe=6573D5A8",
+                            LowerPrice = 20f,
+                            Name = "Đốm Café",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "22 Lê Quý Đôn",
+                            UpperPrice = 55f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06334291750872,108.22548942868579",
+                            Image = "https://www.willflyforfood.net/wp-content/uploads/2023/04/da-nang-cafes-ca-phe-muoi-hue3.jpg.webp",
+                            LowerPrice = 25f,
+                            Name = "Cà phê muối Huế-N Cafe",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "254 Trần Phú",
+                            UpperPrice = 45f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06580364347106,108.22456163510483",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/grand-t-coffee-da-nang-diem-check-in-co-mot-khong-hai-o-thanh-pho-bien-06-1637383291.jpg",
+                            LowerPrice = 18f,
+                            Name = "Grand T Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "287 Nguyễn Chí Thanh",
+                            UpperPrice = 45f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.064213492997045,108.22374563711114",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/ghe-tham-nam-house-coffee-ngoi-nha-co-kinh-giua-long-da-nang-05-1636472384.jpg",
+                            LowerPrice = 18f,
+                            Name = "Nam House",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "15/1 Lê Hồng Phong",
+                            UpperPrice = 35f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07460320690479,108.22346257522545",
+                            Image = "https://d3tosvr3yotk6r.cloudfront.net/Content/UserUploads/Images/Locations/4/1290/medium_26166460_1772629336143740_8907434179439755635_nnnnnnnn.jpg",
+                            LowerPrice = 15f,
+                            Name = "Nối Café",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "113/18 Nguyễn Chí Thanh",
+                            UpperPrice = 35f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07256542587245,108.21632549006992",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/tro-ve-thoi-ong-ba-anh-cung-tiem-nuoc-bao-cap-2-1636209527.jpg",
+                            LowerPrice = 15f,
+                            Name = "Tiệm nước Bao Cấp",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "176 Hải Phòng",
+                            UpperPrice = 35f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.04994070960559,108.20803067051723",
+                            Image = "https://www.cotrang.org/tin-tuc/images/quan-cafe/da-nang/trinh-cafe/trinh-cafe-da-nang-nguyen-huu-tho-ttgt-03.jpg",
+                            LowerPrice = 22f,
+                            Name = "Trình Cà Phê",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "34/4 Nguyễn Hữu Thọ",
+                            UpperPrice = 42f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.047644350639974,108.22777787",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/344131229_801472484644331_1427410694409761171_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=783fdb&_nc_ohc=oykt8sfCuZUAX8JCbAq&_nc_ht=scontent.fhan2-3.fna&oh=00_AfCpKmCUT6itqW7e0bdLc96uskQhsHgB_gR5bptU7f8M3g&oe=657353B1",
+                            LowerPrice = 29f,
+                            Name = "H-Amazon Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "5 Đảo Xanh 1",
+                            UpperPrice = 55f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.047933907439425,108.22791950000001",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/347266312_732525068883728_2582077216582628677_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=783fdb&_nc_ohc=OwkHFBKf99sAX_l5Q7f&_nc_ht=scontent.fhan2-4.fna&oh=00_AfA0K4-hT_twY7lB_WsCBK-1GuA7effImnpZeqnVZtEnHA&oe=65734A83",
+                            LowerPrice = 25f,
+                            Name = "KASHI Garden Coffee",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "3 Đảo Xanh 1",
+                            UpperPrice = 37f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.055502336537142,108.20908984935794",
+                            Image = "https://images.foody.vn/res/g1/6625/prof/s576x330/foody-mobile-vp-jpg-351-635998795892251625.jpg",
+                            LowerPrice = 25f,
+                            Name = "Cafe VIP Vườn",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "34 Nguyễn Hữu Thọ",
+                            UpperPrice = 49f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.056183406126785,108.20687143711115",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/358710498_746997094099364_5694375465150811840_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=WKhze04Pun8AX-4Y2K3&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCMRH-EgnRkiVzs1QoaOPZivYZoCouFEx-jObooT_mYOQ&oe=65747891",
+                            LowerPrice = 35f,
+                            Name = "Cafe Huế Xưa",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "1 Thi Sách",
+                            UpperPrice = 60f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.0695937023709,108.21773447815391",
+                            Image = "https://images.foody.vn/res/g2/12434/s800/foody-billiards-379-123544-781-635609101872239771.jpg",
+                            LowerPrice = 14f,
+                            Name = "Billiards 379",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "37-39 Pasteur",
+                            UpperPrice = 40f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06994775789383,108.21553603383187",
+                            Image = "https://images.foody.vn/res/g10/93915/prof/s640x400/foody-mobile-1522176_143650447324-635466315053025149.jpg",
+                            LowerPrice = 30f,
+                            Name = "Pro Billiards",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "30-32 Chi Lăng",
+                            UpperPrice = 50f,
+                            WardId = 4
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.077586236824075,108.21197804602369",
+                            Image = "https://alltop.vn/backend/media/images/posts/1813/CLB_Bida_3C_Da_Lat-99974.jpg",
+                            LowerPrice = 20f,
+                            Name = "Clb Bida 54/2",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "54/2 Ông Ích Khiêm",
+                            UpperPrice = 40f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07063231280082,108.22161530799845",
+                            Image = "https://images.foody.vn/res/g32/315696/prof/s/foody-mobile-foody-sapphire-billi-852-636193855537572346.jpg",
+                            LowerPrice = 50f,
+                            Name = "Sapphire BIlliard Club",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "42 Phan Đình Phùng",
+                            UpperPrice = 120f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07063231280082,108.22161530799845",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t1.6435-9/71185470_526124794811142_3735501578962993152_n.jpg?stp=dst-jpg_s1080x2048&_nc_cat=111&ccb=1-7&_nc_sid=dd63ad&_nc_ohc=MSaSZ64t9XYAX9brtoT&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAhS7Olz8v_pYz7E_bbDDBgGN-OJLw2Jb-cCxkd0C5rXw&oe=6596C74D",
+                            LowerPrice = 50f,
+                            Name = "134 Billiards Club",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "134 Núi Thành",
+                            UpperPrice = 80f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 28,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.045452104149525,108.22263085165929",
+                            Image = "https://bidazoom.com/wp-content/uploads/2021/01/Hai-Chau-Da-Nang-Min-Billiards-Club-27-Duong-2-Thang-9-1.jpg",
+                            LowerPrice = 40f,
+                            Name = "Min Billiards Club",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "263 Đ.2 Tháng 9",
+                            UpperPrice = 70f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 29,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.032733599945665,108.21914776646102",
+                            Image = "https://bidazoom.com/wp-content/uploads/2021/01/Hai-Chau-Da-Nang-8Mile-Billiards-Club-108-Xo-Viet-Nghe-Tinh-1.jpg",
+                            LowerPrice = 40f,
+                            Name = "8Mile BIlliards Club",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "108 Xô Viết Nghệ Tĩnh",
+                            UpperPrice = 70f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.056924410410932,108.21694544692839",
+                            Image = "https://images.foody.vn/res/g23/226286/s/foody-new-fai-fo-billiard-club-720-635957290726741496.jpg",
+                            LowerPrice = 40f,
+                            Name = "Billiards New Faifo Club",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "346 Hoàng Diệu",
+                            UpperPrice = 80f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.047516463353798,108.22242490562897",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipMij5ccb8mtifSmuRtg_-MhgR8TpIzP8JfPWxzd=s1360-w1360-h1020",
+                            LowerPrice = 80f,
+                            Name = "Dan Billiards",
+                            OpenTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "204-208 Đ.2 Tháng 9",
+                            UpperPrice = 120f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.042413979075384,108.22291293234525",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipMyqVf4gV1u0Ihbr8C6HywEpYU37AoB4Cppv81M=s1360-w1360-h1020",
+                            LowerPrice = 70f,
+                            Name = "5D Billiards Center",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "338 Đ.2 Tháng 9",
+                            UpperPrice = 100f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07412217975203,108.21413924639748",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/403732748_362293142987266_4146106978470056177_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=783fdb&_nc_ohc=IGGyzZcAKfIAX8okVWU&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBYd62GhaNHgR9y47QzTdyx-AIt8ebKC5ecmx9AUnzGdA&oe=65740E81",
+                            LowerPrice = 50f,
+                            Name = "Minh Vương Billiards Club",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "376 Đống Đa",
+                            UpperPrice = 80f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.048645930364334,108.20904468253264",
+                            Image = "https://bidazoom.com/wp-content/uploads/2021/01/Hai-Chau-Da-Nang-Mr.-Q-Billiards-Center-2B-Nguyen-Huu-Tho-1.jpg",
+                            LowerPrice = 20f,
+                            Name = "MrQ pool hall",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "38A/3 Nguyễn Hữu Thọ",
+                            UpperPrice = 50f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06307705735096,108.21682505433509",
+                            Image = "https://bidazoom.com/wp-content/uploads/2021/01/Hai-Chau-Da-Nang-Sao-Billiard-Da-Nang-139-Trieu-Nu-Vuong-1.jpg",
+                            LowerPrice = 40f,
+                            Name = "Clb Bida Sao Billiard",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "139 Triệu Nữ Vương",
+                            UpperPrice = 70f,
+                            WardId = 4
+                        },
+                        new
+                        {
+                            Id = 36,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05493105076417,108.2056848642522",
+                            Image = "https://images.foody.vn/res/g4/39136/s180x180/foody-chuong-gio-karaoke-886-636033577259263591.jpg",
+                            LowerPrice = 120f,
+                            Name = "Karaoke Chuông Gió",
+                            OpenTime = new DateTime(2023, 12, 11, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "2 Man Thiện",
+                            UpperPrice = 250f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 37,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.054749761311733,108.22007030286808",
+                            Image = "https://tuantoanaudio.vn/uploads/Images/the-voice.jpg",
+                            LowerPrice = 80f,
+                            Name = "Karaoke The Voice",
+                            OpenTime = new DateTime(2023, 12, 11, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "246B Trưng Nữ Vương",
+                            UpperPrice = 150f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 38,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.067320698967585,108.22125270657946",
+                            Image = "https://images.foody.vn/res/g2/11883/prof/s/foody-mobile-karaoke-new-life-da-nang.jpg",
+                            LowerPrice = 80f,
+                            Name = "Karaoke Newlife",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "2 Nguyễn Chí Thanh",
+                            UpperPrice = 165f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 39,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.045638249923417,108.21924812646803",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/275925134_101141365888131_8424298429391231942_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=Fb076ZR2b0kAX_qKggn&_nc_oc=AQlgYWJgNI3dBh_Wky7l1pwShY98zk56_SRf3_fdlHPjLalXVlnL3nh43QSIcec7a2U&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBQd0e6dhnTbCCfaZrFulJLdMz_Oi1A_LXWwA9vVGzgFA&oe=657582C4",
+                            LowerPrice = 70f,
+                            Name = "Karaoke Giai điệu Tiểu La",
+                            OpenTime = new DateTime(2023, 12, 11, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "113 Tiểu La",
+                            UpperPrice = 165f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 40,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.0338150197723,108.21484917474763",
+                            Image = "https://images.foody.vn/res/g14/136440/s800/foody-bin-bin-karaoke-huy-can-446-635876119653757753.jpg",
+                            LowerPrice = 60f,
+                            Name = "Karaoke Bin Bin",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "105 Huy Cận",
+                            UpperPrice = 100f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 41,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.080810587349653,108.21452797755114",
+                            Image = "https://images.foody.vn/res/g13/124104/prof/s/foody-mobile-foody-suong-chieu-12-248-635611471767406271.jpg",
+                            LowerPrice = 50f,
+                            Name = "Karaoke Sương Chiều",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "3 Thanh Thủy",
+                            UpperPrice = 200f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 42,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.082024473289824,108.21302989392547",
+                            Image = "https://product.hstatic.net/1000268128/product/anh_chinh_19a2506026b049b7a93793cf093bcc56_master.jpg",
+                            LowerPrice = 80f,
+                            Name = "Karaoke X.O",
+                            OpenTime = new DateTime(2023, 12, 11, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "193A Nguyễn Tất Thành",
+                            UpperPrice = 120f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 43,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.083819730121228,108.21535129289738",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/307754943_776029913368415_1445597095617052911_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=783fdb&_nc_ohc=xIw9EwfDlJAAX-Bvv4s&_nc_ht=scontent.fhan2-3.fna&oh=00_AfCASP7Gtf-hty32E2ri65DN7FeI5DwQHroTaoAFhFfq1g&oe=65755D40",
+                            LowerPrice = 100f,
+                            Name = "Karaoke Wonder",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "133A Nguyễn Tất Thành",
+                            UpperPrice = 150f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 44,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.050110834124176,108.22682828546931",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/320616340_1195829771286627_2888707605744479438_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=SwsP4qjmN90AX-Gi_Db&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBTm_6RMHClpW_H6IqHih58_aM2v6-hLdzExtLimKMMQA&oe=65749A39",
+                            LowerPrice = 180f,
+                            Name = "Karaoke Đảo Xanh KTV",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "Lô 5 - A3.5 Khu TMDV Đảo Xanh",
+                            UpperPrice = 600f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 45,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07734100768123,108.21367667424971",
+                            Image = "https://images.foody.vn/res/g16/155887/prof/s576x330/foody-mobile-lan-rung-jpg-887-635738458973356534.jpg",
+                            LowerPrice = 120f,
+                            Name = "Karaoke Lan Rừng",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "75 Lý Tự Trọng",
+                            UpperPrice = 150f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 46,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.032922916180272,108.21492889390697",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/358680290_764949142301780_1206754977957980675_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=783fdb&_nc_ohc=ECMNwQu4X6sAX-b7iRw&_nc_ht=scontent.fhan2-4.fna&oh=00_AfA50TIJce0ANQyraRplGjTIeH-pq71sMO-taEHmf1-Xzw&oe=6574A465",
+                            LowerPrice = 25f,
+                            Name = "Tiếng Tơ Đồng",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "215 Huỳnh Tấn Phát",
+                            UpperPrice = 88f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 47,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.036908556981874,108.22600559107303",
+                            Image = "https://metiz.vn/media/uploads/2023/06/27/metiz-cinema-02.jpg",
+                            LowerPrice = 45f,
+                            Name = "Metiz Cinema",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "Đ.2 Tháng 9",
+                            UpperPrice = 70f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 48,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.035588704701258,108.2313270939811",
+                            Image = "https://cdn.alongwalk.info/vn/wp-content/uploads/2022/04/06193951/image-lotte-cinema-da-nang-rap-chieu-phim-hien-dai-dang-cap-164922359082536.jpg",
+                            LowerPrice = 60f,
+                            Name = "Lotte Cinema",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "6 Nại Nam",
+                            UpperPrice = 85f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 49,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.071902704436265,108.22028972627926",
+                            Image = "https://baodanang.vn/dataimages/201912/original/images1537566_DSC_3514.JPG",
+                            LowerPrice = 30f,
+                            Name = "Rạp chiếu phim Lê Độ",
+                            OpenTime = new DateTime(2023, 12, 11, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "46 Trần Phú",
+                            UpperPrice = 50f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 50,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.056703263219344,108.22079839307933",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/401592418_831631462300937_883802411599895605_n.jpg?stp=cp6_dst-jpg&_nc_cat=105&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=_fnLwCHmDsMAX8aiFtX&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCiqinW_L_Qhh7gvGwhH2H_Kb6Z4WglTcs1-TgaBV0FYQ&oe=6574837E",
+                            LowerPrice = 99f,
+                            Name = "Mini Cinema & Couple Event Zone7",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "27 Đào Tấn",
+                            UpperPrice = 399f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 51,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.03426988462426,108.2156735270143",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/393254138_813643834099700_2138770943013154073_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=-n5BCUJsgWEAX9KDosh&_nc_ht=scontent.fhan2-3.fna&oh=00_AfCBRfA8VjkibE1jGGayb7B29wyST3hz1N1tAietXVz_9g&oe=6574E8B6",
+                            LowerPrice = 99f,
+                            Name = "CineBox & Dating Zone7+",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "160 Tố Hữu",
+                            UpperPrice = 449f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 52,
+                            CloseTime = new DateTime(2023, 12, 11, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06155409077922,108.2173688650634",
+                            Image = "https://media.foody.vn/BlogsContents/foody-ga-spa-44611-322-636677106928567978.jpg",
+                            LowerPrice = 299f,
+                            Name = "Gà Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "179b Triệu Nữ Vương",
+                            UpperPrice = 990f,
+                            WardId = 9
+                        },
+                        new
+                        {
+                            Id = 53,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066291281495637,108.22257009933693",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/380655158_715038250639482_7799090381496683862_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=PFeoqxvBL7MAX9CokQm&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAKAkW_zjBYxQLnmOBx_QJ9QB2tZ4CO5CWaHSnQCFadWg&oe=65753614",
+                            LowerPrice = 250f,
+                            Name = "Spa Viện CO2",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "117 Phan Châu Trinh",
+                            UpperPrice = 1500f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 54,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05435876299563,108.2215622544207",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/405308808_854574366670017_1673951635162137549_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=3635dc&_nc_ohc=EZCXAq1x9SgAX90dDPR&_nc_ht=scontent.fhan2-4.fna&oh=00_AfDM-haOwlsWB_nDtsrDW30IUbOtP0LTXvajF9ghZR44Cw&oe=6575CD71",
+                            LowerPrice = 70f,
+                            Name = "B Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "15 Núi Thành",
+                            UpperPrice = 550f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 55,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05509634366035,108.22193509988948",
+                            Image = "https://saigonspamassage.com/wp-content/uploads/2022/12/ffed875c603cb862e12d3.jpg",
+                            LowerPrice = 120f,
+                            Name = "Sai Gon Spa Massage",
+                            OpenTime = new DateTime(2023, 12, 11, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "8 Núi Thành",
+                            UpperPrice = 499f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 56,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06135447859589,108.21778141412001",
+                            Image = "https://www.belasspa.com/Data/Sites/1/ImageGallery/107/avt-cc-dd.jpg",
+                            LowerPrice = 499f,
+                            Name = "Belas Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "60 Nguyễn Văn Linh",
+                            UpperPrice = 6999f,
+                            WardId = 9
+                        },
+                        new
+                        {
+                            Id = 57,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.045175801430364,108.22406083796174",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/372981146_270143282492728_185860399485785076_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=vclIOjU_tHsAX8D15Zo&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDEA8hKp74JC_OGRYMgj-YSeQFhEQM1BuSxVvcCutrRMA&oe=6575526E",
+                            LowerPrice = 79f,
+                            Name = "Sam Beauty Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "23 Nguyễn Sơn Trà",
+                            UpperPrice = 499f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 58,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065592223272045,108.22287977660238",
+                            Image = "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/0b/f4/87/view-of-charm.jpg?w=1200&h=-1&s=1",
+                            LowerPrice = 150f,
+                            Name = "Charm Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "283 Nguyễn Chí Thanh",
+                            UpperPrice = 1750f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 59,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.04610111828616,108.22570466181014",
+                            Image = "https://images.foody.vn/video/s800x450/foody-upload-api-foody-foody-upload-api-foody-album1-1-jpg-18091417-181025173256.jpg",
+                            LowerPrice = 199f,
+                            Name = "An Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "Lô 4-A9.4 đường 2/9",
+                            UpperPrice = 699f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 60,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066593102034172,108.22450963908354",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipNbXJQzZaIweSR-WTTMDtN6UpBnZ65tCWkbD5SR=s3072-w3072-h1414-rw",
+                            LowerPrice = 50f,
+                            Name = "Anna Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "11A Trần Quốc Toản",
+                            UpperPrice = 599f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 61,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.082036317582038,108.22186418400092",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/301350274_512862437511173_3344663491923273738_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=783fdb&_nc_ohc=abZdf-wOspkAX_4t5Lc&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBp82-n3muQWeBXhEV_bJZFEmQLTa32HT8Ka5m-PTf4Gg&oe=6575A965",
+                            LowerPrice = 89f,
+                            Name = "Miss Gia Han Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "61 Trần Quý Cáp",
+                            UpperPrice = 1099f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 62,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.077742454160177,108.21092309194869",
+                            Image = "https://images.toplist.vn/images/800px/bovis-spa-da-nang-942354.jpg",
+                            LowerPrice = 200f,
+                            Name = "Bovis Spa cs1",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "22/8 Bắc Đẩu",
+                            UpperPrice = 899f,
+                            WardId = 12
+                        },
+                        new
+                        {
+                            Id = 63,
+                            CloseTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06379250930651,108.22247802318384",
+                            Image = "https://akinacenter.com/wp-content/uploads/2022/01/cos3.jpg",
+                            LowerPrice = 699f,
+                            Name = "Akina Center",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "54 Hoàng Văn Thụ",
+                            UpperPrice = 14999f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 64,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.076290922653204,108.22185246977068",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/241407364_1509337262761803_6323789033921668967_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=783fdb&_nc_ohc=KutoRl1hrAsAX86uGqr&_nc_ht=scontent.fhan2-4.fna&oh=00_AfAG6xRCXxR6UQCCzLlQvhwFpCg68yKIrnhahlke-aGhsQ&oe=65763C5E",
+                            LowerPrice = 249f,
+                            Name = "Spa NQ",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "89 Nguyễn Chí Thanh",
+                            UpperPrice = 1499f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 65,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06191909605416,108.21601990044891",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/317822484_6335459383145497_1434827925992790768_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=M4k3FmTpCjEAX9gWVZn&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDT8GpJQ2uoheLz1nKXHlcF7_oQffDtBbdbvUGTsFeXRA&oe=65756053",
+                            LowerPrice = 119f,
+                            Name = "Linh Spa Beauty & Academy",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "K82 H10/11 Đ Nguyễn Văn Linh",
+                            UpperPrice = 3500f,
+                            WardId = 9
+                        },
+                        new
+                        {
+                            Id = 66,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06581631696931,108.22540185386798",
+                            Image = "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/cd/0d/32/interior-space-at-golden.jpg?w=1200&h=-1&s=1",
+                            LowerPrice = 180f,
+                            Name = "Golden Lotus Oriental Organic Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "209 Trần Phú",
+                            UpperPrice = 990f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 67,
+                            CloseTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.057519898726582,108.21902123057387",
+                            Image = "https://oms.hotdeal.vn/images/editors/sources/000366474481/366474-Vivian-DN-Spa-Xong-hoi-da-muoi-massage-body-da-nong-body(18).jpg",
+                            LowerPrice = 59f,
+                            Name = "ViviAn Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "42/356 Hoàng Diệu",
+                            UpperPrice = 499f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 68,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.063230131627083,108.22457042318366",
+                            Image = "https://images.toplist.vn/images/800px/la-hair-spa-884947.jpg",
+                            LowerPrice = 59f,
+                            Name = "Lá Hair Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "3 Hoàng Văn Thụ",
+                            UpperPrice = 149f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 69,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05711213569866,108.2139111544217",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/288153707_522648249649530_7229461669982591672_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=783fdb&_nc_ohc=P6GIF5VZVgwAX96R8gZ&_nc_ht=scontent.fhan2-4.fna&oh=00_AfDk65ROirf4BFIEBhXz3IJKzNi6Z7FZqXIyjD_sG1YT4Q&oe=657503EF",
+                            LowerPrice = 149f,
+                            Name = "Le.O Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "344 Nguyễn Hoàng",
+                            UpperPrice = 7999f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 70,
+                            CloseTime = new DateTime(2023, 12, 11, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.064291067601218,108.22237020839904",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/308785236_620818833032158_4117532416583277552_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=783fdb&_nc_ohc=YXk24mVNhrEAX_UJocE&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCbmQDg-10wC8fGFCzCeAvADlG8pJvwXYLAkk-jTbt-BA&oe=65752A07",
+                            LowerPrice = 89f,
+                            Name = "Le Chillies Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "31 Lê Hồng Phong",
+                            UpperPrice = 299f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 71,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.034146226348895,108.22088629248913",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipPYOO2tVfyNgO1PIZK_llgP_Qz2h1ZxaYsI-9ah=s1360-w1360-h1020",
+                            LowerPrice = 250f,
+                            Name = "An Yên Beauty & Spa",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "32 Huy Cận",
+                            UpperPrice = 1500f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 72,
+                            CloseTime = new DateTime(2023, 12, 11, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.042686693983004,108.21792699308851",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipNs5TyL2t3ucGXMyGfYb0cfWA2r5ZdqbtQriNnV=s1360-w1360-h1020",
+                            LowerPrice = 30f,
+                            Name = "Bánh đa cua Thu Yến",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "68 Lê Thanh Nghị",
+                            UpperPrice = 50f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 73,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.069038277689057,108.21447441029056",
+                            Image = "https://www.wikidanang.com/tin-tuc/images/Wiki/quan-an/tiem-an-cho-lon/tiem-an-cho-lon-oik-1.jpg",
+                            LowerPrice = 50f,
+                            Name = "Tiệm ăn Chợ Lớn",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "267 Ông Ích Khiêm",
+                            UpperPrice = 350f,
+                            WardId = 4
+                        },
+                        new
+                        {
+                            Id = 74,
+                            CloseTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05636675681497,108.22103680100315",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/404839931_310943938444395_5953591676962366924_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=3635dc&_nc_ohc=QEeT5mHXc6EAX_7t7GF&_nc_oc=AQljWCF2XmN19RHiBU1iv6ESLSMXW5I2PCWInJ-AfypOp8DF6cVKWW3EsdU_wXjGZ4M&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBgGAerl7HRxE5Wrji6UBEsDTCsaTrBiI2flmaAS5SJjw&oe=6575D6AF",
+                            LowerPrice = 50f,
+                            Name = "Cơm nhà Kiều thị",
+                            OpenTime = new DateTime(2023, 12, 11, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "68-70 Đ.2 Tháng 9",
+                            UpperPrice = 250f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 75,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.060017239099555,108.21390069354865",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipPpuc5K-UQPTo8TzI7qW1BWvVKI-aeisSFlezME=w408-h306-k-no",
+                            LowerPrice = 40f,
+                            Name = "Cơm gà Tài Ký",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "188 Nguyễn Hoàng",
+                            UpperPrice = 70f,
+                            WardId = 9
+                        },
+                        new
+                        {
+                            Id = 76,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.048360224032354,108.21043015447276",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipM12jb2kvt40hDbk6U2qL3TTYesqg4vCPeDJpWe=w408-h306-k-no",
+                            LowerPrice = 79f,
+                            Name = "Dê núi Ninh Bình",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "113 Nguyễn Hữu Thọ",
+                            UpperPrice = 899f,
+                            WardId = 8
+                        },
+                        new
+                        {
+                            Id = 77,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.035291421432603,108.21498365076145",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipN_LVrd-nPFGvtmBduM69IgfsFcu1TmNDEQdgYK=w408-h306-k-no",
+                            LowerPrice = 50f,
+                            Name = "Quán 129",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "129 Huỳnh Tấn Phát",
+                            UpperPrice = 200f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 78,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.057969515296527,108.22088450893641",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipOQ9rwx0Q0kcbm_IulsIcOCuUj48uOufulES3DK=w408-h544-k-no",
+                            LowerPrice = 25f,
+                            Name = "Quán Đại Lộc",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "97 Trưng Nữ Vương",
+                            UpperPrice = 65f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 79,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.053165120941944,108.22205543069205",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipPwubv13tFELBO2JhpSciPCxs5jLXgNauO5596M=w408-h306-k-no",
+                            LowerPrice = 30f,
+                            Name = "Quán ăn Nhà Ta",
+                            OpenTime = new DateTime(2023, 12, 11, 10, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "134 Đ.2 Tháng 9",
+                            UpperPrice = 80f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 80,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065775688615943,108.22251776706132",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/341620333_566732878969762_2510917306260210918_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=j6DTzMO96ZUAX8j_xfv&_nc_ht=scontent.fhan2-3.fna&oh=00_AfACX5WDH49WiV_Zz1UmXUwg5uqve0-5BbzJi1zLjjUTfA&oe=65768346",
+                            LowerPrice = 80f,
+                            Name = "Nhà hàng Hai Cử",
+                            OpenTime = new DateTime(2023, 12, 11, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "63 Yên Bái",
+                            UpperPrice = 250f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 81,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07617127961935,108.21404178004062",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipOo261B1O-hQSHu-sBohpNrc9sRGFfad3nHiiC2=w408-h306-k-no",
+                            LowerPrice = 50f,
+                            Name = "Quán ăn Ngọc Ký",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "225 Đống Đa",
+                            UpperPrice = 65f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 82,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05478060389454,108.22055675396189",
+                            Image = "https://images.foody.vn/res/g23/229945/s/foody-an-vat-3colu-799-636092898295352083.jpg",
+                            LowerPrice = 25f,
+                            Name = "Ăn vặt 3colu",
+                            OpenTime = new DateTime(2023, 12, 11, 15, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "36 Nguyễn Bá Học",
+                            UpperPrice = 70f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 83,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.051218448049585,108.21300803069205",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipNcFEdVQz2Hg4oJfJ_Eisjkunm1dlUACM-d4FiW=w408-h306-k-no",
+                            LowerPrice = 59f,
+                            Name = "Nướng Bơ 1986",
+                            OpenTime = new DateTime(2023, 12, 11, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "301 Nguyễn Tri Phương",
+                            UpperPrice = 139f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 84,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.053666160736466,108.21909618055149",
+                            Image = "https://images.foody.vn/res/g10/97033/s400x400/foody-mau-con-banh-trang-thit-heo-762-636551009641519497.jpg",
+                            LowerPrice = 80f,
+                            Name = "Quán Mậu Con",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "215 Trưng Nữ Vương",
+                            UpperPrice = 120f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 85,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.051041697781752,108.22074318211641",
+                            Image = "https://images.foody.vn/res/g73/720708/s800/foody-chan-ga-nuong-hai-coi-ngo-thi-nham-664-637121807664901230.jpg",
+                            LowerPrice = 70f,
+                            Name = "Chân gà nướng Hai Còi",
+                            OpenTime = new DateTime(2023, 12, 11, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "77 Núi Thành",
+                            UpperPrice = 100f,
+                            WardId = 7
+                        },
+                        new
+                        {
+                            Id = 86,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06075784973397,108.22051066706125",
+                            Image = "https://images.foody.vn/res/g4/39409/prof/s/foody-mobile-foody-lau-nuong-ui-c-379-635893995672141706.jpg",
+                            LowerPrice = 12f,
+                            Name = "Ui Chao Lẩu Nướng",
+                            OpenTime = new DateTime(2023, 12, 11, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "57 Nguyễn Văn Linh",
+                            UpperPrice = 119f,
+                            WardId = 1
+                        },
+                        new
+                        {
+                            Id = 87,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.04206004015618,108.22225474007983",
+                            Image = "https://images.foody.vn/res/g1/8845/s400x400/foody-hoa-map-quan-ca-duoi-nuong-975-636597521916151813.jpg",
+                            LowerPrice = 40f,
+                            Name = "Quán Hoa Mập",
+                            OpenTime = new DateTime(2023, 12, 11, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "344 Đ.2 Tháng 9",
+                            UpperPrice = 250f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 88,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.055198670903522,108.22153449589766",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/298958925_553753416545803_5175106742243845066_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=bYpqO5PNtREAX88HKq9&_nc_ht=scontent.fhan2-3.fna&oh=00_AfAy0gL6Fuu_xOMRtDdW3_CdacFUsmmbufnA0d-Aa60UZw&oe=6575CC9E",
+                            LowerPrice = 35f,
+                            Name = "Quán Đông Tây",
+                            OpenTime = new DateTime(2023, 12, 11, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "17 Bình Minh 1",
+                            UpperPrice = 220f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 89,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.05430863754228,108.21867379999999",
+                            Image = "https://lh5.googleusercontent.com/p/AF1QipP5kVdboRRdOWcsWdd--Mbh27xPFazt41TiLZTT=w408-h408-k-no",
+                            LowerPrice = 25f,
+                            Name = "Quán chay Hỷ Lạc",
+                            OpenTime = new DateTime(2023, 12, 11, 6, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "378 Phan Châu Trinh",
+                            UpperPrice = 40f,
+                            WardId = 2
+                        },
+                        new
+                        {
+                            Id = 90,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.043451609759344,108.22150555396189",
+                            Image = "https://images.foody.vn/res/g13/128805/s/foody-lau-bo-128805-967-635635929915781091.jpg",
+                            LowerPrice = 35f,
+                            Name = "Lẩu bò A Trung",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "267/2 Núi Thành",
+                            UpperPrice = 280f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 91,
+                            CloseTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.042221093769164,108.21780747035142",
+                            Image = "https://images.foody.vn/res/g8/72565/prof/s576x330/foody-mobile-foody-quan-nhau-heo--548-635981433966486776.jpg",
+                            LowerPrice = 45f,
+                            Name = "Quán Heo Tộc",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "81 Lê Thanh Nghị",
+                            UpperPrice = 100f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 92,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065136832437986,108.22453077959847",
+                            Image = "https://onedanang.vn/Content/UserUploads/Images/Locations/4/ImageContent/fgwrfew.PNG",
+                            LowerPrice = 50f,
+                            Name = "Bamboo 2 Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "216 Bạch Đằng",
+                            UpperPrice = 6400f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 93,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.073116416782785,108.22068528937801",
+                            Image = "https://toplist.vn/images/800px/chut-chill-cocktails-amp-beer-1120870.jpg",
+                            LowerPrice = 70f,
+                            Name = "Chút Chill",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "165 Lê Lợi",
+                            UpperPrice = 3000f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 94,
+                            CloseTime = new DateTime(2023, 12, 11, 12, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06297667430682,108.22041751771273",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/399618434_317505447687792_3197544934014415246_n.png?_nc_cat=110&ccb=1-7&_nc_sid=783fdb&_nc_ohc=TyQtHhcsgFsAX9mjKYd&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBZqXKdgit1jqOZiau4_YjPQOFK7HWqm1HfWgp5_iPslw&oe=6574FB26",
+                            LowerPrice = 130f,
+                            Name = "Bar Đồ Yêu",
+                            OpenTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "87 Hoàng Văn Thụ",
+                            UpperPrice = 200f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 95,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066417190203097,108.22447584890641",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipMzjMqr3f4tt4dvZBxGD1QFQO72Xqbuo4o8F6D8=s1360-w1360-h1020",
+                            LowerPrice = 1490f,
+                            Name = "Hair Of The Dog Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "6 Trần Quốc Toản",
+                            UpperPrice = 5380f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 96,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06539973223335,108.2220051544731",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/on-the-radio-bar-chut-co-dien-day-tinh-te-tai-da-nang-1666184428.jpg",
+                            LowerPrice = 50f,
+                            Name = "On The Radio Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "76 Thái Phiên",
+                            UpperPrice = 1200f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 97,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065432081430007,108.22440754890637",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/290016665_1493689091091025_4765718037992447549_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=9KolDh7Su9EAX9-feYQ&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCLSWAcGJEAEG649ui6EybtHcCXU5Rgw71uhpQ2CU8gRg&oe=65756E80",
+                            LowerPrice = 80f,
+                            Name = "The Dude Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 17, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "210 Bạch Đằng",
+                            UpperPrice = 2990f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 98,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06807602044494,108.2238111470509",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/te-bar-da-nangchon-thien-duong-xu-da-thanh-1666075093-1024x683.jpg",
+                            LowerPrice = 50f,
+                            Name = "Tê Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "39-41 Nguyễn Thái Học",
+                            UpperPrice = 600f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 99,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.046097025557202,108.2250986656061",
+                            Image = "https://chillvietnam.com/wp-content/uploads/elementor/thumbs/adm-club-da-nang-1685186118-q72bgc2kfs1nkcp3mox82wqqtqg8uejwfcepm199k8.jpg",
+                            LowerPrice = 200f,
+                            Name = "ADM Bar Club",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "Lô 1-A9.4 Khu Công viên Bắc Đài tưởng niệm",
+                            UpperPrice = 10000f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 100,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066918289657398,108.22509057774296",
+                            Image = "https://media-cdn.tripadvisor.com/media/photo-s/13/57/0d/c4/brilliant-top-bar-outside.jpg",
+                            LowerPrice = 150f,
+                            Name = "Brilliant Top Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "162 Bạch Đằng",
+                            UpperPrice = 5990f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 101,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.067173221100784,108.22518089123342",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/sophie-mixology-kham-pha-vung-dat-am-nhac-da-thanh-1666427828.jpg",
+                            LowerPrice = 90f,
+                            Name = "Sophie Mixology",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "150 Bạch Đằng",
+                            UpperPrice = 1450f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 102,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07278378864266,108.2216814968003",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/355693517_991595998860380_4817188430646017212_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=783fdb&_nc_ohc=PeiLU2m3oZoAX8aO6QA&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBfCDyNesPOTIL2YNRqdhFgFkWCrRTohUn32UvRxHW_ig&oe=6574B30D",
+                            LowerPrice = 180f,
+                            Name = "LIBRE Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "125a Nguyễn Chí Thanh",
+                            UpperPrice = 2000f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 103,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066251590383494,108.2210997335604",
+                            Image = "https://media-cdn.tripadvisor.com/media/photo-s/2a/aa/d1/02/nightfall-at-the-beautiful.jpg",
+                            LowerPrice = 60f,
+                            Name = "MAKARA",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "162a Nguyễn Chí Thanh",
+                            UpperPrice = 499f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 104,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065917280926787,108.22421285076197",
+                            Image = "https://media-cdn.tripadvisor.com/media/photo-s/26/5a/c2/06/enjoy-our-special-cocktail.jpg",
+                            LowerPrice = 79f,
+                            Name = "Time Cocktail Bar & Eatery",
+                            OpenTime = new DateTime(2023, 12, 11, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "195 Trần Phú",
+                            UpperPrice = 699f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 105,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.080735867114075,108.22111832428301",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipOKHyxfsBmHGw-XtgNy2bWc7fMCz-twpD_nQGg=s1360-w1360-h1020",
+                            LowerPrice = 119f,
+                            Name = "Nóc Nóc-Cocktails & Tea",
+                            OpenTime = new DateTime(2023, 12, 11, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "2/4 Phan Bội Châu",
+                            UpperPrice = 499f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 106,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.08126465597531,108.22004976610833",
+                            Image = "https://chillvietnam.com/wp-content/uploads/elementor/thumbs/293689526_538416394749270_9133345411021438910_n-q0n075nxq27oa1l15mmz8n8o1tpwxu2109y5e5sqeg.jpg",
+                            LowerPrice = 60f,
+                            Name = "Tailor Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "57 Trần Quý Cáp",
+                            UpperPrice = 3000f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 107,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06504515223653,108.22086633356041",
+                            Image = "https://danalocal.info/wp-content/uploads/2023/07/van-cocktaik-bar-quan-bar-nho-xinh-cuc-chill-danh-cho-team-huong-noi-7-1.jpg",
+                            LowerPrice = 119f,
+                            Name = "Vấn Cocktail Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "180-182 Nguyễn Chí Thanh",
+                            UpperPrice = 899f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 108,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.060901135733484,108.2201161247841",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/401675534_321422717305286_771825975568127139_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=5JXNsSCc6dMAX-s-TRJ&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBgIcAoXvw4-MhrODA-r3IlvoEJyjtjxt047NJJ9Ct_pQ&oe=65752471",
+                            LowerPrice = 299f,
+                            Name = "P.Antheon Cocktail Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "53-55 Nguyễn Văn Linh",
+                            UpperPrice = 4990f,
+                            WardId = 9
+                        },
+                        new
+                        {
+                            Id = 109,
+                            CloseTime = new DateTime(2023, 12, 11, 5, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.068832190899162,108.22334050286848",
+                            Image = "https://vietnamnightlife.com/uploads/images/2023/01/1674032972-multi_product20-eazyddanangoverview4.jpg",
+                            LowerPrice = 2500f,
+                            Name = "EAZY D",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "72-74 Hùng Vương",
+                            UpperPrice = 32000f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 110,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.082598509890545,108.21974416796382",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/400441958_713937547455115_2089794329145735889_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_ohc=SjG8e2VWqGoAX8_KMkU&_nc_oc=AQlaUL1DI_5Zjdc-FYHM2JWsHP0L7M9G6Ezy4L9nmLSmyPo8VNkAflMYhHpkW4BwZK8&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCjF7vW-MGNPMOU6cr0YAyq3kze2jvRB8EVGc6feunuOQ&oe=657602D5",
+                            LowerPrice = 149f,
+                            Name = "Linger - Bespoke Cocktail Bar",
+                            OpenTime = new DateTime(2023, 12, 11, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "19 Phan Kế Bình",
+                            UpperPrice = 1999f,
+                            WardId = 13
+                        },
+                        new
+                        {
+                            Id = 111,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.08273776347041,108.22143346425271",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipPjUFkK4YnOB3_a7UOMzMLTEEU1ZzjgzyytcG1b=s1360-w1360-h1020",
+                            LowerPrice = 400f,
+                            Name = "Bar New Phương Đông",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "20 Đống Đa",
+                            UpperPrice = 2200f,
+                            WardId = 13
+                        },
+                        new
+                        {
+                            Id = 112,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.077617478000473,108.22435529494474",
+                            Image = "https://lh3.googleusercontent.com/p/AF1QipPdv021DePW2a7HLghz_5zqsUj0kSoqRT6iVU7K=s1360-w1360-h1020",
+                            LowerPrice = 200f,
+                            Name = "Sky 36",
+                            OpenTime = new DateTime(2023, 12, 11, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "36 Bạch Đằng",
+                            UpperPrice = 500f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 113,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.066664004900694,108.22595319626632",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/279709176_3080899275555546_684331376012139486_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=kRa8V-wMsHgAX-35XnB&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDB68GT1N-8intnVP_aNAf6a_R_Ma5FFihhS_5qyY81tQ&oe=657588F1",
+                            LowerPrice = 45f,
+                            Name = "Sky Pub",
+                            OpenTime = new DateTime(2023, 12, 11, 4, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "214 Bạch Đằng",
+                            UpperPrice = 2199f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 114,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.079726821079966,108.2242206526177",
+                            Image = "https://images.foody.vn/res/g9/83215/prof/s/foody-mobile-a-jpg-383-635779336904347422.jpg",
+                            LowerPrice = 200f,
+                            Name = "Oq Lounge Pub",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "18 Bạch Đằng",
+                            UpperPrice = 500f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 115,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06643420977416,108.22239383541596",
+                            Image = "https://images.foody.vn/res/g72/712161/prof/s/foody-mobile-1920-jpg.jpg",
+                            LowerPrice = 190f,
+                            Name = "The 1920’s Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "53 Trần Quốc Toản",
+                            UpperPrice = 230f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 116,
+                            CloseTime = new DateTime(2023, 12, 11, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07971932108589,108.22191341821464",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/296862147_113866774749314_890281081296464994_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=783fdb&_nc_ohc=CWSxa3k6nfYAX8qoqPj&_nc_ht=scontent.fhan2-3.fna&oh=00_AfCfmv3yhIVq3xlhhaiSz-IWIuEIgp333Glary-dwmytUg&oe=65760049",
+                            LowerPrice = 72f,
+                            Name = "S Counter & Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "15 Phan Bội Châu",
+                            UpperPrice = 4032f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 117,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.063621313129065,108.22095976375073",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/playboy-chill-lounge-quan-bar-da-nang-hap-dan-1667081887.jpg",
+                            LowerPrice = 80f,
+                            Name = "Playboy Chill Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "177 Phan Châu Trinh",
+                            UpperPrice = 7990f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 118,
+                            CloseTime = new DateTime(2023, 12, 11, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.079964620894756,108.22283585582733",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/397885172_307978292026286_7631601059683141725_n.jpg?stp=cp6_dst-jpg&_nc_cat=103&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=-cpTn1HMLtQAX9_Gmmj&_nc_ht=scontent.fhan2-4.fna&oh=00_AfBfXwZ5ktMWI6818dZ5VECOC-YWJOOHkHKqhTN_y2sbkQ&oe=657627C7",
+                            LowerPrice = 50f,
+                            Name = "Royal Counter & Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "11a Phan Bội Châu",
+                            UpperPrice = 2990f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 119,
+                            CloseTime = new DateTime(2023, 12, 11, 4, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06639696083888,108.22501401956838",
+                            Image = "https://chillvietnam.com/wp-content/uploads/elementor/thumbs/karma-lounge-da-nang-khu-vui-choi-khong-the-bo-lo-1667244630-q0n0gk1u2f2wdnxi9owo69ulwje1wvdeassy5rv06g.jpg",
+                            LowerPrice = 95f,
+                            Name = "Karma Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "6 Trần Quốc Toản",
+                            UpperPrice = 9000f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 120,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.0659127103963,108.2227081335604",
+                            Image = "https://chillvietnam.com/wp-content/uploads/elementor/thumbs/nuna-lounge-quan-bar-hap-dan-voi-gioi-tre-da-thanh-1667083264-q0n0gk1u2f2wdnxi9owo69ulwje1wvdeassy5rv06g.jpg",
+                            LowerPrice = 60f,
+                            Name = "Nuna Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "100 Yên Bái",
+                            UpperPrice = 11890f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 121,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.08257035468743,108.22065082984959",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2023/05/carol-lounge-da-nang-1685191121-1024x683.jpg",
+                            LowerPrice = 200f,
+                            Name = "Carol Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "28d Đống Đa",
+                            UpperPrice = 10000f,
+                            WardId = 13
+                        },
+                        new
+                        {
+                            Id = 122,
+                            CloseTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.06632462171712,108.22499669494454",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/369730762_270741869048520_1220285891420103496_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=3635dc&_nc_ohc=J9ZYWmErBF8AX-6EKxv&_nc_ht=scontent.fhan2-4.fna&oh=00_AfCDd8ImRU6cFXab_r5s5KpmGQgA9sEMwRG6kL0lhbjjdg&oe=6575F714",
+                            LowerPrice = 100f,
+                            Name = "NYX Sky Lounge & Mixology",
+                            OpenTime = new DateTime(2023, 12, 11, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "182 Bạch Đằng",
+                            UpperPrice = 9000f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 123,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.079251884947773,108.22200491821464",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/329871953_903119557562821_3776202290467868563_n.jpg?stp=cp6_dst-jpg&_nc_cat=102&ccb=1-7&_nc_sid=783fdb&_nc_ohc=Tfjl_r_iuzIAX_yKrFE&_nc_ht=scontent.fhan2-3.fna&oh=00_AfDlGKxRwEbGN-j4NpKP2kPoYEa0FIovspaKEpBAUJypgw&oe=6575247E",
+                            LowerPrice = 70f,
+                            Name = "SUGAR Counter & Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "35 Phan Bội Châu",
+                            UpperPrice = 6990f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 124,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.065635232050074,108.22481302749208",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/kyoto-lounge-cau-lac-bo-dem-soi-dong-nhat-da-thanh-1666830695-1024x684.jpg",
+                            LowerPrice = 50f,
+                            Name = "Kyoto Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 20, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "202 Bạch Đằng",
+                            UpperPrice = 8990f,
+                            WardId = 10
+                        },
+                        new
+                        {
+                            Id = 125,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.072909426388463,108.22545604705111",
+                            Image = "https://media.mia.vn/uploads/blog-du-lich/memory-lounge-da-nang-chiec-la-khong-lo-ben-canh-song-han-4-1636483013.jpg",
+                            LowerPrice = 65f,
+                            Name = "Memory Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "7 Bạch Đằng",
+                            UpperPrice = 155f,
+                            WardId = 3
+                        },
+                        new
+                        {
+                            Id = 126,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.080148166159102,108.22204792192582",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/384512523_831201482340054_4028213134785477835_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=783fdb&_nc_ohc=IsWbYvkf6wwAX9fosn6&_nc_ht=scontent.fhan2-4.fna&oh=00_AfB6QKCRG02N5irMr2-XKuWpXJ3PwebJbA93LUk5Sj1L5g&oe=65762B80",
+                            LowerPrice = 150f,
+                            Name = "GINZA Bar & Lounge",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "9 Phan Bội Châu",
+                            UpperPrice = 7990f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 127,
+                            CloseTime = new DateTime(2023, 12, 11, 3, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.079152094598943,108.2220984200702",
+                            Image = "https://chillvietnam.com/wp-content/uploads/2022/10/bunny-bar-lounge-2-diem-den-yeu-thich-cua-gioi-tre-da-nang-1666297821-1024x730.jpg",
+                            LowerPrice = 300f,
+                            Name = "BUNNY Bar & Lounge 2",
+                            OpenTime = new DateTime(2023, 12, 11, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "12 Nguyễn Du",
+                            UpperPrice = 1000f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 128,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.04172532868521,108.21377360331951",
+                            Image = "https://scontent.fhan2-3.fna.fbcdn.net/v/t39.30808-6/315655972_579388297326736_7776215781165280937_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=iKwjqrWTfWwAX967lL0&_nc_oc=AQkBkC5JnTvtdWuxOM0wGlWcY5QaCEafe-4WQEd4rSIzDMA5puDOyjyV7TdxTMXfHpw&_nc_ht=scontent.fhan2-3.fna&oh=00_AfBilDVSz2CPAZybWK8p_mshRQcm5XjMq5_lz-nBejsXeQ&oe=6575D4E5",
+                            LowerPrice = 20f,
+                            Name = "ESPORT GAMING MUNET",
+                            OpenTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "94-96 Nguyễn Hữu Dật",
+                            UpperPrice = 50f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 129,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.032866492018023,108.22095030541594",
+                            Image = "https://cybercore.vn/wp-content/uploads/2020/07/Enscape_2020-06-30-17-46-50.jpg",
+                            LowerPrice = 12f,
+                            Name = "CyberCore Gaming King Kong",
+                            OpenTime = new DateTime(2023, 12, 11, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "128 Xô Viết Nghệ Tĩnh",
+                            UpperPrice = 50f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 130,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.03673000292979,108.21711605195561",
+                            Image = "https://cybercore.vn/wp-content/uploads/2019/07/GPM_5719.jpg",
+                            LowerPrice = 24f,
+                            Name = "CyberCore D.C Gaming",
+                            OpenTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "172 Phan Đăng Lưu",
+                            UpperPrice = 55f,
+                            WardId = 5
+                        },
+                        new
+                        {
+                            Id = 131,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.033215383589294,108.22339416629849",
+                            Image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7MpEd56jDgUEXZlmmxNHew3OI_fI4qvdyGA&usqp=CAU",
+                            LowerPrice = 28f,
+                            Name = "Cyber Lip Béo Gaming",
+                            OpenTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "78 Xô Viết Nghệ Tĩnh",
+                            UpperPrice = 48f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 132,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.033163129818803,108.22111523660958",
+                            Image = "https://scontent.fhan2-4.fna.fbcdn.net/v/t39.30808-6/405910957_365982802486080_6631294215094903556_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=3635dc&_nc_ohc=YLYYjEx9jaoAX_bKFyV&_nc_ht=scontent.fhan2-4.fna&oh=00_AfDVcKBXb-CByBuKsCNrrmf6PQcgXmDiEjyVAWwBiJI5_g&oe=6574A007",
+                            LowerPrice = 12f,
+                            Name = "2L Cyber Gaming iCafe",
+                            OpenTime = new DateTime(2023, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "108 Xô Viết Nghệ Tĩnh",
+                            UpperPrice = 70f,
+                            WardId = 6
+                        },
+                        new
+                        {
+                            Id = 133,
+                            CloseTime = new DateTime(2023, 12, 11, 23, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.078590589123483,108.21901176730164",
+                            Image = "https://disanmientrung.vn/uploads/import/restaurant/909449/foody-upload-api-foody-mobile-ngo1-190424171437.jpg",
+                            LowerPrice = 15f,
+                            Name = "Ngạo Mõ ICafe",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "147-149 Đống Đa",
+                            UpperPrice = 40f,
+                            WardId = 11
+                        },
+                        new
+                        {
+                            Id = 134,
+                            CloseTime = new DateTime(2023, 12, 11, 22, 0, 0, 0, DateTimeKind.Unspecified),
+                            GeoLocation = "16.07806017021066,108.2098008143429",
+                            Image = "https://images.foody.vn/res/g99/985370/prof/s/foody-upload-api-foody-mobile-hmzz-200109112702.jpg",
+                            LowerPrice = 25f,
+                            Name = "Tổ ikafé",
+                            OpenTime = new DateTime(2023, 12, 11, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = true,
+                            Street = "357 Nguyễn Tất Thành",
+                            UpperPrice = 50f,
+                            WardId = 12
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.VenueManager", b =>
@@ -221,6 +2155,9 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("SaltPassword")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
@@ -233,7 +2170,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("VenueManager", (string)null);
+                    b.ToTable("VenueManagers", (string)null);
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Ward", b =>
@@ -254,7 +2191,279 @@ namespace BusinessObjects.Migrations
 
                     b.HasIndex("DistrictId");
 
-                    b.ToTable("Wards");
+                    b.ToTable("Wards", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DistrictId = 1,
+                            Name = "Bình Hiên"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DistrictId = 1,
+                            Name = "Bình Thuận"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DistrictId = 1,
+                            Name = "Hải Châu 1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DistrictId = 1,
+                            Name = "Hải Châu 2"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DistrictId = 1,
+                            Name = "Hoà Cường Bắc"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DistrictId = 1,
+                            Name = "Hoà Cường Nam"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DistrictId = 1,
+                            Name = "Hoà Thuận Đông"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DistrictId = 1,
+                            Name = "Hoà Thuận Tây"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DistrictId = 1,
+                            Name = "Nam Dương"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DistrictId = 1,
+                            Name = "Phước Ninh"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DistrictId = 1,
+                            Name = "Thạch Thang"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DistrictId = 1,
+                            Name = "Thanh Bình"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DistrictId = 1,
+                            Name = "Thuận Phước"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DistrictId = 2,
+                            Name = "Hoà An"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DistrictId = 2,
+                            Name = "Hoà Phát"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DistrictId = 2,
+                            Name = "Hoà Thọ Đông"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DistrictId = 2,
+                            Name = "Hoà Thọ Tây"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DistrictId = 2,
+                            Name = "Hoà Xuân"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DistrictId = 2,
+                            Name = "Khuê Trung"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            DistrictId = 3,
+                            Name = "Hoà Hiệp Bắc"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            DistrictId = 3,
+                            Name = "Hoà Hiệp Nam"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            DistrictId = 3,
+                            Name = "Hoà Khánh Bắc"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            DistrictId = 3,
+                            Name = "Hoà Khánh Nam"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DistrictId = 3,
+                            Name = "Hoà Minh"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            DistrictId = 4,
+                            Name = "An Khê"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            DistrictId = 4,
+                            Name = "Hòa Khê"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            DistrictId = 4,
+                            Name = "Thanh Khê Đông"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            DistrictId = 4,
+                            Name = "Thanh Khê Tây"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            DistrictId = 4,
+                            Name = "Xuân Hà"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            DistrictId = 4,
+                            Name = "Tam Thuận"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            DistrictId = 4,
+                            Name = "Tân Chính"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            DistrictId = 4,
+                            Name = "Chính Gián"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            DistrictId = 4,
+                            Name = "Thạc Gián"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            DistrictId = 4,
+                            Name = "Vĩnh Trung"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            DistrictId = 5,
+                            Name = "An Hải Bắc"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            DistrictId = 5,
+                            Name = "An Hải Đông"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            DistrictId = 5,
+                            Name = "An Hải Tây"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            DistrictId = 5,
+                            Name = "Mân Thái"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            DistrictId = 5,
+                            Name = "Nại Hiên Đông"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            DistrictId = 5,
+                            Name = "Phước Mỹ"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            DistrictId = 5,
+                            Name = "Thọ Quang"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            DistrictId = 6,
+                            Name = "Hoà Hải"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            DistrictId = 6,
+                            Name = "Hoà Quý"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            DistrictId = 6,
+                            Name = "Khuê Mỹ"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            DistrictId = 6,
+                            Name = "Mỹ An"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.City", b =>
