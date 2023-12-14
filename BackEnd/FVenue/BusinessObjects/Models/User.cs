@@ -6,6 +6,7 @@ namespace BusinessObjects.Models
     {
         public int Id { get; set; }
         public string Email { get; set; }
+        public byte[] SaltPassword { get; set; }
         public string HashPassword { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime CreatDate { get; set; }
