@@ -1,4 +1,4 @@
-﻿namespace DTOs.Models
+﻿namespace DTOs.Models.Venue
 {
     public class VenueDTO
     {
