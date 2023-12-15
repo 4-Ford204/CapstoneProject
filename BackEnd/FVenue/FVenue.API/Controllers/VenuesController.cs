@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
-using DTOs.Models;
+using DTOs.Models.Venue;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace FVenue.API.Controllers
 {

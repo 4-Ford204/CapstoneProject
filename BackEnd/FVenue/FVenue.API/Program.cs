@@ -46,6 +46,7 @@ namespace FVenue.API
 
             // Services
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<IValidationService, ValidationService>();
             builder.Services.AddScoped(
                 provider => new MapperConfiguration(
                     config =>
