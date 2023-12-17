@@ -11,12 +11,12 @@ namespace BusinessObjects
 
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Venue> Venues { get; set; }
-        public DbSet<VenueManager> VenueManagers { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<Venue> Venues { get; set; }
+        public DbSet<VenueManager> VenueManagers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,12 +36,12 @@ namespace BusinessObjects
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(GetRoles());
-            modelBuilder.Entity<Venue>().HasData(GetVenues());
-            modelBuilder.Entity<VenueManager>().HasData(GetVenueManagers());
             modelBuilder.Entity<Country>().HasData(GetCountries());
             modelBuilder.Entity<City>().HasData(GetCities());
             modelBuilder.Entity<District>().HasData(GetDistricts());
             modelBuilder.Entity<Ward>().HasData(GetWards());
+            modelBuilder.Entity<Venue>().HasData(GetVenues());
+            modelBuilder.Entity<VenueManager>().HasData(GetVenueManagers());
         }
 
         #region Get Seeding Data
@@ -52,83 +52,6 @@ namespace BusinessObjects
                 new Role { Id = 2, Name = "Venue Manager"},
                 new Role { Id = 3, Name = "User" }
             };
-        private List<VenueManager> GetVenueManagers()
-        {
-            try
-            {
-                using (FileStream fileStream = new FileStream("Data/SeedingData/Venue.txt", FileMode.Open))
-                {
-                    using (StreamReader streamReader = new StreamReader(fileStream))
-                    {
-                        List<VenueManager> venueManagers = new List<VenueManager>();
-                        string venueManager;
-                        byte[] salt;
-                        string hashPassword = Common.HashPassword("fvenue@123", out salt);
-                        while ((venueManager = streamReader.ReadLine()) != null)
-                        {
-                            string[] venueManagerField = venueManager.Split(',');
-                            venueManagers.Add(new VenueManager
-                            {
-                                Id = int.Parse(venueManagerField[0].Trim()),
-                                Email = $"manager{venueManagerField[0].Trim()}@gmail.com",
-                                SaltPassword = salt,
-                                HashPassword = hashPassword,
-                                PhoneNumber = null,
-                                CreatDate = DateTime.Now,
-                                LastUpdateDate = DateTime.Now,
-                                Status = true,
-                                RoleId = 2,
-                                IsAuthenticated = -1,
-                                Name = venueManagerField[1].Trim() + " Manager",
-                                VenueId = int.Parse(venueManagerField[0].Trim())
-                            });
-                        }
-                        return venueManagers;
-                    };
-                };
-            }
-            catch
-            {
-                return new List<VenueManager>();
-            }
-        }
-        private List<Venue> GetVenues()
-        {
-            try
-            {
-                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
-                {
-                    using (StreamReader streamReader = new StreamReader(fileStream))
-                    {
-                        List<Venue> venues = new List<Venue>();
-                        string venue;
-                        while ((venue = streamReader.ReadLine()) != null)
-                        {
-                            string[] venueField = venue.Split(',');
-                            venues.Add(new Venue
-                            {
-                                Id = int.Parse(venueField[0].Trim()),
-                                Name = venueField[1].Trim(),
-                                Image = venueField[2].Trim(),
-                                Street = venueField[3].Trim(),
-                                WardId = int.Parse(venueField[4].Trim()),
-                                GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
-                                OpenTime = Common.ConvertTimeOnlyToDateTime(venueField[7].Trim()),
-                                CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
-                                LowerPrice = float.Parse(venueField[9].Trim()),
-                                UpperPrice = float.Parse(venueField[10].Trim()),
-                                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false
-                            });
-                        }
-                        return venues;
-                    };
-                };
-            }
-            catch
-            {
-                return new List<Venue>();
-            }
-        }
         private List<Country> GetCountries()
         {
             try
@@ -243,6 +166,83 @@ namespace BusinessObjects
             catch
             {
                 return new List<Ward>();
+            }
+        }
+        private List<Venue> GetVenues()
+        {
+            try
+            {
+                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        List<Venue> venues = new List<Venue>();
+                        string venue;
+                        while ((venue = streamReader.ReadLine()) != null)
+                        {
+                            string[] venueField = venue.Split(',');
+                            venues.Add(new Venue
+                            {
+                                Id = int.Parse(venueField[0].Trim()),
+                                Name = venueField[1].Trim(),
+                                Image = venueField[2].Trim(),
+                                Street = venueField[3].Trim(),
+                                WardId = int.Parse(venueField[4].Trim()),
+                                GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
+                                OpenTime = Common.ConvertTimeOnlyToDateTime(venueField[7].Trim()),
+                                CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
+                                LowerPrice = float.Parse(venueField[9].Trim()),
+                                UpperPrice = float.Parse(venueField[10].Trim()),
+                                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false
+                            });
+                        }
+                        return venues;
+                    };
+                };
+            }
+            catch
+            {
+                return new List<Venue>();
+            }
+        }
+        private List<VenueManager> GetVenueManagers()
+        {
+            try
+            {
+                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        List<VenueManager> venueManagers = new List<VenueManager>();
+                        string venueManager;
+                        byte[] salt;
+                        string hashPassword = Common.HashPassword("fvenue@123", out salt);
+                        while ((venueManager = streamReader.ReadLine()) != null)
+                        {
+                            string[] venueManagerField = venueManager.Split(',');
+                            venueManagers.Add(new VenueManager
+                            {
+                                Id = int.Parse(venueManagerField[0].Trim()),
+                                Email = $"manager{venueManagerField[0].Trim()}@gmail.com",
+                                SaltPassword = salt,
+                                HashPassword = hashPassword,
+                                PhoneNumber = null,
+                                CreatDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true,
+                                RoleId = 2,
+                                IsAuthenticated = -1,
+                                Name = venueManagerField[1].Trim() + " Manager",
+                                VenueId = int.Parse(venueManagerField[0].Trim())
+                            });
+                        }
+                        return venueManagers;
+                    };
+                };
+            }
+            catch
+            {
+                return new List<VenueManager>();
             }
         }
 

@@ -31,6 +31,8 @@
                         });
                     }
                 },
+                batch: true,
+                autoSync: true,
                 schema: {
                     model: {
                         id: "Id",
@@ -50,7 +52,7 @@
                 }
             },
             pageable: {
-                pageSize: 10,
+                pageSize: 5,
                 refresh: true,
                 serverPaging: true,
                 serverFiltering: true,
@@ -61,9 +63,11 @@
             resizable: true,
             reorderable: true,
             filterable: true,
+            scrollable: true,
             columns: [
                 {
                     selectable: true,
+                    width: 50,
                     attributes: {
                         "class": "kendo-checkbox"
                     },
@@ -75,56 +79,70 @@
                     field: "Id",
                     title: "Id",
                     template: "<div>#:Id#</div>",
+                    width: 50,
                 },
                 {
                     field: "Name",
                     title: "Name",
                     template: "<div>#:Name#</div>",
+                    width: 100,
                 },
                 {
                     field: "Image",
                     title: "Image",
-                    template: "<div>#:Image#</div>",
+                    template:
+                        "<div style=\"height: 100px;\">" +
+                        "<img style=\"width: 100%; height: 100%;\" src=\"#:Image#\" />" +
+                        "</div>",
+                    width: 100,
                 },
                 {
                     field: "Street",
                     title: "Street",
                     template: "<div>#:Street#</div>",
+                    width: 100,
                 },
                 {
                     field: "Location",
                     title: "Location",
                     template: "<div>#:Location#</div>",
+                    width: 100,
                 },
                 {
                     field: "GeoLocation",
                     title: "GeoLocation",
                     template: "<div>#:GeoLocation#</div>",
+                    width: 100,
                 },
                 {
                     field: "OpenTime",
                     title: "OpenTime",
                     template: "<div>#:OpenTime#</div>",
+                    width: 100,
                 },
                 {
                     field: "CloseTime",
                     title: "CloseTime",
                     template: "<div>#:CloseTime#</div>",
+                    width: 100,
                 },
                 {
                     field: "LowerPrice",
                     title: "LowerPrice",
                     template: "<div>#:LowerPrice#</div>",
+                    width: 100,
                 },
                 {
                     field: "UpperPrice",
                     title: "UpperPrice",
                     template: "<div>#:UpperPrice#</div>",
+                    width: 100,
                 },
                 {
                     field: "Status",
                     title: "Status",
                     template: "<div>#:Status#</div>",
+                    width: 100,
                 },
             ],
         });
