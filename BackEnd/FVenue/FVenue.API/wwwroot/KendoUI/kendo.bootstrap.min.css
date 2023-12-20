@@ -4298,7 +4298,7 @@ thead.k-grid-header, thead.k-grid-header tr:first-child {
 }
 
 .k-loading-image {
-    background-image: url(Bootstrap/loading-image.gif)
+    /*background-image: url(Bootstrap/loading-image.gif)*/
 }
 
 .k-loading-color {

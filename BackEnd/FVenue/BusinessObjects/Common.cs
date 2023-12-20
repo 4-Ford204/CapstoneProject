@@ -35,6 +35,24 @@ namespace BusinessObjects
 
         #endregion
 
+        #region GeoLocation
+
+        public static void ConvertGeoLocationToLatLong(string geoLocation, out float Latitude, out float Longitude)
+        {
+            var geo = geoLocation.Split(',');
+            Latitude = float.Parse(geo[0]);
+            Longitude = float.Parse(geo[1]);
+        }
+
+        public static string FormatGeoLocation(string geoLocation)
+        {
+            float Latitude, Longitude;
+            ConvertGeoLocationToLatLong(geoLocation, out Latitude, out Longitude);
+            return $"{Latitude.ToString("0.00")},{Longitude.ToString("0.00")}";
+        }
+
+        #endregion
+
         #region DateTime
 
         public static DateOnly ConvertDateTimeToDateOnly(DateTime dateTime)

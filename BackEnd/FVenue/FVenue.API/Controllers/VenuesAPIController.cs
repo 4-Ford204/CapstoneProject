@@ -63,7 +63,7 @@ namespace FVenue.API.Controllers
                         Data = venueInsertDTO
                     };
                 await _context.Venues.AddAsync(venue);
-                if (await _context.SaveChangesAsync() < 1)
+                if (await _context.SaveChangesAsync() != 1)
                     throw new Exception("Save Changes Async Error");
                 else
                     return new JsonModel
@@ -101,7 +101,7 @@ namespace FVenue.API.Controllers
                         Data = updateVenue
                     };
                 _context.Venues.Update(updateVenue);
-                if (await _context.SaveChangesAsync() < 1)
+                if (await _context.SaveChangesAsync() != 1)
                     throw new Exception("Save Changes Async Error");
                 else
                     return new JsonModel
@@ -132,7 +132,7 @@ namespace FVenue.API.Controllers
                 else
                 {
                     venue.Status = false;
-                    if (await _context.SaveChangesAsync() < 1)
+                    if (await _context.SaveChangesAsync() != 1)
                         throw new Exception("Save Changes Async Error");
                     else
                         return new JsonModel

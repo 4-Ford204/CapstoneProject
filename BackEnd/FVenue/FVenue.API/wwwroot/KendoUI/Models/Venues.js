@@ -2,13 +2,18 @@
 
     var DOM = {
         VenuesGrid: $("#venuesGrid"),
+        Popup: document.getElementById("popup"),
     }
 
     var globalData = {
         baseURL: "../"
     }
 
-    function bindEvents() { }
+    function bindEvents() {
+        Insert();
+        Delete();
+        RemovePopup();
+    }
 
     function bindControls() { }
 
@@ -37,22 +42,24 @@
                     model: {
                         id: "Id",
                         fields: {
-                            Name: "Name",
-                            Image: "Image",
-                            Street: "Street",
-                            Location: "Location",
-                            GeoLocation: "GeoLocation",
-                            OpenTime: "OpenTime",
-                            CloseTime: "CloseTime",
-                            LowerPrice: "LowerPrice",
-                            UpperPrice: "UpperPrice",
-                            Status: "Status"
+                            Id: { type: "number", editable: false, nullable: false },
+                            Name: { type: "string", editable: false },
+                            Image: { type: "string", editable: false },
+                            Street: { type: "string", editable: false },
+                            Location: { type: "string", editable: false },
+                            GeoLocation: { type: "string", editable: false },
+                            OpenTime: { type: "string", editable: false },
+                            CloseTime: { type: "string", editable: false },
+                            LowerPrice: { type: "number", editable: false },
+                            UpperPrice: { type: "number", editable: false },
+                            Status: { type: "boolean", editable: false },
                         }
                     }
                 }
             },
+            height: 680,
             pageable: {
-                pageSize: 5,
+                pageSize: 10,
                 refresh: true,
                 serverPaging: true,
                 serverFiltering: true,
@@ -62,97 +69,243 @@
             navigatable: true,
             resizable: true,
             reorderable: true,
-            filterable: true,
             scrollable: true,
+            filterable: true,
+            dataBound: onDataBound,
+            toolbar: [
+                {
+                    name: "create",
+                    text: "Thêm Địa Điểm",
+                },
+                {
+                    name: "cancel",
+                    text: "Đổi Trạng Thái",
+                }
+            ],
             columns: [
                 {
                     selectable: true,
                     width: 50,
-                    attributes: {
-                        "class": "kendo-checkbox"
-                    },
                     headerAttributes: {
                         "class": "kendo-checkbox"
                     },
-                },
-                {
-                    field: "Id",
-                    title: "Id",
-                    template: "<div>#:Id#</div>",
-                    width: 50,
+                    attributes: {
+                        "class": "kendo-checkbox"
+                    }
                 },
                 {
                     field: "Name",
-                    title: "Name",
-                    template: "<div>#:Name#</div>",
-                    width: 100,
-                },
-                {
-                    field: "Image",
-                    title: "Image",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Tên</strong></div>",
                     template:
-                        "<div style=\"height: 100px;\">" +
-                        "<img style=\"width: 100%; height: 100%;\" src=\"#:Image#\" />" +
+                        "<div style=\"display: flex; flex-direction: row; align-items: center;\">" +
+                        "<div class=\"kendo-cell-photo\" style=\"background-image: url(#:Image#);\"></div>" +
+                        "<div class=\"kendo-cell-name\">#:Name#</div>" +
                         "</div>",
-                    width: 100,
+                    width: 250,
+                    sortable: false,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Bao Gồm",
+                                doesnotcontain: "Không Bao Gồm"
+                            }
+                        }
+                    }
                 },
                 {
                     field: "Street",
-                    title: "Street",
-                    template: "<div>#:Street#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Địa Chỉ</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:Street#</div>",
+                    width: 150,
+                    sortable: false,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Bao Gồm",
+                                doesnotcontain: "Không Bao Gồm"
+                            }
+                        }
+                    }
                 },
                 {
                     field: "Location",
-                    title: "Location",
-                    template: "<div>#:Location#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Khu Vực</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:Location#</div>",
+                    width: 200,
+                    sortable: true,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        },
+                        operators: {
+                            string: {
+                                contains: "Bao Gồm",
+                                doesnotcontain: "Không Bao Gồm"
+                            }
+                        }
+                    }
                 },
                 {
                     field: "GeoLocation",
-                    title: "GeoLocation",
-                    template: "<div>#:GeoLocation#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Toạ Độ Địa Lý</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:GeoLocation#</div>",
+                    width: 150,
+                    sortable: false,
+                    filterable: false
                 },
                 {
                     field: "OpenTime",
-                    title: "OpenTime",
-                    template: "<div>#:OpenTime#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giờ Mở Cửa</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:OpenTime#</div>",
+                    width: 150,
+                    filterable: false
                 },
                 {
                     field: "CloseTime",
-                    title: "CloseTime",
-                    template: "<div>#:CloseTime#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giờ Đóng Cửa</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:CloseTime#</div>",
+                    width: 150,
+                    filterable: false
                 },
                 {
                     field: "LowerPrice",
-                    title: "LowerPrice",
-                    template: "<div>#:LowerPrice#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giá Dưới</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:LowerPrice#.000₫<div>",
+                    width: 150,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        },
+                        operators: {
+                            number: {
+                                lte: "Nhỏ Hơn",
+                                gte: "Lớn Hơn"
+                            }
+                        }
+                    }
                 },
                 {
                     field: "UpperPrice",
-                    title: "UpperPrice",
-                    template: "<div>#:UpperPrice#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giá Trên</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:UpperPrice#.000₫</div>",
+                    width: 150,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        },
+                        operators: {
+                            number: {
+                                lte: "Nhỏ Hơn",
+                                gte: "Lớn Hơn"
+                            }
+                        }
+                    }
                 },
                 {
                     field: "Status",
-                    title: "Status",
-                    template: "<div>#:Status#</div>",
-                    width: 100,
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
+                    width: 150,
+                    sortable: false,
+                    filterable: false
+                },
+                {
+                    template:
+                        "<div class=\"kendo-grid-cell\">" +
+                        "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
+                        "</div>",
+                    width: 100
                 },
             ],
         });
     }
 
+    function onDataBound(e) {
+        var grid = this;
+
+        grid.table.find("tr").each(function () {
+            var dataItem = grid.dataItem(this);
+            var themeColor = dataItem.Status ? "success" : "error";
+            var text = dataItem.Status ? "Hoạt Động" : "Ngưng Hoạt Động";
+
+            $(this).find(".badgeTemplate").kendoBadge({
+                themeColor: themeColor,
+                text: text,
+            });
+        });
+    }
+
+    function Insert() {
+        $(".k-grid-add:first").click(function () {
+            $.ajax({
+                url: globalData.baseURL + "Venues/InsertVenuePopup",
+                type: "GET",
+                success: function (result) {
+                    DOM.Popup.innerHTML = result;
+                    RemovePopup();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        });
+    }
+
+    function Delete() {
+        $(".k-grid-cancel-changes:first").click(function () {
+            var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
+            console.log(ids);
+            //$.ajax({
+            //    url: globalData.baseURL + "Venues/DeleteVenue",
+            //    type: "DELETE",
+            //    success: function (result) {
+            //        DOM.Popup.innerHTML = result;
+            //        RemovePopup();
+            //    },
+            //    error: function (result) {
+            //        console.log(result);
+            //    }
+            //});
+        });
+    }
+
+    function RemovePopup() {
+        $("#removePopup").click(function () {
+            DOM.Popup.innerHTML = "";
+        })
+    }
+
     return {
         init: function () {
+            initVenuesGrid();
             bindEvents();
             bindControls();
-            initVenuesGrid();
         }
     }
 
