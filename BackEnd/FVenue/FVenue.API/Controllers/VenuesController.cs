@@ -19,10 +19,11 @@ namespace FVenue.API.Controllers
 
         #region View
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
+
+        [HttpGet, Route("Venues/InsertVenuePopup")]
+        public async Task<PartialViewResult> InsertVenuePopup()
+            => PartialView("_VenuePartial");
 
         #endregion
 
