@@ -22,7 +22,7 @@ namespace FVenue.API.Controllers
         public IActionResult Index() => View();
 
         [HttpGet, Route("Venues/InsertVenuePopup")]
-        public async Task<PartialViewResult> InsertVenuePopup()
+        public PartialViewResult InsertVenuePopup()
             => PartialView("_VenuePartial");
 
         #endregion

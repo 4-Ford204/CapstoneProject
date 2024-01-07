@@ -1,10 +1,10 @@
 ﻿namespace BusinessObjects.Models
 {
-    public class Role
+    public class Category
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Account> Accounts { get; set; }
+        public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }

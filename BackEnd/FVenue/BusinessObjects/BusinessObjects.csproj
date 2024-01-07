@@ -27,11 +27,17 @@
 		<None Update="Data\District.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-		<None Update="Data\Type.txt">
+		<None Update="Data\Category.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\SubCategory.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Data\Venue.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Data\VenueSubCategory.txt">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Data\Ward.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

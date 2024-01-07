@@ -7,6 +7,7 @@ namespace BusinessObjects.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
+        public string Description { get; set; }
         public string Street { get; set; }
         [ForeignKey("Ward")]
         public int WardId { get; set; }
@@ -17,5 +18,10 @@ namespace BusinessObjects.Models
         public float LowerPrice { get; set; }
         public float UpperPrice { get; set; }
         public bool Status { get; set; }
+        [ForeignKey("Account")]
+        public int AccountId { get; set; }
+        public Account Account { get; set; }
+
+        public virtual ICollection<VenueSubCategory> VenueSubCategories { get; set; }
     }
 }

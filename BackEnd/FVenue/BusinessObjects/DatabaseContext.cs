@@ -10,13 +10,15 @@ namespace BusinessObjects
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Role> Roles { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Account> Accounts { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Ward> Wards { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Venue> Venues { get; set; }
-        public DbSet<VenueManager> VenueManagers { get; set; }
+        public DbSet<VenueSubCategory> VenueSubCategories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,7 +30,8 @@ namespace BusinessObjects
 
                 IConfigurationRoot configuration = builder.Build();
 
-                optionsBuilder.UseSqlServer(configuration.GetConnectionString("FVenue"));
+                //optionsBuilder.UseSqlServer(configuration.GetConnectionString("FVenue"));
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("FVenueDemo"));
                 //optionsBuilder.UseSqlServer(configuration.GetConnectionString("FVenueTAB"));
             }
         }
@@ -36,12 +39,15 @@ namespace BusinessObjects
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(GetRoles());
+            modelBuilder.Entity<Account>().HasData(GetAccounts(out int defaultAccountNumber));
             modelBuilder.Entity<Country>().HasData(GetCountries());
             modelBuilder.Entity<City>().HasData(GetCities());
             modelBuilder.Entity<District>().HasData(GetDistricts());
             modelBuilder.Entity<Ward>().HasData(GetWards());
-            modelBuilder.Entity<Venue>().HasData(GetVenues());
-            modelBuilder.Entity<VenueManager>().HasData(GetVenueManagers());
+            modelBuilder.Entity<Category>().HasData(GetCategories());
+            modelBuilder.Entity<SubCategory>().HasData(GetSubCategories());
+            modelBuilder.Entity<Venue>().HasData(GetVenues(ref defaultAccountNumber, out int defaultVenueNumber));
+            modelBuilder.Entity<VenueSubCategory>().HasData(GetVenueSubCategories(ref defaultVenueNumber));
         }
 
         #region Get Seeding Data
@@ -52,6 +58,67 @@ namespace BusinessObjects
                 new Role { Id = 2, Name = "Venue Manager"},
                 new Role { Id = 3, Name = "User" }
             };
+        private List<Account> GetAccounts(out int defaultAccountNumber)
+        {
+            defaultAccountNumber = 0;
+            try
+            {
+                byte[] salt;
+                string hashPassword = Common.HashPassword("fvenue@123", out salt);
+                List<Account> accounts = new List<Account>()
+                {
+                    new Account
+                    {
+                        Id = 1,
+                        Email = "huynhduy20042002@gmail.com",
+                        SaltPassword = salt,
+                        HashPassword = hashPassword,
+                        Image = "~/Image/Administrator/SuperAdmin.jpg",
+                        PhoneNumber = Common.RandomPhoneNumber(),
+                        CreatDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now,
+                        Status = true,
+                        RoleId = 1,
+                        FirstName = "Duy",
+                        LastName = "Lê Tự Huỳnh",
+                        Gender = true,
+                        BirthDay = new DateTime(2002, 04, 20)
+                    }
+                };
+                //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                //{
+                //    using (StreamReader streamReader = new StreamReader(fileStream))
+                //    {
+                //        defaultAccountNumber = accounts.Count;
+                //        string account;
+                //        while ((account = streamReader.ReadLine()) != null)
+                //        {
+                //            string[] accountField = account.Split(',');
+                //            accounts.Add(new Account
+                //            {
+                //                Id = int.Parse(accountField[0].Trim()) + defaultAccountNumber,
+                //                Email = $"manager{int.Parse(accountField[0].Trim())}@gmail.com",
+                //                SaltPassword = salt,
+                //                HashPassword = hashPassword,
+                //                Image = "",
+                //                PhoneNumber = Common.RandomPhoneNumber(),
+                //                CreatDate = DateTime.Now,
+                //                LastUpdateDate = DateTime.Now,
+                //                Status = true,
+                //                RoleId = 2,
+                //                FirstName = accountField[1].Trim(),
+                //                LastName = "Quản Lý"
+                //            });
+                //        }
+                //    };
+                //};
+                return accounts;
+            }
+            catch
+            {
+                return new List<Account>();
+            }
+        }
         private List<Country> GetCountries()
         {
             try
@@ -168,15 +235,73 @@ namespace BusinessObjects
                 return new List<Ward>();
             }
         }
-        private List<Venue> GetVenues()
+        private List<Category> GetCategories()
         {
             try
             {
-                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                using (FileStream fileStream = new FileStream("Data/Category.txt", FileMode.Open))
                 {
                     using (StreamReader streamReader = new StreamReader(fileStream))
                     {
-                        List<Venue> venues = new List<Venue>();
+                        List<Category> categories = new List<Category>();
+                        string category;
+                        while ((category = streamReader.ReadLine()) != null)
+                        {
+                            string[] categoryField = category.Split(',');
+                            categories.Add(new Category
+                            {
+                                Id = int.Parse(categoryField[0].Trim()),
+                                Name = categoryField[1].Trim()
+                            });
+                        }
+                        return categories;
+                    };
+                };
+            }
+            catch
+            {
+                return new List<Category>();
+            }
+        }
+        private List<SubCategory> GetSubCategories()
+        {
+            try
+            {
+                using (FileStream fileStream = new FileStream("Data/SubCategory.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        List<SubCategory> subCategories = new List<SubCategory>();
+                        string subCategory;
+                        while ((subCategory = streamReader.ReadLine()) != null)
+                        {
+                            string[] subCategoryField = subCategory.Split(',');
+                            subCategories.Add(new SubCategory
+                            {
+                                Id = int.Parse(subCategoryField[0].Trim()),
+                                Name = subCategoryField[1].Trim(),
+                                CategoryId = int.Parse(subCategoryField[2].Trim()),
+                            });
+                        }
+                        return subCategories;
+                    };
+                };
+            }
+            catch
+            {
+                return new List<SubCategory>();
+            }
+        }
+        private List<Venue> GetVenues(ref int defaultAccountNumber, out int defaultVenueNumber)
+        {
+            defaultVenueNumber = 0;
+            try
+            {
+                List<Venue> venues = new List<Venue>();
+                using (FileStream fileStream = new FileStream("Data/PublicVenue.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
                         string venue;
                         while ((venue = streamReader.ReadLine()) != null)
                         {
@@ -186,6 +311,7 @@ namespace BusinessObjects
                                 Id = int.Parse(venueField[0].Trim()),
                                 Name = venueField[1].Trim(),
                                 Image = venueField[2].Trim(),
+                                Description = $"Đây là mô tả về {venueField[1].Trim()}",
                                 Street = venueField[3].Trim(),
                                 WardId = int.Parse(venueField[4].Trim()),
                                 GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
@@ -193,56 +319,89 @@ namespace BusinessObjects
                                 CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
                                 LowerPrice = float.Parse(venueField[9].Trim()),
                                 UpperPrice = float.Parse(venueField[10].Trim()),
-                                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false
+                                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false,
+                                AccountId = int.Parse(venueField[12].Trim())
                             });
                         }
-                        return venues;
+                        defaultVenueNumber = venues.Count;
                     };
                 };
+                //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                //{
+                //    using (StreamReader streamReader = new StreamReader(fileStream))
+                //    {
+                //        string venue;
+                //        while ((venue = streamReader.ReadLine()) != null)
+                //        {
+                //            string[] venueField = venue.Split(',');
+                //            venues.Add(new Venue
+                //            {
+                //                Id = int.Parse(venueField[0].Trim()) + defaultVenueNumber
+                //                Name = venueField[1].Trim(),
+                //                Image = venueField[2].Trim(),
+                //                Description = $"Đây là mô tả về {venueField[1].Trim()}",
+                //                Street = venueField[3].Trim(),
+                //                WardId = int.Parse(venueField[4].Trim()),
+                //                GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
+                //                OpenTime = Common.ConvertTimeOnlyToDateTime(venueField[7].Trim()),
+                //                CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
+                //                LowerPrice = float.Parse(venueField[9].Trim()),
+                //                UpperPrice = float.Parse(venueField[10].Trim()),
+                //                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false,
+                //                AccountId = int.Parse(venueField[0].Trim()) + defaultAccountNumber
+                //            });
+                //        }
+                //    };
+                //};
+                return venues;
             }
             catch
             {
                 return new List<Venue>();
             }
         }
-        private List<VenueManager> GetVenueManagers()
+        private List<VenueSubCategory> GetVenueSubCategories(ref int defaultVenueNumber)
         {
             try
             {
-                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                List<VenueSubCategory> venueSubCategories = new List<VenueSubCategory>();
+                using (FileStream fileStream = new FileStream("Data/PublicVenue.txt", FileMode.Open))
                 {
                     using (StreamReader streamReader = new StreamReader(fileStream))
                     {
-                        List<VenueManager> venueManagers = new List<VenueManager>();
-                        string venueManager;
-                        byte[] salt;
-                        string hashPassword = Common.HashPassword("fvenue@123", out salt);
-                        while ((venueManager = streamReader.ReadLine()) != null)
+                        string venueSubCategory;
+                        while ((venueSubCategory = streamReader.ReadLine()) != null)
                         {
-                            string[] venueManagerField = venueManager.Split(',');
-                            venueManagers.Add(new VenueManager
+                            string[] venueSubCategoryField = venueSubCategory.Split(',');
+                            venueSubCategories.Add(new VenueSubCategory
                             {
-                                Id = int.Parse(venueManagerField[0].Trim()),
-                                Email = $"manager{venueManagerField[0].Trim()}@gmail.com",
-                                SaltPassword = salt,
-                                HashPassword = hashPassword,
-                                PhoneNumber = null,
-                                CreatDate = DateTime.Now,
-                                LastUpdateDate = DateTime.Now,
-                                Status = true,
-                                RoleId = 2,
-                                IsAuthenticated = -1,
-                                Name = venueManagerField[1].Trim() + " Manager",
-                                VenueId = int.Parse(venueManagerField[0].Trim())
+                                VenueId = int.Parse(venueSubCategoryField[0].Trim()),
+                                SubCategoryId = int.Parse(venueSubCategoryField[13].Trim()),
                             });
                         }
-                        return venueManagers;
                     };
                 };
+                //using (FileStream fileStream = new FileStream("Data/VenueSubCategory.txt", FileMode.Open))
+                //{
+                //    using (StreamReader streamReader = new StreamReader(fileStream))
+                //    {
+                //        string venueCategory;
+                //        while ((venueCategory = streamReader.ReadLine()) != null)
+                //        {
+                //            string[] venueCategoryField = venueCategory.Split(',');
+                //            venueCategories.Add(new VenueSubCategory
+                //            {
+                //                VenueId = int.Parse(venueCategoryField[0].Trim()),
+                //                SubCategoryId = int.Parse(venueCategoryField[1].Trim())
+                //            });
+                //        }
+                //    };
+                //};
+                return venueSubCategories;
             }
             catch
             {
-                return new List<VenueManager>();
+                return new List<VenueSubCategory>();
             }
         }
 

@@ -20,6 +20,7 @@ namespace BusinessObjects
                 );
             return Convert.ToHexString(hash);
         }
+
         public static bool VerifyPassword(string password, string hashPassword, byte[] salt, int keySize = 64, int iterations = 350000)
         {
             HashAlgorithmName hashAlgorithmName = HashAlgorithmName.SHA512;
@@ -31,6 +32,15 @@ namespace BusinessObjects
                 keySize
                 );
             return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromHexString(hashPassword));
+        }
+
+        public static string RandomPhoneNumber()
+        {
+            int size = 10;
+            string result = "0";
+            for (int i = 0; i < size - 1; i++)
+                result = string.Concat(result, RandomNumberGenerator.GetInt32(1, 10).ToString());
+            return result;
         }
 
         #endregion
