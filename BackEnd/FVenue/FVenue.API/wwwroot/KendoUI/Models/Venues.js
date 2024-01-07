@@ -10,9 +10,8 @@
     }
 
     function bindEvents() {
-        Insert();
-        Delete();
-        RemovePopup();
+        InsertButton();
+        DeleteButton();
     }
 
     function bindControls() { }
@@ -188,7 +187,7 @@
                 {
                     field: "LowerPrice",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giá Dưới</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:LowerPrice#.000₫<div>",
+                    template: "<div class=\"kendo-grid-cell\">#:LowerPrice*1000#₫<div>",
                     width: 150,
                     filterable: {
                         extra: false,
@@ -209,7 +208,7 @@
                 {
                     field: "UpperPrice",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giá Trên</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:UpperPrice#.000₫</div>",
+                    template: "<div class=\"kendo-grid-cell\">#:UpperPrice*1000#₫</div>",
                     width: 150,
                     filterable: {
                         extra: false,
@@ -231,9 +230,7 @@
                     field: "Status",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
-                    width: 150,
-                    sortable: false,
-                    filterable: false
+                    width: 150
                 },
                 {
                     template:
@@ -261,7 +258,7 @@
         });
     }
 
-    function Insert() {
+    function InsertButton() {
         $(".k-grid-add:first").click(function () {
             $.ajax({
                 url: globalData.baseURL + "Venues/InsertVenuePopup",
@@ -277,10 +274,11 @@
         });
     }
 
-    function Delete() {
+    function DeleteButton() {
         $(".k-grid-cancel-changes:first").click(function () {
             var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
             console.log(ids);
+            DOM.VenuesGrid.data("kendoGrid").dataSource.read();
             //$.ajax({
             //    url: globalData.baseURL + "Venues/DeleteVenue",
             //    type: "DELETE",
