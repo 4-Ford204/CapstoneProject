@@ -46,6 +46,7 @@ namespace FVenue.API
 
             // Services
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IValidationService, ValidationService>();
             builder.Services.AddScoped(
                 provider => new MapperConfiguration(
@@ -71,6 +72,7 @@ namespace FVenue.API
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllerRoute(
                 name: "default",
