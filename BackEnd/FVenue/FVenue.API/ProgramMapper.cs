@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
+using DTOs.Models.Category;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 
@@ -22,6 +23,14 @@ namespace FVenue.API
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
             CreateMap<VenueUpdateDTO, Venue>().IncludeBase<VenueInsertDTO, Venue>();
 
+            #endregion
+
+            #region Category
+
+            CreateMap<Category, CategoryDTO>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src =>src.Id))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>src.Name));
+                
             #endregion
         }
     }
