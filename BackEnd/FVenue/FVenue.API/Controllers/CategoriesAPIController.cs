@@ -2,26 +2,27 @@
 using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Category;
-using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FVenue.API.Controllers
 {
-    public class ViewCategoryController : ControllerBase
+    [Route("API/[controller]")]
+    [ApiController]
+    public class CategoriesAPIController : ControllerBase
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private readonly IValidationService _validationService;
-        public ViewCategoryController(DatabaseContext context, IMapper mapper, IValidationService validationService)
+
+        public CategoriesAPIController(DatabaseContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _validationService = validationService;
         }
-        [HttpGet, Route("GetCategoryDTOs/{pageIndex}/{pageSize}")]
-        public async Task<ActionResult<JsonModel>> GetCategoryDTOs(int pageIndex, int pageSize)
+
+        [HttpGet, Route("GetCategoryDTOs")]
+        public async Task<ActionResult<JsonModel>> GetCategoryDTOs()
         {
             try
             {
@@ -30,8 +31,8 @@ namespace FVenue.API.Controllers
                 return new JsonModel
                 {
                     Code = EnumModel.ResultCode.OK,
-                    Message = $"{category.Count} category",
-                    Data = new PaginationModel<CategoryDTO>(categoryDTOs, pageIndex, pageSize)
+                    Message = $"{category.Count} categories",
+                    Data = categoryDTOs
                 };
             }
             catch (Exception ex)

@@ -38,7 +38,7 @@ namespace FVenue.API.Controllers
             else
             {
                 var user = await _tokenService.GetGoogleUser(accessToken);
-                if (user != null)
+                if ((object)user != null)
                     return new JsonModel()
                     {
                         Code = EnumModel.ResultCode.OK,
