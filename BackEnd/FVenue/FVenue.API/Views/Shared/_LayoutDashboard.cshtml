@@ -90,6 +90,17 @@
                         </li>
                     </ul>
                 </nav>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Index">
+                                <i class="nav-icon fa-solid fa-user"></i>
+                                <p>Tài khoản</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
                 <!-- End Sidebar Menu -->
             </div>
             <!-- End Sidebar -->
@@ -124,6 +135,7 @@
     <!-- Kendo UI -->
     <script src="~/KendoUI/kendo.all.min.js"></script>
     <script src="~/KendoUI/Models/Venues.js"></script>
+    <script src="~/KendoUI/Models/Accounts.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
