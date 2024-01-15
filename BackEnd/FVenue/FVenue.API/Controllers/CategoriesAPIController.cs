@@ -2,9 +2,9 @@
 using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Category;
+using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FVenue.API.Controllers
 {
@@ -12,21 +12,21 @@ namespace FVenue.API.Controllers
     [ApiController]
     public class CategoriesAPIController : ControllerBase
     {
-        private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesAPIController(DatabaseContext context, IMapper mapper)
+        public CategoriesAPIController(ICategoryService categoryService, IMapper mapper)
         {
-            _context = context;
+            _categoryService = categoryService;
             _mapper = mapper;
         }
 
         [HttpGet, Route("GetCategoryDTOs")]
-        public async Task<ActionResult<JsonModel>> GetCategoryDTOs()
+        public ActionResult<JsonModel> GetCategoryDTOs()
         {
             try
             {
-                var category = await _context.Categories.ToListAsync();
+                var category = _categoryService.GetCategories();
                 var categoryDTOs = _mapper.Map<List<Category>, List<CategoryDTO>>(category);
                 return new JsonModel
                 {

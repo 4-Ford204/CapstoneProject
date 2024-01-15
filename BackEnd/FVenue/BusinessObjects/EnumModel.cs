@@ -1,7 +1,13 @@
-﻿namespace FVenue.API.Models
+﻿namespace BusinessObjects
 {
     public class EnumModel
     {
+        public enum LoginVia
+        {
+            Email = 1,
+            Google = 2
+        }
+
         public enum ResultCode
         {
             // 1xx Informational Response
@@ -24,13 +30,6 @@
             Administrator = 1,
             VenueManager = 2,
             User = 3
-        }
-
-        public enum VenueManagerAuthentication
-        {
-            Demo = -1,
-            NotAuthenticated = 0,
-            Authenticated = 1
         }
     }
 }

@@ -20,5 +20,6 @@ namespace BusinessObjects.Models
         public string LastName { get; set; }
         public bool? Gender { get; set; }
         public DateTime? BirthDay { get; set; }
+        public int LoginVia { get; set; }
     }
 }
