@@ -1,4 +1,4 @@
-﻿using static FVenue.API.Models.EnumModel;
+﻿using static BusinessObjects.EnumModel;
 
 namespace FVenue.API.Models
 {
