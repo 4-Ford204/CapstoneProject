@@ -11,6 +11,16 @@ namespace FVenue.API
     {
         public ProgramMapper(ILocationService locationService)
         {
+            #region Account
+
+            #endregion
+
+            #region Category
+
+            CreateMap<Category, CategoryDTO>();
+
+            #endregion
+
             #region Venue
 
             CreateMap<Venue, VenueDTO>()
@@ -22,12 +32,6 @@ namespace FVenue.API
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
             CreateMap<VenueUpdateDTO, Venue>().IncludeBase<VenueInsertDTO, Venue>();
-
-            #endregion
-
-            #region Category
-
-            CreateMap<Category, CategoryDTO>();
 
             #endregion
         }

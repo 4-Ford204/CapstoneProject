@@ -78,11 +78,12 @@ namespace BusinessObjects
                         CreatDate = DateTime.Now,
                         LastUpdateDate = DateTime.Now,
                         Status = true,
-                        RoleId = 1,
+                        RoleId = (int)EnumModel.Role.Administrator,
                         FirstName = "Duy",
                         LastName = "Lê Tự Huỳnh",
                         Gender = true,
-                        BirthDay = new DateTime(2002, 04, 20)
+                        BirthDay = new DateTime(2002, 04, 20),
+                        LoginVia = (int)EnumModel.LoginVia.Email
                     }
                 };
                 //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))

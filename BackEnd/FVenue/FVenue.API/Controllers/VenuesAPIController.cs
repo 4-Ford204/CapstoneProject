@@ -5,7 +5,6 @@ using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FVenue.API.Controllers
 {
@@ -13,23 +12,21 @@ namespace FVenue.API.Controllers
     [ApiController]
     public class VenuesAPIController : ControllerBase
     {
-        private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private readonly IValidationService _validationService;
+        private readonly IVenueService _venueService;
 
-        public VenuesAPIController(DatabaseContext context, IMapper mapper, IValidationService validationService)
+        public VenuesAPIController(IMapper mapper, IVenueService venueService)
         {
-            _context = context;
             _mapper = mapper;
-            _validationService = validationService;
+            _venueService = venueService;
         }
 
         [HttpGet, Route("GetVenueDTOs/{pageIndex}/{pageSize}")]
-        public async Task<ActionResult<JsonModel>> GetVenueDTOs(int pageIndex, int pageSize)
+        public ActionResult<JsonModel> GetVenueDTOs(int pageIndex, int pageSize)
         {
             try
             {
-                var venues = await _context.Venues.Where(x => x.Status == true).ToListAsync();
+                var venues = _venueService.GetVenues();
                 var venueDTOs = _mapper.Map<List<Venue>, List<VenueDTO>>(venues);
                 return new JsonModel
                 {
@@ -49,108 +46,79 @@ namespace FVenue.API.Controllers
         }
 
         [HttpPost, Route("InsertVenue")]
-        public async Task<ActionResult<JsonModel>> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
+        public ActionResult<JsonModel> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
         {
-            try
-            {
-                var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
-                string result = String.Empty;
-                if (!_validationService.VenueValidation(ModelState.IsValid, venue, out result))
-                    return new JsonModel
-                    {
-                        Code = EnumModel.ResultCode.BadRequest,
-                        Message = result,
-                        Data = venueInsertDTO
-                    };
-                await _context.Venues.AddAsync(venue);
-                if (await _context.SaveChangesAsync() != 1)
-                    throw new Exception("Save Changes Async Error");
-                else
-                    return new JsonModel
-                    {
-                        Code = EnumModel.ResultCode.OK,
-                        Message = "Insert Successfully",
-                        Data = venueInsertDTO
-                    };
-            }
-            catch (Exception ex)
-            {
-                return new JsonModel
+            if (!ModelState.IsValid)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.BadRequest,
+                    Message = $"Insert Venue Error",
+                    Data = venueInsertDTO
+                };
+            var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
+            var result = _venueService.InsertVenue(venue);
+            if (result.Key)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"Insert Venue Success",
+                    Data = venueInsertDTO
+                };
+            else
+                return new JsonModel()
                 {
                     Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"{ex.Message}"
+                    Message = $"Insert Venue Error",
+                    Data = result.Value
                 };
-            }
         }
 
         [HttpPut, Route("UpdateVenue")]
-        public async Task<ActionResult<JsonModel>> UpdateVenue([FromBody] VenueUpdateDTO venueUpdateDTO)
+        public ActionResult<JsonModel> UpdateVenue([FromBody] VenueUpdateDTO venueUpdateDTO)
         {
-            try
-            {
-                var venue = await _context.Venues.FindAsync(venueUpdateDTO.Id);
-                if (venue == null)
-                    throw new Exception("Venue Not Found");
-                var updateVenue = _mapper.Map<VenueUpdateDTO, Venue>(venueUpdateDTO);
-                string result = String.Empty;
-                if (!_validationService.VenueValidation(ModelState.IsValid, updateVenue, out result))
-                    return new JsonModel
-                    {
-                        Code = EnumModel.ResultCode.BadRequest,
-                        Message = result,
-                        Data = updateVenue
-                    };
-                _context.Venues.Update(updateVenue);
-                if (await _context.SaveChangesAsync() != 1)
-                    throw new Exception("Save Changes Async Error");
-                else
-                    return new JsonModel
-                    {
-                        Code = EnumModel.ResultCode.OK,
-                        Message = "Update Successfully",
-                        Data = venueUpdateDTO
-                    };
-            }
-            catch (Exception ex)
-            {
-                return new JsonModel
+            if (!ModelState.IsValid)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.BadRequest,
+                    Message = $"Update Venue Error",
+                    Data = venueUpdateDTO
+                };
+            var updateVenue = _mapper.Map<VenueUpdateDTO, Venue>(venueUpdateDTO);
+            var result = _venueService.UpdateVenue(updateVenue);
+            if (result.Key)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"Update Venue Success",
+                    Data = venueUpdateDTO
+                };
+            else
+                return new JsonModel()
                 {
                     Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"{ex.Message}"
+                    Message = $"Update Venue Error",
+                    Data = result.Value
                 };
-            }
         }
 
         [HttpDelete, Route("DeleteVenue/{id}")]
-        public async Task<ActionResult<JsonModel>> DeleteVenue(int id)
+        public ActionResult<JsonModel> DeleteVenue(int id)
         {
-            try
-            {
-                var venue = await _context.Venues.FindAsync(id);
-                if (venue == null)
-                    throw new Exception("Venue Not Found");
-                else
+            var result = _venueService.DeleteVenue(id);
+            if (result.Key)
+                return new JsonModel()
                 {
-                    venue.Status = false;
-                    if (await _context.SaveChangesAsync() != 1)
-                        throw new Exception("Save Changes Async Error");
-                    else
-                        return new JsonModel
-                        {
-                            Code = EnumModel.ResultCode.OK,
-                            Message = "Delete Successfully",
-                            Data = venue
-                        };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new JsonModel
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"Delete Venue Success",
+                    Data = id
+                };
+            else
+                return new JsonModel()
                 {
                     Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"{ex.Message}"
+                    Message = $"Delete Venue Error",
+                    Data = result.Value
                 };
-            }
         }
     }
 }

@@ -1,23 +1,17 @@
 ﻿using BusinessObjects;
 using BusinessObjects.Models;
-using DTOs.Repositories.Interfaces;
 
-namespace DTOs.Repositories.Services
+namespace DTOs
 {
-    public class ValidationService : IValidationService
+    public static class ValidationService
     {
         #region Venue
 
-        public bool VenueValidation(bool modelState, Venue venue, out string result)
+        public static bool VenueValidation(Venue venue, out string result)
         {
             if (venue == null)
             {
                 result = "Venue Not Found";
-                return false;
-            }
-            if (!modelState)
-            {
-                result = "Model State Is Invalid";
                 return false;
             }
             using (var _context = new DatabaseContext())
