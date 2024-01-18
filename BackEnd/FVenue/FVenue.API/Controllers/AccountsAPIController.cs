@@ -12,11 +12,13 @@ namespace FVenue.API.Controllers
     public class AccountsAPIController : ControllerBase
     {
         private readonly IAccountService _accountService;
+        private readonly IEmailService _emailService;
         private readonly ITokenService _tokenService;
 
-        public AccountsAPIController(IAccountService accountService, ITokenService tokenService)
+        public AccountsAPIController(IAccountService accountService, IEmailService emailService, ITokenService tokenService)
         {
             _accountService = accountService;
+            _emailService = emailService;
             _tokenService = tokenService;
         }
 
@@ -44,6 +46,42 @@ namespace FVenue.API.Controllers
                     Code = EnumModel.ResultCode.InternalServerError,
                     Message = $"Registration Error",
                     Data = result.Value
+                };
+        }
+
+        [HttpGet, Route("RegisterConfirmation/{toEmail}")]
+        public async Task<JsonModel> RegisterConfirmation(string toEmail)
+        {
+            var result = await _emailService.SendRegisterConfirmationEmail(toEmail);
+            if (result.Key)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = result.Value
+                };
+            else
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = result.Value
+                };
+        }
+
+        [HttpGet, Route("RegisterConfirmationHandler/{email}")]
+        public JsonModel RegisterConfirmationHandler(string email)
+        {
+            var result = _emailService.AcceptRegisterConfirmationEmail(email);
+            if (result.Key)
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = result.Value
+                };
+            else
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = result.Value
                 };
         }
 

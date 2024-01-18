@@ -27,7 +27,8 @@ namespace DTOs.Repositories.Services
                     LastName = accountInsertDTO.LastName,
                     Gender = accountInsertDTO.Gender,
                     BirthDay = accountInsertDTO.BirthDay,
-                    LoginVia = (int)EnumModel.LoginVia.Email
+                    LoginVia = (int)EnumModel.LoginVia.Email,
+                    IsEmailConfirmed = false
                 };
 
                 using (var _context = new DatabaseContext())
