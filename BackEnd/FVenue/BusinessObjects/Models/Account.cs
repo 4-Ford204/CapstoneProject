@@ -21,5 +21,6 @@ namespace BusinessObjects.Models
         public bool? Gender { get; set; }
         public DateTime? BirthDay { get; set; }
         public int LoginVia { get; set; }
+        public bool IsEmailConfirmed { get; set; }
     }
 }

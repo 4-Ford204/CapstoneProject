@@ -83,7 +83,8 @@ namespace BusinessObjects
                         LastName = "Lê Tự Huỳnh",
                         Gender = true,
                         BirthDay = new DateTime(2002, 04, 20),
-                        LoginVia = (int)EnumModel.LoginVia.Email
+                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        IsEmailConfirmed = false
                     }
                 };
                 //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
