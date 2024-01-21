@@ -22,7 +22,7 @@
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: globalData.baseURL,
+                            url: globalData.baseURL + "",
                             type: "GET",
                             contentType: "application/json; charset=utf-8",
                             dataType: "JSON",
