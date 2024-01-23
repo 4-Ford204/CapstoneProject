@@ -55,7 +55,7 @@ namespace BusinessObjects
         private List<Role> GetRoles()
             => new List<Role> {
                 new Role { Id = 1, Name = "Administrator" },
-                new Role { Id = 2, Name = "Venue Manager"},
+                new Role { Id = 2, Name = "VenueManager"},
                 new Role { Id = 3, Name = "User" }
             };
         private List<Account> GetAccounts(out int defaultAccountNumber)
@@ -75,7 +75,7 @@ namespace BusinessObjects
                         HashPassword = hashPassword,
                         Image = "~/Image/Administrator/SuperAdmin.jpg",
                         PhoneNumber = Common.RandomPhoneNumber(),
-                        CreatDate = DateTime.Now,
+                        CreateDate = DateTime.Now,
                         LastUpdateDate = DateTime.Now,
                         Status = true,
                         RoleId = (int)EnumModel.Role.Administrator,
@@ -104,7 +104,7 @@ namespace BusinessObjects
                 //                HashPassword = hashPassword,
                 //                Image = "",
                 //                PhoneNumber = Common.RandomPhoneNumber(),
-                //                CreatDate = DateTime.Now,
+                //                CreateDate = DateTime.Now,
                 //                LastUpdateDate = DateTime.Now,
                 //                Status = true,
                 //                RoleId = 2,
