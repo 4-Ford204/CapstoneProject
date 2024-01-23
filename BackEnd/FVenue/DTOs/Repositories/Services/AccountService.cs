@@ -7,6 +7,31 @@ namespace DTOs.Repositories.Services
 {
     public class AccountService : IAccountService
     {
+        public List<Account> GetAccounts()
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var accounts = _context.Accounts.ToList();
+                return accounts;
+            }
+        }
+
+        public string GetAccountName(int id)
+        {
+            try
+            {
+                using (var _context = new DatabaseContext())
+                {
+                    var name = _context.Accounts.Where(x => x.Id == id).Select(x => $"{x.FirstName} {x.LastName}").FirstOrDefault();
+                    return name;
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"{ex.Message}";
+            }
+        }
+
         public KeyValuePair<bool, string> Registration(AccountInsertDTO accountInsertDTO)
         {
             try
@@ -19,7 +44,7 @@ namespace DTOs.Repositories.Services
                     SaltPassword = saltPassword,
                     HashPassword = hashPassword,
                     PhoneNumber = accountInsertDTO.PhoneNumber,
-                    CreatDate = DateTime.Now,
+                    CreateDate = DateTime.Now,
                     LastUpdateDate = DateTime.Now,
                     Status = true,
                     RoleId = accountInsertDTO.RoleId,

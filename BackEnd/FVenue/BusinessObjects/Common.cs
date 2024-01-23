@@ -87,5 +87,17 @@ namespace BusinessObjects
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
 
         #endregion
+
+        #region Role
+
+        public static string GetRoleName(int id)
+        {
+            foreach (var role in Enum.GetValues(typeof(EnumModel.Role)))
+                if ((int)role == id)
+                    return role.ToString() ?? "";
+            return String.Empty;
+        }
+
+        #endregion
     }
 }
