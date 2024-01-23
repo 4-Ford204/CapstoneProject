@@ -49,6 +49,7 @@ namespace FVenue.API
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IVenueService, VenueService>();
             builder.Services.AddScoped(
@@ -56,6 +57,7 @@ namespace FVenue.API
                     config =>
                     {
                         config.AddProfile(new ProgramMapper(
+                            provider.GetService<IAccountService>(),
                             provider.GetService<ILocationService>()
                             ));
                     })

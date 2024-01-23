@@ -1,4 +1,6 @@
-﻿using BusinessObjects;
+﻿using AutoMapper;
+using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
@@ -11,6 +13,7 @@ namespace FVenue.API.Controllers
     [ApiController]
     public class AccountsAPIController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
         private readonly ITokenService _tokenService;
@@ -20,6 +23,51 @@ namespace FVenue.API.Controllers
             _accountService = accountService;
             _emailService = emailService;
             _tokenService = tokenService;
+        }
+
+        [HttpGet, Route("GetAccountDTOs")]
+        public ActionResult<JsonModel> GetAccountDTOs()
+        {
+            try
+            {
+                var accounts = _accountService.GetAccounts();
+                /// <summary>
+                /// Lỗi "Object reference not set to an instance of an object"
+                /// </summary>
+                // var accountDTOs = _mapper.Map<List<Account>, List<AccountDTO>>(accounts);
+                var accountDTOs = accounts.Select(x => new AccountDTO
+                {
+                    Id = x.Id,
+                    Email = x.Email,
+                    Image = x.Image,
+                    PhoneNumber = x.PhoneNumber,
+                    CreateDate = x.CreateDate,
+                    LastUpdateDate = x.LastUpdateDate,
+                    Status = x.Status,
+                    RoleName = Common.GetRoleName(x.RoleId),
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Gender = x.Gender,
+                    BirthDay = x.BirthDay,
+                    LoginVia = x.LoginVia,
+                    IsEmailConfirmed = x.IsEmailConfirmed,
+                })
+                    .ToList();
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"{accounts.Count} accounts",
+                    Data = accountDTOs
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
         }
 
         [HttpPost, Route("Registration")]

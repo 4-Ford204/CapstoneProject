@@ -13,5 +13,6 @@
         public float LowerPrice { get; set; }
         public float UpperPrice { get; set; }
         public bool Status { get; set; }
+        public string AccountName { get; set; }
     }
 }
