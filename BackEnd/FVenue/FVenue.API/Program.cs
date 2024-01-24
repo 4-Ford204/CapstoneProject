@@ -15,7 +15,7 @@ namespace FVenue.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews().AddJsonOptions(   
+            builder.Services.AddControllersWithViews().AddJsonOptions(
                 options =>
                 {
                     options.JsonSerializerOptions.AllowTrailingCommas = false;
@@ -50,6 +50,7 @@ namespace FVenue.API
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IVenueService, VenueService>();
             builder.Services.AddScoped(

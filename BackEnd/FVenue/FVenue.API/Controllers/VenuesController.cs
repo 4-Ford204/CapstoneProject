@@ -61,7 +61,6 @@ namespace FVenue.API.Controllers
             }
         }
 
-
         #endregion
     }
 }
