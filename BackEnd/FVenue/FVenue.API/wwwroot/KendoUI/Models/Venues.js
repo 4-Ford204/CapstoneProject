@@ -2,7 +2,7 @@
 
     var DOM = {
         VenuesGrid: $("#venuesGrid"),
-        Popup: document.getElementById("popup"),
+        Popup: document.getElementById("popup")
     }
 
     var globalData = {
@@ -52,6 +52,7 @@
                             LowerPrice: { type: "number", editable: false },
                             UpperPrice: { type: "number", editable: false },
                             Status: { type: "boolean", editable: false },
+                            AccountName: { type: "string", editable: false }
                         }
                     }
                 }
@@ -230,7 +231,25 @@
                     field: "Status",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
-                    width: 150
+                    width: 150,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá",
+                            isTrue: " Hoạt Động",
+                            isFalse: " Ngưng Hoạt Động"
+                        }
+                    }
+                },
+                {
+                    field: "AccountName",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Nhà Quản Lý</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:AccountName#</div>",
+                    width: 150,
+                    filterable: false
                 },
                 {
                     template:
@@ -239,7 +258,7 @@
                         "</div>",
                     width: 100
                 },
-            ],
+            ]
         });
     }
 
@@ -259,7 +278,7 @@
     }
 
     function InsertButton() {
-        $(".k-grid-add:first").click(function () {
+        $(".k-grid-add:first").on("click", (function () {
             $.ajax({
                 url: globalData.baseURL + "Venues/InsertVenuePopup",
                 type: "GET",
@@ -271,32 +290,34 @@
                     console.log(result);
                 }
             });
-        });
+        }));
     }
 
     function DeleteButton() {
-        $(".k-grid-cancel-changes:first").click(function () {
+        $(".k-grid-cancel-changes:first").on("click", (function () {
             var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
-            console.log(ids);
-            DOM.VenuesGrid.data("kendoGrid").dataSource.read();
-            //$.ajax({
-            //    url: globalData.baseURL + "Venues/DeleteVenue",
-            //    type: "DELETE",
-            //    success: function (result) {
-            //        DOM.Popup.innerHTML = result;
-            //        RemovePopup();
-            //    },
-            //    error: function (result) {
-            //        console.log(result);
-            //    }
-            //});
-        });
+            $.ajax({
+                url: globalData.baseURL + "Venues/ChangeVenueStatus",
+                type: "PUT",
+                data: {
+                    ids: ids
+                },
+                success: function (result) {
+                    console.log(result);
+                    DOM.VenuesGrid.data("kendoGrid").dataSource.read();
+                    DOM.VenuesGrid.data("kendoGrid").refresh();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }));
     }
 
     function RemovePopup() {
-        $("#removePopup").click(function () {
+        $("#removePopup").on("click", (function () {
             DOM.Popup.innerHTML = "";
-        })
+        }));
     }
 
     return {
@@ -309,6 +330,6 @@
 
 })();
 
-$(document).ready(function () {
+$(function () {
     venuesKendoUIManagement.init();
 });

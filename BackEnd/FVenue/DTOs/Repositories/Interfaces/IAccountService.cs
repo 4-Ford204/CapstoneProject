@@ -5,6 +5,8 @@ namespace DTOs.Repositories.Interfaces
 {
     public interface IAccountService
     {
+        List<Account> GetAccounts();
+        string GetAccountName(int id);
         KeyValuePair<bool, string> Registration(AccountInsertDTO accountInsertDTO);
 
         Task<List<Account>> GetListAccounts();
