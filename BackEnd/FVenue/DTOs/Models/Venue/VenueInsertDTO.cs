@@ -1,28 +1,53 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DTOs.Models.Venue
 {
     public class VenueInsertDTO
     {
         [Required]
+        [DisplayName("Tên")]
         public string Name { get; set; }
+
         [Required]
-        public string Image { get; set; }
+        [DisplayName("Ảnh")]
+        public IFormFile Image { get; set; }
+
         [Required]
+        [DisplayName("Địa chỉ")]
         public string Street { get; set; }
+
         [Required]
+        [DisplayName("Quận")]
         public int WardId { get; set; }
+
         [Required]
+        [DisplayName("Tọa độ địa lý")]
         public string GeoLocation { get; set; }
+
         [Required]
+        [DisplayName("Giờ mở cửa")]
         public string OpenTime { get; set; }
+
         [Required]
+        [DisplayName("Giờ đóng cửa")]
         public string CloseTime { get; set; }
+
         [Required]
+        [DisplayName("Gía dưới")]
         public float LowerPrice { get; set; }
+
         [Required]
+        [DisplayName("Gía trên")]
         public float UpperPrice { get; set; }
+
         [Required]
-        public bool Status { get; set; }
+        [DisplayName("Đang hoạt động")]
+        public bool Status { get; set; } = true;
+
+        [Required]
+        [DisplayName("Người quản lý")]
+        public int AccountId { get; set; }
     }
 }

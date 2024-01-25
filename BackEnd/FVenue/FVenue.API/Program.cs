@@ -51,15 +51,17 @@ namespace FVenue.API
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IVenueService, VenueService>();
+            builder.Services.AddScoped<IWardService, WardService>();
+            builder.Services.AddScoped<IImageVenueService, ImageVenueService>();
             builder.Services.AddScoped(
-                provider => new MapperConfiguration(
-                    config =>
-                    {
-                        config.AddProfile(new ProgramMapper(
-                            provider.GetService<ILocationService>()
-                            ));
-                    })
-                .CreateMapper());
+               provider => new MapperConfiguration(
+                   config =>
+                   {
+                       config.AddProfile(new ProgramMapper(
+                           provider.GetService<ILocationService>()
+                           ));
+                   })
+               .CreateMapper());
 
             var app = builder.Build();
 

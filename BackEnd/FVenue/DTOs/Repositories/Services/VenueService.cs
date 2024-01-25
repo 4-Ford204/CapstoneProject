@@ -25,10 +25,10 @@ namespace DTOs.Repositories.Services
 
                 using (var _context = new DatabaseContext())
                 {
+                    venue.AccountId = 1;
                     _context.Venues.Add(venue);
-                    if (_context.SaveChanges() != 1)
-                        throw new Exception("Save Changes Error");
-                    else
+                    _context.SaveChanges();
+                    
                         return new KeyValuePair<bool, string>(true, result);
                 }
             }

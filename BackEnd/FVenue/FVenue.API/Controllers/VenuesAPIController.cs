@@ -3,6 +3,7 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
+using DTOs.Repositories.Services;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +15,13 @@ namespace FVenue.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IVenueService _venueService;
+        private readonly IImageVenueService _imageVenueService;
 
-        public VenuesAPIController(IMapper mapper, IVenueService venueService)
+        public VenuesAPIController(IMapper mapper, IVenueService venueService, IImageVenueService imageVenueService)
         {
             _mapper = mapper;
             _venueService = venueService;
+            _imageVenueService = imageVenueService;
         }
 
         [HttpGet, Route("GetVenueDTOs/{pageIndex}/{pageSize}")]
@@ -46,7 +49,7 @@ namespace FVenue.API.Controllers
         }
 
         [HttpPost, Route("InsertVenue")]
-        public ActionResult<JsonModel> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
+        public ActionResult<JsonModel> InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
             if (!ModelState.IsValid)
                 return new JsonModel()
@@ -57,6 +60,7 @@ namespace FVenue.API.Controllers
                 };
             var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
             var result = _venueService.InsertVenue(venue);
+            var ImangeUpload = _imageVenueService.UploadImange(venueInsertDTO.Image);
             if (result.Key)
                 return new JsonModel()
                 {
