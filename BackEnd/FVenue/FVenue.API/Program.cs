@@ -48,6 +48,7 @@ namespace FVenue.API
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();

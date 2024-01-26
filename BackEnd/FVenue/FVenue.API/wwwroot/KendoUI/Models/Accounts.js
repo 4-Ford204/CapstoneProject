@@ -10,8 +10,6 @@
     }
 
     function bindEvents() {
-        //InsertButton();
-        //DeleteButton();
     }
 
     function bindControls() { }
@@ -51,8 +49,9 @@
                             RoleName: { type: "string", editable: false },
                             FirstName: { type: "string", editable: false },
                             LastName: { type: "string", editable: false },
+                            FullName: { type: "string", editable: false },
                             Gender: { type: "boolean", editable: false },
-                            Birthday: { type: "string", editable: false },
+                            BirthDay: { type: "string", editable: false },
                             LoginVia: { type: "number", editable: false },
                             IsEmailConfirmed: { type: "boolean", editable: false }
                         }
@@ -97,13 +96,13 @@
                 },
                 {
                     field: "Email",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Email</strong></div>",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Email Người Dùng</strong></div>",
                     template:
                         "<div style=\"display: flex; flex-direction: row; align-items: center;\">" +
                         "<div class=\"kendo-cell-photo\" style=\"background-image: url(#:Image#);\"></div>" +
                         "<div class=\"kendo-cell-name\">#:Email#</div>" +
                         "</div>",
-                    width: 250,
+                    width: 300,
                     sortable: false,
                     filterable: {
                         extra: false,
@@ -123,29 +122,15 @@
                 },
                 {
                     field: "PhoneNumber",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Số điện thoại</strong></div>",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Số Điện Thoại</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:PhoneNumber#</div>",
-                    width: 200,
+                    width: 150,
                     sortable: true,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            string: {
-                                contains: "Bao Gồm",
-                                doesnotcontain: "Không Bao Gồm"
-                            }
-                        }
-                    }
+                    filterable: false
                 },
                 {
                     field: "CreateDate",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày tạo</strong></div>",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày Tạo</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:CreateDate#</div>",
                     width: 150,
                     sortable: false,
@@ -153,9 +138,9 @@
                 },
                 {
                     field: "LastUpdateDate",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Lần mới nhất cập nhật</strong></div>",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày Cập Nhật</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:LastUpdateDate#</div>",
-                    width: 200,
+                    width: 150,
                     filterable: false
                 },
                 {
@@ -169,117 +154,56 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Vai trò</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:RoleName#</div>",
                     width: 150,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            number: {
-                                lte: "Nhỏ Hơn",
-                                gte: "Lớn Hơn"
-                            }
-                        }
-                    }
+                    filterable: false
                 },
                 {
                     field: "FirstName",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Tên</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:FirstName#</div>",
                     width: 150,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            number: {
-                                lte: "Nhỏ Hơn",
-                                gte: "Lớn Hơn"
-                            }
-                        }
-                    }
+                    filterable: false
                 },
                 {
                     field: "LastName",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Họ</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:LastName#<div>",
                     width: 150,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            number: {
-                                lte: "Nhỏ Hơn",
-                                gte: "Lớn Hơn"
-                            }
-                        }
-                    }
+                    filterable: false
+                },
+                {
+                    field: "FullName",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Tên Đầy Đủ</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:FullName#<div>",
+                    width: 150,
+                    filterable: false
                 },
                 {
                     field: "Gender",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giới tính</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:Gender#</div>",
+                    template: "<div class=\"kendo-grid-cell\"><div class=\"genderTemplate\"></div></div>",
                     width: 150,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            number: {
-                                lte: "Nhỏ Hơn",
-                                gte: "Lớn Hơn"
-                            }
-                        }
-                    }
+                    filterable: false
                 },
                 {
-                    field: "Birthday",
+                    field: "BirthDay",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày sinh</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:Birthday#</div>",
+                    template: "<div class=\"kendo-grid-cell\">#:BirthDay#</div>",
                     width: 150,
-                    filterable: {
-                        extra: false,
-                        showOperators: false,
-                        messages: {
-                            info: "",
-                            filter: "Lọc",
-                            clear: "Xoá"
-                        },
-                        operators: {
-                            number: {
-                                lte: "Nhỏ Hơn",
-                                gte: "Lớn Hơn"
-                            }
-                        }
-                    }
+                    filterable: false
                 },
                 {
                     field: "LoginVia",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>LoginVia</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:LoginVia#</div>",
-                    width: 150
+                    width: 150,
+                    filterable: false
                 },
                 {
                     field: "IsEmailConfirmed",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>IsEmailConfirmed</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:IsEmailConfirmed#</div>",
-                    width: 150
+                    width: 150,
+                    filterable: false
                 },
                 {
                     template:
@@ -304,48 +228,11 @@
                 themeColor: themeColor,
                 text: text,
             });
+
+            $(this).find(".genderTemplate").html(
+                dataItem.Gender ? "<i class=\"fa-solid fa-person\" style=\"color: #74C0FC;\"></i>" : "<i class=\"fa-solid fa-person-dress\" style=\"color: #74C0FC;\"></i>"
+            );
         });
-    }
-
-    /* function InsertButton() {
-         $(".k-grid-add:first").click(function () {
-             $.ajax({
-                 url: globalData.baseURL + "Venues/InsertVenuePopup",
-                 type: "GET",
-                 success: function (result) {
-                     DOM.Popup.innerHTML = result;
-                     RemovePopup();
-                 },
-                 error: function (result) {
-                     console.log(result);
-                 }
-             });
-         });
-     }*/
-
-    /*function DeleteButton() {
-        $(".k-grid-cancel-changes:first").click(function () {
-            var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
-            console.log(ids);
-            DOM.VenuesGrid.data("kendoGrid").dataSource.read();
-            //$.ajax({
-            //    url: globalData.baseURL + "Venues/DeleteVenue",
-            //    type: "DELETE",
-            //    success: function (result) {
-            //        DOM.Popup.innerHTML = result;
-            //        RemovePopup();
-            //    },
-            //    error: function (result) {
-            //        console.log(result);
-            //    }
-            //});
-        });
-    }*/
-
-    function RemovePopup() {
-        $("#removePopup").click(function () {
-            DOM.Popup.innerHTML = "";
-        })
     }
 
     return {
@@ -358,6 +245,6 @@
 
 })();
 
-$(document).ready(function () {
+$(function () {
     accountsKendoUIManagement.init();
 });

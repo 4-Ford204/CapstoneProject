@@ -10,7 +10,7 @@ namespace FVenue.API.Controllers
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private ISubCategoryService _subCategoryService;
+        private readonly ISubCategoryService _subCategoryService;
 
         public SubCategoriesController(DatabaseContext context, IMapper mapper, ISubCategoryService subCategoryService)
         {

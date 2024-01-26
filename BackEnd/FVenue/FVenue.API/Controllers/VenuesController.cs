@@ -2,7 +2,9 @@
 using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Venue;
+using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FVenue.API.Controllers
 {
@@ -10,11 +12,16 @@ namespace FVenue.API.Controllers
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly IAccountService _accountService;
+        private readonly ILocationService _locationService;
 
-        public VenuesController(DatabaseContext context, IMapper mapper)
+
+        public VenuesController(DatabaseContext context, IMapper mapper, IAccountService accountService, ILocationService locationService)
         {
             _context = context;
             _mapper = mapper;
+            _accountService = accountService;
+            _locationService = locationService;
         }
 
         #region View
@@ -23,7 +30,17 @@ namespace FVenue.API.Controllers
 
         [HttpGet, Route("Venues/InsertVenuePopup")]
         public PartialViewResult InsertVenuePopup()
-            => PartialView("_VenuePartial");
+        {
+            var wards = _locationService.GetWards();
+            var selectWards = new SelectList(wards, "Id", "Name");
+
+            var accounts = _accountService.GetAdministrators();
+            var selectAccounts = new SelectList(accounts, "Id", "FullName");
+
+            ViewBag.Wards = selectWards;
+            ViewBag.Accounts = selectAccounts;
+            return PartialView("_VenueInsertPartial");
+        }
 
         #endregion
 
@@ -32,6 +49,21 @@ namespace FVenue.API.Controllers
         [HttpGet, Route("Venues/GetVenueDTOs")]
         public List<VenueDTO> GetVenueDTOs()
             => _mapper.Map<List<Venue>, List<VenueDTO>>(_context.Venues.ToList());
+
+        [HttpPost, Route("Venues/InsertVenue")]
+        public string InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
+        {
+            try
+            {
+                var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
+                //_context.SaveChanges();
+                return "Thêm địa điểm thành công";
+            }
+            catch (Exception ex)
+            {
+                return $"{ex.Message}";
+            }
+        }
 
         [HttpPut, Route("Venues/ChangeVenueStatus")]
         public string ChangeVenueStatus(int[] ids)

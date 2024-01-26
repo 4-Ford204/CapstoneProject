@@ -1,4 +1,5 @@
 ﻿using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Repositories.Interfaces;
 
 namespace DTOs.Repositories.Services
@@ -33,6 +34,15 @@ namespace DTOs.Repositories.Services
                     }).Where(x => x.WardId == wardId).FirstOrDefault();
 
                 return $"{result.WardName}, {result.DistrictName}, {result.CityName}, {result.CountryName}";
+            }
+        }
+
+        public List<Ward> GetWards()
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var wards = _context.Wards.ToList();
+                return wards;
             }
         }
     }
