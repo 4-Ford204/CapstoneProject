@@ -1,14 +1,15 @@
-﻿@model BusinessObjects.Models.Venue
+﻿@using DTOs.Models.Venue
+@model DTOs.Models.Venue.VenueInsertDTO
 
 @{
-    var venue = new BusinessObjects.Models.Venue();
+    var venue = new VenueInsertDTO();
     if (Model != null) venue = Model;
 }
 
 <div class="modal show display-popup" id="myModal" role="dialog" style="font-size: 15px">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="padding: 10px;">
-            <form asp-controller="Venues" asp-action="Insert" method="post" enctype="multipart/form-data">
+            <form asp-controller="Venues" asp-action="InsertVenue" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                 </div>
                 <div class="modal-body" style="max-height: 500px; overflow-y: scroll;">
@@ -27,7 +28,7 @@
                                 <label class="k-label k-form-label" asp-for="Image"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Image" value="@venue.Image" />
+                                        <input style="width: 100%" class="k-input-inner" type="file" asp-for="Image" value="@venue.Image" />
                                     </span>
                                 </div>
                             </div>
@@ -46,7 +47,7 @@
                                 <label class="k-label k-form-label" asp-for="WardId"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="WardId" value="@venue.WardId" />
+                                        <select asp-for="WardId" class="form-control" asp-items="@ViewBag.Wards"></select>
                                     </span>
                                 </div>
                             </div>
@@ -100,13 +101,9 @@
                                 <label class="k-label k-form-label" asp-for="AccountId"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="AccountId" value="@venue.AccountId" />
+                                        <select asp-for="AccountId" class="form-control" asp-items="@ViewBag.Accounts"></select>
                                     </span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Status" class="control-label"></label>
-                                <select asp-for="Status" class="form-control" asp-items="ViewBag.CategoryID"></select>
                             </div>
                         </div>
                     </div>

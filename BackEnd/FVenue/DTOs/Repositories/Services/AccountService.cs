@@ -16,6 +16,15 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public List<Account> GetAdministrators()
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var accounts = _context.Accounts.Where(x => x.RoleId == (int)EnumModel.Role.Administrator).ToList();
+                return accounts;
+            }
+        }
+
         public string GetAccountName(int id)
         {
             try

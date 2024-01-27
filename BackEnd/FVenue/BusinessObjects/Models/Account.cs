@@ -18,6 +18,7 @@ namespace BusinessObjects.Models
         public Role Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public bool? Gender { get; set; }
         public DateTime? BirthDay { get; set; }
         public int LoginVia { get; set; }

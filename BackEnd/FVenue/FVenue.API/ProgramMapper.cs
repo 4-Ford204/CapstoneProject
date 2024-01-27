@@ -19,13 +19,13 @@ namespace FVenue.API
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
-                .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(src => src.CreateDate))
-                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => src.LastUpdateDate))
+                .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(src => Common.FormatDateTime(src.CreateDate)))
+                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => Common.FormatDateTime(src.LastUpdateDate)))
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => Common.GetRoleName(src.RoleId)))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
-                .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => src.BirthDay))
+                .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => Common.FormatDateTime(src.BirthDay)))
                 .ForMember(dest => dest.LoginVia, opt => opt.MapFrom(src => src.LoginVia))
                 .ForMember(dest => dest.IsEmailConfirmed, opt => opt.MapFrom(src => src.IsEmailConfirmed));
 

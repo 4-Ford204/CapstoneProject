@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240122070114_FVenue_Init")]
+    [Migration("20240126074533_FVenue_Init")]
     partial class FVenue_Init
     {
         /// <inheritdoc />
@@ -43,6 +43,9 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("Gender")
@@ -89,19 +92,100 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 1,
                             BirthDay = new DateTime(2002, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreateDate = new DateTime(2024, 1, 22, 14, 1, 14, 363, DateTimeKind.Local).AddTicks(7464),
+                            CreateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(8915),
                             Email = "huynhduy20042002@gmail.com",
                             FirstName = "Duy",
+                            FullName = "Duy Lê Tự Huỳnh",
                             Gender = true,
-                            HashPassword = "F01EA7AD38B8C0C21695A1511EBC8E9C10F868903D6DA854C495E775EF893DD874AB64035542195866868577EFEC40056B4EBEA8678BE1F7D86B4EFD15F3482E",
-                            Image = "~/Image/Administrator/SuperAdmin.jpg",
+                            HashPassword = "104847E09FB98DAFCAF13047CB0F6C1CE2B1E0D18605B7B2EB4DF9013D507EA92694D361038FD79F8AD0F9060713C991DAEE799332A5D597292E68076FB97F69",
+                            Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Lê Tự Huỳnh",
-                            LastUpdateDate = new DateTime(2024, 1, 22, 14, 1, 14, 363, DateTimeKind.Local).AddTicks(7475),
+                            LastUpdateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(8933),
                             LoginVia = 1,
-                            PhoneNumber = "0432247262",
+                            PhoneNumber = "0288639633",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 43, 87, 57, 53, 96, 187, 254, 124, 246, 37, 241, 32, 121, 204, 219, 221, 108, 128, 164, 220, 153, 198, 245, 48, 98, 204, 89, 250, 144, 248, 10, 93, 218, 88, 249, 8, 71, 80, 211, 163, 26, 87, 212, 56, 238, 45, 54, 214, 250, 173, 157, 78, 184, 147, 74, 147, 81, 115, 78, 126, 252, 68, 165, 47 },
+                            SaltPassword = new byte[] { 59, 174, 56, 180, 150, 223, 181, 203, 78, 208, 175, 240, 10, 123, 165, 35, 146, 136, 184, 32, 115, 213, 246, 232, 238, 182, 173, 32, 111, 161, 227, 76, 73, 37, 86, 13, 108, 12, 144, 43, 124, 31, 2, 108, 71, 40, 183, 51, 41, 79, 62, 65, 3, 41, 247, 191, 190, 217, 154, 22, 174, 243, 168, 58 },
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDay = new DateTime(2002, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9029),
+                            Email = "phuchvde160270@fpt.edu.vn",
+                            FirstName = "Phúc",
+                            FullName = "Phúc Hồ Văn",
+                            Gender = true,
+                            HashPassword = "104847E09FB98DAFCAF13047CB0F6C1CE2B1E0D18605B7B2EB4DF9013D507EA92694D361038FD79F8AD0F9060713C991DAEE799332A5D597292E68076FB97F69",
+                            Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
+                            IsEmailConfirmed = false,
+                            LastName = "Hồ Văn",
+                            LastUpdateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9029),
+                            LoginVia = 1,
+                            PhoneNumber = "0254719274",
+                            RoleId = 1,
+                            SaltPassword = new byte[] { 59, 174, 56, 180, 150, 223, 181, 203, 78, 208, 175, 240, 10, 123, 165, 35, 146, 136, 184, 32, 115, 213, 246, 232, 238, 182, 173, 32, 111, 161, 227, 76, 73, 37, 86, 13, 108, 12, 144, 43, 124, 31, 2, 108, 71, 40, 183, 51, 41, 79, 62, 65, 3, 41, 247, 191, 190, 217, 154, 22, 174, 243, 168, 58 },
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BirthDay = new DateTime(2000, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9048),
+                            Email = "hungnhde160214@fpt.edu.vn",
+                            FirstName = "Hùng",
+                            FullName = "Hùng Nguyễn Huy",
+                            Gender = true,
+                            HashPassword = "104847E09FB98DAFCAF13047CB0F6C1CE2B1E0D18605B7B2EB4DF9013D507EA92694D361038FD79F8AD0F9060713C991DAEE799332A5D597292E68076FB97F69",
+                            Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
+                            IsEmailConfirmed = false,
+                            LastName = "Nguyễn Huy",
+                            LastUpdateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9049),
+                            LoginVia = 1,
+                            PhoneNumber = "0264944874",
+                            RoleId = 1,
+                            SaltPassword = new byte[] { 59, 174, 56, 180, 150, 223, 181, 203, 78, 208, 175, 240, 10, 123, 165, 35, 146, 136, 184, 32, 115, 213, 246, 232, 238, 182, 173, 32, 111, 161, 227, 76, 73, 37, 86, 13, 108, 12, 144, 43, 124, 31, 2, 108, 71, 40, 183, 51, 41, 79, 62, 65, 3, 41, 247, 191, 190, 217, 154, 22, 174, 243, 168, 58 },
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BirthDay = new DateTime(2002, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9113),
+                            Email = "trilmde160230@fpt.edu.vn",
+                            FirstName = "Trí",
+                            FullName = "Trí Lê Minh",
+                            Gender = true,
+                            HashPassword = "104847E09FB98DAFCAF13047CB0F6C1CE2B1E0D18605B7B2EB4DF9013D507EA92694D361038FD79F8AD0F9060713C991DAEE799332A5D597292E68076FB97F69",
+                            Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
+                            IsEmailConfirmed = false,
+                            LastName = "Lê Minh",
+                            LastUpdateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9114),
+                            LoginVia = 1,
+                            PhoneNumber = "0955674783",
+                            RoleId = 1,
+                            SaltPassword = new byte[] { 59, 174, 56, 180, 150, 223, 181, 203, 78, 208, 175, 240, 10, 123, 165, 35, 146, 136, 184, 32, 115, 213, 246, 232, 238, 182, 173, 32, 111, 161, 227, 76, 73, 37, 86, 13, 108, 12, 144, 43, 124, 31, 2, 108, 71, 40, 183, 51, 41, 79, 62, 65, 3, 41, 247, 191, 190, 217, 154, 22, 174, 243, 168, 58 },
+                            Status = true
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BirthDay = new DateTime(2002, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9130),
+                            Email = "quocndcde160171@fpt.edu.vn",
+                            FirstName = "Quốc",
+                            FullName = "Quốc Nguyễn Đăng Cường",
+                            Gender = true,
+                            HashPassword = "104847E09FB98DAFCAF13047CB0F6C1CE2B1E0D18605B7B2EB4DF9013D507EA92694D361038FD79F8AD0F9060713C991DAEE799332A5D597292E68076FB97F69",
+                            Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
+                            IsEmailConfirmed = false,
+                            LastName = "Nguyễn Đăng Cường",
+                            LastUpdateDate = new DateTime(2024, 1, 26, 14, 45, 33, 582, DateTimeKind.Local).AddTicks(9131),
+                            LoginVia = 1,
+                            PhoneNumber = "0828459612",
+                            RoleId = 1,
+                            SaltPassword = new byte[] { 59, 174, 56, 180, 150, 223, 181, 203, 78, 208, 175, 240, 10, 123, 165, 35, 146, 136, 184, 32, 115, 213, 246, 232, 238, 182, 173, 32, 111, 161, 227, 76, 73, 37, 86, 13, 108, 12, 144, 43, 124, 31, 2, 108, 71, 40, 183, 51, 41, 79, 62, 65, 3, 41, 247, 191, 190, 217, 154, 22, 174, 243, 168, 58 },
                             Status = true
                         });
                 });
@@ -374,13 +458,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 1,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Đỉnh Bàn Cờ",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Đỉnh Bàn Cờ",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
@@ -390,13 +474,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 2,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Rồng",
                             GeoLocation = "16.061233815354754,108.22749003748194",
                             Image = "https://static.vinwonders.com/2022/04/cau-rong-da-nang-1-1.jpg",
                             LowerPrice = 0f,
                             Name = "Cầu Rồng",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Nguyễn Văn Linh",
                             UpperPrice = 0f,
@@ -406,13 +490,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 3,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Sông Hàn",
                             GeoLocation = "16.072169332052994,108.22683626631773",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPR0yFg71ydHaR3xXbbMApGnySOSmF5IBCXeWmc=w408-h306-k-no",
                             LowerPrice = 0f,
                             Name = "Cầu Sông Hàn",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Lê Duẩn",
                             UpperPrice = 0f,
@@ -422,13 +506,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 4,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Nguyễn Văn Trỗi",
                             GeoLocation = "16.05112083078253,108.22907016535224",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Cầu Nguyễn Văn Trỗi",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Nguyễn Văn Thoại",
                             UpperPrice = 0f,
@@ -438,13 +522,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 5,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Tình Yêu",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://ik.imagekit.io/tvlk/blog/2023/08/cau-tinh-yeu-da-nang-2.jpg?tr=dpr-2",
                             LowerPrice = 0f,
                             Name = "Cầu Tình Yêu",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Trần Hưng Đạo",
                             UpperPrice = 0f,
@@ -454,13 +538,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 6,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chợ đêm Sơn Trà",
                             GeoLocation = "16.06160809465977,108.23198549515325",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipOy3zJV9uGKBOAvqq7JfD47k-pJ3pJdX08AsFqt=w493-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Chợ đêm Sơn Trà",
-                            OpenTime = new DateTime(2024, 1, 22, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Mai Hắc Đế",
                             UpperPrice = 0f,
@@ -470,13 +554,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 7,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Tượng Cá Chép hóa Rồng",
                             GeoLocation = "16.062920294590672,108.22982572398891",
                             Image = "https://lh3.googleusercontent.com/p/AF1QipOsja5mY4FutBBksUpPGk7xtTfT2LONbebEZsIY=s1360-w1360-h1020",
                             LowerPrice = 0f,
                             Name = "Tượng Cá Chép hóa Rồng",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Trần Hưng Đạo",
                             UpperPrice = 0f,
@@ -486,13 +570,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 8,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Biển Mỹ Khê",
                             GeoLocation = "16.05658360521848,108.24744872398874",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPgpkvaWeKD9pejm2Org-oEx-SWXLyGH_qSUneu=w426-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Biển Mỹ Khê",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Võ Nguyên Giáp",
                             UpperPrice = 0f,
@@ -502,13 +586,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 9,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Công viên 29/3",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNPIejeI79llYfMNFnAdGnaBKNCt6G4Fwo6Q2tM=w426-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Công viên 29/3",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "23 Nguyễn Tri Phương",
                             UpperPrice = 0f,
@@ -518,13 +602,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 10,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Bãi tắm Phạm Văn Đồng",
                             GeoLocation = "16.07338349250206,108.24686918822724",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipMeJRsg8S_9w2m3KaBuovV_87uF5IsM8eubr1vY=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Bãi tắm Phạm Văn Đồng",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Võ Nguyên Giáp",
                             UpperPrice = 0f,
@@ -534,13 +618,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 11,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Bãi đá Obama",
                             GeoLocation = "16.09979446980971,108.30122137705182",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNZY0gLKkyBp6SeM7KEMPadCos2lOCHNwWhAIvI=w408-h354-k-no",
                             LowerPrice = 0f,
                             Name = "Bãi đá Obama",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
@@ -550,13 +634,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 12,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chân cầu Thuận Phước.",
                             GeoLocation = "16.095265292762104,108.22045666551136",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipP4U2h2NuO5IC4xNdkPtRO0hTpg-kRLkUo1RuYY=w408-h271-k-no",
                             LowerPrice = 0f,
                             Name = "Chân cầu Thuận Phước.",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Lê Đức Thọ",
                             UpperPrice = 0f,
@@ -566,13 +650,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 13,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 22, 30, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 22, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chợ đêm Helio",
                             GeoLocation = "16.037429266613337,108.22457798825782",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipOT5qP5cG4MJAC6pFlFwbNhpTJRFBKDZi16uD79=w408-h306-k-no",
                             LowerPrice = 0f,
                             Name = "Chợ đêm Helio",
-                            OpenTime = new DateTime(2024, 1, 22, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 17, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "2 Tháng 9",
                             UpperPrice = 0f,
@@ -582,13 +666,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 14,
                             AccountId = 1,
-                            CloseTime = new DateTime(2024, 1, 22, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CloseTime = new DateTime(2024, 1, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Rạn Nam Ô",
                             GeoLocation = "16.117981036882956,108.13000619993463",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPLWohOtxqRtG8sPz8yFNmPk7UA_QovxpBtwifr=w408-h305-k-no",
                             LowerPrice = 0f,
                             Name = "Rạn Nam Ô",
-                            OpenTime = new DateTime(2024, 1, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OpenTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
@@ -609,6 +693,78 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("VenueSubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            VenueId = 1,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 2,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 3,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 4,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 5,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 6,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 7,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 8,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 9,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 10,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 11,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 12,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 13,
+                            SubCategoryId = 1
+                        },
+                        new
+                        {
+                            VenueId = 14,
+                            SubCategoryId = 1
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Ward", b =>

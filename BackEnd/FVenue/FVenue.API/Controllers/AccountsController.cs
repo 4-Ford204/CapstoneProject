@@ -28,7 +28,10 @@ namespace FVenue.API.Controllers
 
         [HttpGet, Route("Accounts/GetAccountDTOs")]
         public List<AccountDTO> GetVenueDTOs()
-            => _mapper.Map<List<Account>, List<AccountDTO>>(_context.Accounts.ToList());
+        {
+            var x = _mapper.Map<List<Account>, List<AccountDTO>>(_context.Accounts.ToList());
+            return x;
+        }
 
         #endregion
     }

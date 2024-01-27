@@ -85,6 +85,10 @@ namespace BusinessObjects
             => DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse(time));
         public static string FormatDateTime(DateTime dateTime)
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
+        public static string FormatDateTime(DateTime? dateTime)
+        {
+            return dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+        }
 
         #endregion
 
