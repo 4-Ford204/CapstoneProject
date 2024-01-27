@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
+using DTOs;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,20 @@ namespace FVenue.API.Controllers
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
+        private readonly IImageService _imageService;
         private readonly ILocationService _locationService;
 
-
-        public VenuesController(DatabaseContext context, IMapper mapper, IAccountService accountService, ILocationService locationService)
+        public VenuesController(
+            DatabaseContext context,
+            IMapper mapper,
+            IAccountService accountService,
+            IImageService imageService,
+            ILocationService locationService)
         {
             _context = context;
             _mapper = mapper;
             _accountService = accountService;
+            _imageService = imageService;
             _locationService = locationService;
         }
 
@@ -53,15 +60,29 @@ namespace FVenue.API.Controllers
         [HttpPost, Route("Venues/InsertVenue")]
         public string InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
-            try
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
-                //_context.SaveChanges();
-                return "Thêm địa điểm thành công";
-            }
-            catch (Exception ex)
-            {
-                return $"{ex.Message}";
+                try
+                {
+                    var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
+                    // Upload Image Process
+                    var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
+                    if (!imageValidation.Key)
+                        throw new Exception(imageValidation.Value);
+                    var imagePath = _imageService.GetImagePath(venueInsertDTO.Image);
+                    venue.Image = imagePath;
+                    //if (_context.SaveChanges() != 1)
+                    //    throw new Exception("Save Changes Error");
+                    var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
+                    if (!uploadImage)
+                        throw new Exception("Tệp tải lên thất bại");
+                    return "Thêm địa điểm thành công";
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return $"{ex.Message}";
+                }
             }
         }
 

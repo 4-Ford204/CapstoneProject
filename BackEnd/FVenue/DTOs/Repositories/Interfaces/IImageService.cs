@@ -4,6 +4,7 @@ namespace DTOs.Repositories.Interfaces
 {
     public interface IImageService
     {
-        Task<bool> UploadImage(IFormFile ufile);
+        string GetImagePath(IFormFile uFile);
+        bool UploadImage(IFormFile uFile, string filePath);
     }
 }

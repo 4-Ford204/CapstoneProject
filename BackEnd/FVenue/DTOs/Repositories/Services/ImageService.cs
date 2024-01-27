@@ -5,30 +5,24 @@ namespace DTOs.Repositories.Services
 {
     public class ImageService : IImageService
     {
-        private readonly string _imagePath = Environment.CurrentDirectory + @"Data\Image\Venues";
+        private readonly string _imagePath = Environment.CurrentDirectory + @"\Data\Images\Venues";
 
-        public async Task<bool> UploadImage(IFormFile ufile)
+        public string GetImagePath(IFormFile uFile)
+            => _imagePath;
+
+        public bool UploadImage(IFormFile uFile, string filePath)
         {
-            try
-            {
-                if (ufile != null && ufile.Length > 0)
-                {
-                    var fileName = Path.GetFileName(ufile.FileName);
-                    var filePath = Path.Combine(_imagePath, fileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Open))
-                    {
-                        await ufile.CopyToAsync(fileStream);
-                    }
-                    return true;
-                }
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
+            //try
+            //{
+            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Write);
+            uFile.CopyTo(fileStream);
+            return true;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //    return false;
+            //}
         }
     }
 }

@@ -19,7 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Data\" />
+		<Folder Include="Data\Images\Venues\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -27,10 +27,10 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="wwwroot\KendoUI\Models\Accounts.js">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="wwwroot\KendoUI\Models\Categories.js">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Update="wwwroot\KendoUI\Models\Venues.js">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
