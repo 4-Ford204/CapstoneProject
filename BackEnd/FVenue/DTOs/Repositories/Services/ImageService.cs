@@ -5,24 +5,24 @@ namespace DTOs.Repositories.Services
 {
     public class ImageService : IImageService
     {
-        private readonly string _imagePath = Environment.CurrentDirectory + @"\Data\Images\Venues";
+        private readonly string _imagePath = @"Data\Images\Venues";
 
         public string GetImagePath(IFormFile uFile)
-            => _imagePath;
+            => Path.Combine(_imagePath, uFile.FileName);
 
         public bool UploadImage(IFormFile uFile, string filePath)
         {
-            //try
-            //{
-            using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Write);
-            uFile.CopyTo(fileStream);
-            return true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //    return false;
-            //}
+            try
+            {
+                using var fileStream = new FileStream(Path.Combine(Environment.CurrentDirectory, filePath), FileMode.Create);
+                uFile.CopyTo(fileStream);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

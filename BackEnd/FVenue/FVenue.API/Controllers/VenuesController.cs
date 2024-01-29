@@ -16,19 +16,22 @@ namespace FVenue.API.Controllers
         private readonly IAccountService _accountService;
         private readonly IImageService _imageService;
         private readonly ILocationService _locationService;
+        private readonly IVenueService _venueService;
 
         public VenuesController(
             DatabaseContext context,
             IMapper mapper,
             IAccountService accountService,
             IImageService imageService,
-            ILocationService locationService)
+            ILocationService locationService,
+            IVenueService venueService)
         {
             _context = context;
             _mapper = mapper;
             _accountService = accountService;
             _imageService = imageService;
             _locationService = locationService;
+            _venueService = venueService;
         }
 
         #region View
@@ -55,35 +58,39 @@ namespace FVenue.API.Controllers
 
         [HttpGet, Route("Venues/GetVenueDTOs")]
         public List<VenueDTO> GetVenueDTOs()
-            => _mapper.Map<List<Venue>, List<VenueDTO>>(_context.Venues.ToList());
+            => _mapper.Map<List<Venue>, List<VenueDTO>>(_context.Venues.OrderByDescending(x => x.Id).ToList());
 
         [HttpPost, Route("Venues/InsertVenue")]
-        public string InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
+        public IActionResult InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try
                 {
                     var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
-                    // Upload Image Process
+                    // Upload Image Process + Insert Venue
                     var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
                     if (!imageValidation.Key)
                         throw new Exception(imageValidation.Value);
                     var imagePath = _imageService.GetImagePath(venueInsertDTO.Image);
                     venue.Image = imagePath;
-                    //if (_context.SaveChanges() != 1)
-                    //    throw new Exception("Save Changes Error");
+                    venue.LowerPrice = 0;
+                    venue.UpperPrice = 0;
+                    venue.Status = true;
+                    _venueService.InsertVenue(venue);
                     var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
                     if (!uploadImage)
                         throw new Exception("Tệp tải lên thất bại");
-                    return "Thêm địa điểm thành công";
+                    //return "Thêm địa điểm thành công";
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     transaction.Rollback();
-                    return $"{ex.Message}";
+                    //return $"{ex.Message}";
                 }
             }
+            return View("Index");
         }
 
         [HttpPut, Route("Venues/ChangeVenueStatus")]

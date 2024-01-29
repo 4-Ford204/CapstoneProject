@@ -284,6 +284,8 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
+                    WardsDropDownList();
+                    AdministratorsDropDownList();
                     RemovePopup();
                 },
                 error: function (result) {
@@ -291,6 +293,82 @@
                 }
             });
         }));
+    }
+
+    function WardsDropDownList() {
+        $("#wardsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "API/LocationAPI/GetWards",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            Name: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "Name", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quận",
+            dataValueField: "Id",
+            dataTextField: "Name",
+            filter: "contains"
+        });
+    }
+
+    function AdministratorsDropDownList() {
+        $("#administratorsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "Accounts/GetAdministratorDTOs",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            FullName: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "FullName", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quản trị viên",
+            dataValueField: "Id",
+            dataTextField: "FullName",
+            filter: "contains"
+        });
     }
 
     function DeleteButton() {
