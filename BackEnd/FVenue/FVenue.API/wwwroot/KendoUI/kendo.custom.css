@@ -39,11 +39,19 @@
     padding-left: 3px;
 }
 
+.badgeTemplate {
+    font-size: 14px;
+}
+
 .genderTemplate {
     font-size: 30px;
 }
 
-.badgeTemplate {
+.loginViaTemplate {
+    font-size: 30px;
+}
+
+.isEmailConfirmedTemplate {
     font-size: 14px;
 }
 

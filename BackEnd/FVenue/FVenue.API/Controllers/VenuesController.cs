@@ -5,7 +5,6 @@ using DTOs;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FVenue.API.Controllers
 {
@@ -40,17 +39,7 @@ namespace FVenue.API.Controllers
 
         [HttpGet, Route("Venues/InsertVenuePopup")]
         public PartialViewResult InsertVenuePopup()
-        {
-            var wards = _locationService.GetWards();
-            var selectWards = new SelectList(wards, "Id", "Name");
-
-            var accounts = _accountService.GetAdministrators();
-            var selectAccounts = new SelectList(accounts, "Id", "FullName");
-
-            ViewBag.Wards = selectWards;
-            ViewBag.Accounts = selectAccounts;
-            return PartialView("_VenueInsertPartial");
-        }
+            => PartialView("_VenueInsertPartial");
 
         #endregion
 

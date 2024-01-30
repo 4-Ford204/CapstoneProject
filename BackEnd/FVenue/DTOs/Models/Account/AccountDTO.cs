@@ -15,7 +15,7 @@
         public string FullName { get; set; }
         public bool? Gender { get; set; }
         public string BirthDay { get; set; }
-        public int LoginVia { get; set; }
+        public int LoginMethod { get; set; }
         public bool IsEmailConfirmed { get; set; }
     }
 }

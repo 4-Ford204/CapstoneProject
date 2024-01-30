@@ -49,7 +49,7 @@ namespace FVenue.API.Controllers
                     LastName = x.LastName,
                     Gender = x.Gender,
                     BirthDay = Common.FormatDateTime(x.BirthDay),
-                    LoginVia = x.LoginVia,
+                    LoginMethod = x.LoginMethod,
                     IsEmailConfirmed = x.IsEmailConfirmed,
                 })
                     .ToList();
