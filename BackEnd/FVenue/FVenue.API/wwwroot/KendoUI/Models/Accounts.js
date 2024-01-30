@@ -52,7 +52,7 @@
                             FullName: { type: "string", editable: false },
                             Gender: { type: "boolean", editable: false },
                             BirthDay: { type: "string", editable: false },
-                            LoginVia: { type: "number", editable: false },
+                            LoginMethod: { type: "number", editable: false },
                             IsEmailConfirmed: { type: "boolean", editable: false }
                         }
                     }
@@ -147,7 +147,18 @@
                     field: "Status",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
-                    width: 150
+                    width: 150,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá",
+                            isTrue: " Hoạt Động",
+                            isFalse: " Ngưng Hoạt Động"
+                        }
+                    }
                 },
                 {
                     field: "RoleName",
@@ -182,7 +193,17 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giới tính</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"genderTemplate\"></div></div>",
                     width: 150,
-                    filterable: false
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá",
+                            isTrue: " Nam",
+                            isFalse: " Nữ"
+                        }
+                    }
                 },
                 {
                     field: "BirthDay",
@@ -192,18 +213,28 @@
                     filterable: false
                 },
                 {
-                    field: "LoginVia",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>LoginVia</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:LoginVia#</div>",
+                    field: "LoginMethod",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Đăng Nhập Qua</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\"><div class=\"loginViaTemplate\"></div></div>",
                     width: 150,
                     filterable: false
                 },
                 {
                     field: "IsEmailConfirmed",
-                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>IsEmailConfirmed</strong></div>",
-                    template: "<div class=\"kendo-grid-cell\">#:IsEmailConfirmed#</div>",
-                    width: 150,
-                    filterable: false
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Xác Thực Tài Khoản</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\"><div class=\"isEmailConfirmedTemplate\"></div></div>",
+                    width: 200,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá",
+                            isTrue: " Đã Xác Thực",
+                            isFalse: " Chưa Xác Thực"
+                        }
+                    }
                 },
                 {
                     template:
@@ -221,17 +252,29 @@
 
         grid.table.find("tr").each(function () {
             var dataItem = grid.dataItem(this);
-            var themeColor = dataItem.Status ? "success" : "error";
-            var text = dataItem.Status ? "Hoạt Động" : "Ngưng Hoạt Động";
 
             $(this).find(".badgeTemplate").kendoBadge({
-                themeColor: themeColor,
-                text: text,
+                themeColor: dataItem.Status ? "success" : "error",
+                text: dataItem.Status ? "Hoạt Động" : "Ngưng Hoạt Động"
             });
 
             $(this).find(".genderTemplate").html(
-                dataItem.Gender ? "<i class=\"fa-solid fa-person\" style=\"color: #74C0FC;\"></i>" : "<i class=\"fa-solid fa-person-dress\" style=\"color: #74C0FC;\"></i>"
+                dataItem.Gender ? "<i class=\"fa-solid fa-person\" style=\"color: #74C0FC;\"></i>" : "<i class=\"fa-solid fa-person-dress\" style=\"color: #FF69B4;\"></i>"
             );
+
+            switch (dataItem.LoginMethod) {
+                case 1:
+                    $(this).find(".loginViaTemplate").html("<i class=\"fa-solid fa-envelope\" style=\"color: #000000;\"></i>");
+                    break;
+                case 2:
+                    $(this).find(".loginViaTemplate").html("<i class=\"fa-brands fa-google\" style=\"color: #000000;\"></i>");
+                    break;
+            };
+
+            $(this).find(".isEmailConfirmedTemplate").kendoBadge({
+                themeColor: dataItem.IsEmailConfirmed ? "success" : "error",
+                text: dataItem.IsEmailConfirmed ? "Đã Xác Thực" : "Chưa Xác Thực"
+            });
         });
     }
 

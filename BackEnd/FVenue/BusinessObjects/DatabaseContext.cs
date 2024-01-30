@@ -86,7 +86,7 @@ namespace BusinessObjects
                         FullName = "Duy Lê Tự Huỳnh",
                         Gender = true,
                         BirthDay = new DateTime(2002, 04, 20),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
                         IsEmailConfirmed = false
                     },
                     new Account
@@ -106,7 +106,7 @@ namespace BusinessObjects
                         FullName = "Phúc Hồ Văn",
                         Gender = true,
                         BirthDay = new DateTime(2002, 01, 31),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
                         IsEmailConfirmed = false
                     },
                     new Account
@@ -126,7 +126,7 @@ namespace BusinessObjects
                         FullName = "Hùng Nguyễn Huy",
                         Gender = true,
                         BirthDay = new DateTime(2000, 11, 21),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
                         IsEmailConfirmed = false
                     },
                     new Account
@@ -146,7 +146,7 @@ namespace BusinessObjects
                         FullName = "Trí Lê Minh",
                         Gender = true,
                         BirthDay = new DateTime(2002, 10, 19),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
                         IsEmailConfirmed = false
                     },
                     new Account
@@ -159,15 +159,15 @@ namespace BusinessObjects
                         PhoneNumber = Common.RandomPhoneNumber(),
                         CreateDate = DateTime.Now,
                         LastUpdateDate = DateTime.Now,
-                        Status = true,
+                        Status = false,
                         RoleId = (int)EnumModel.Role.Administrator,
                         FirstName = "Quốc",
                         LastName = "Nguyễn Đăng Cường",
                         FullName = "Quốc Nguyễn Đăng Cường",
-                        Gender = true,
+                        Gender = false,
                         BirthDay = new DateTime(2002, 04, 23),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
-                        IsEmailConfirmed = false
+                        LoginMethod = (int)EnumModel.LoginMethod.Google,
+                        IsEmailConfirmed = true
                     }
                 };
                 //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))

@@ -1,10 +1,4 @@
-﻿@using DTOs.Models.Venue
-@model DTOs.Models.Venue.VenueInsertDTO
-
-@{
-    var venue = new VenueInsertDTO();
-    if (Model != null) venue = Model;
-}
+﻿@model DTOs.Models.Venue.VenueInsertDTO
 
 <div class="modal show display-popup" id="myModal" role="dialog" style="font-size: 15px">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -20,7 +14,7 @@
                                 <label class="k-label k-form-label" asp-for="Name"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Name" value="@venue.Name" />
+                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Name" />
                                     </span>
                                 </div>
                             </div>
@@ -28,7 +22,7 @@
                                 <label class="k-label k-form-label" asp-for="Image"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="file" asp-for="Image" value="@venue.Image" />
+                                        <input style="width: 100%" class="k-input-inner" type="file" asp-for="Image" />
                                     </span>
                                     <div class="k-form-hint">
                                         <span>Chọn ảnh đúng định dạng.</span>
@@ -39,7 +33,7 @@
                                 <label class="k-label k-form-label" asp-for="Street"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Street" value="@venue.Street" />
+                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Street" />
                                     </span>
                                 </div>
                             </div>
@@ -53,7 +47,7 @@
                                 <label class="k-label k-form-label" asp-for="GeoLocation"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="GeoLocation" value="@venue.GeoLocation" />
+                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="GeoLocation" />
                                     </span>
                                     <div class="k-form-hint">
                                         <span>Đúng định dạng: vĩ độ,kinh độ.</span>
@@ -65,7 +59,7 @@
                                     <label class="k-label k-form-label" asp-for="OpenTime"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="time" asp-for="OpenTime" value="@venue.OpenTime" />
+                                            <input style="width: 100%" class="k-input-inner" type="time" asp-for="OpenTime" value="00:00" />
                                         </span>
                                     </div>
                                 </div>
@@ -73,7 +67,7 @@
                                     <label class="k-label k-form-label" asp-for="CloseTime"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="time" asp-for="CloseTime" value="@venue.CloseTime" />
+                                            <input style="width: 100%" class="k-input-inner" type="time" asp-for="CloseTime" value="23:59" />
                                         </span>
                                     </div>
                                 </div>

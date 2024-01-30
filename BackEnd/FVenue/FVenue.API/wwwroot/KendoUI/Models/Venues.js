@@ -272,7 +272,7 @@
 
             $(this).find(".badgeTemplate").kendoBadge({
                 themeColor: themeColor,
-                text: text,
+                text: text
             });
         });
     }

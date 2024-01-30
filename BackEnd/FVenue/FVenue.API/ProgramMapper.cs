@@ -26,7 +26,7 @@ namespace FVenue.API
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => Common.FormatDateTime(src.BirthDay)))
-                .ForMember(dest => dest.LoginVia, opt => opt.MapFrom(src => src.LoginVia))
+                .ForMember(dest => dest.LoginMethod, opt => opt.MapFrom(src => src.LoginMethod))
                 .ForMember(dest => dest.IsEmailConfirmed, opt => opt.MapFrom(src => src.IsEmailConfirmed));
 
             #endregion

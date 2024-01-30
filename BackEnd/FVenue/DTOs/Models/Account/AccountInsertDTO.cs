@@ -16,6 +16,7 @@ namespace DTOs.Models.Account
         public string LastName { get; set; }
         public bool? Gender { get; set; }
         public DateTime? BirthDay { get; set; }
-        public int? LoginVia { get; set; }
+        public int? LoginMethod { get; set; }
+        public bool IsEmailConfirmed { get; set; }
     }
 }
