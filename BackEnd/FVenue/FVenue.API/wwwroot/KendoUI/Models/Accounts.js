@@ -105,10 +105,12 @@
                     width: 300,
                     sortable: false,
                     filterable: {
-                        extra: false,
+                        extra: true,
                         showOperators: false,
                         messages: {
                             info: "",
+                            and: "Và",
+                            or: "Hoặc",
                             filter: "Lọc",
                             clear: "Xoá"
                         },

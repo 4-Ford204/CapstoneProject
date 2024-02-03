@@ -48,7 +48,9 @@ namespace FVenue.API
             CreateMap<VenueInsertDTO, Venue>()
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
-            CreateMap<VenueUpdateDTO, Venue>().IncludeBase<VenueInsertDTO, Venue>();
+            CreateMap<VenueUpdateDTO, Venue>()
+                .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
+                .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
 
             #endregion
         }
