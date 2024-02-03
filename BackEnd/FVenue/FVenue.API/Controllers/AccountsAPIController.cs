@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BusinessObjects;
-using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;

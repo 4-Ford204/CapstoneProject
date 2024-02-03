@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FVenue.API.Controllers
 {
+    [AdministratorAuthentication]
     public class AccountsController : Controller
     {
         private readonly DatabaseContext _context;

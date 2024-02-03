@@ -15,6 +15,15 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public Venue GetVenue(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venue = _context.Venues.Find(id);
+                return venue;
+            }
+        }
+
         public KeyValuePair<bool, string> InsertVenue(Venue venue)
         {
             try

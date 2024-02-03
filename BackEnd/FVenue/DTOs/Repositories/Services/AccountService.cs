@@ -7,6 +7,25 @@ namespace DTOs.Repositories.Services
 {
     public class AccountService : IAccountService
     {
+        public Account Login(AccountLoginDTO accountLoginDTO, out string error)
+        {
+            error = string.Empty;
+            using (var _context = new DatabaseContext())
+            {
+                var account = _context.Accounts.FirstOrDefault(x => x.Email == accountLoginDTO.Email);
+                if (account == null)
+                    error = "Tài khoản không tồn tại";
+                else
+                {
+                    if (Common.VerifyPassword(accountLoginDTO.Password, account.HashPassword, account.SaltPassword))
+                        return account;
+                    else
+                        error = "Tài khoản hoặc mật khẩu không chính xác";
+                }
+            }
+            return null;
+        }
+
         public List<Account> GetAccounts()
         {
             using (var _context = new DatabaseContext())

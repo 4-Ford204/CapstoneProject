@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FVenue.API.Controllers
 {
+    [AdministratorAuthentication]
     public class VenuesController : Controller
     {
         private readonly DatabaseContext _context;
@@ -40,6 +41,29 @@ namespace FVenue.API.Controllers
         [HttpGet, Route("Venues/InsertVenuePopup")]
         public PartialViewResult InsertVenuePopup()
             => PartialView("_VenueInsertPartial");
+
+        [HttpGet, Route("Venues/UpdateVenuePopup/{id}")]
+        public PartialViewResult UpdateVenuePopup(int id)
+        {
+            var venue = _context.Venues.FirstOrDefault(x => x.Id == id);
+            var venueUpdateDTO = new VenueUpdateDTO()
+            {
+                Id = venue.Id,
+                Name = venue.Name,
+                Image = venue.Image,
+                Description = venue.Description,
+                Street = venue.Street,
+                WardId = venue.WardId,
+                GeoLocation = venue.GeoLocation,
+                OpenTime = Common.ConvertDateTimeToTimeOnly(venue.OpenTime).ToString("HH:mm"),
+                CloseTime = Common.ConvertDateTimeToTimeOnly(venue.CloseTime).ToString("HH:mm"),
+                LowerPrice = venue.LowerPrice,
+                UpperPrice = venue.UpperPrice,
+                Status = venue.Status,
+                AccountId = venue.AccountId
+            };
+            return PartialView("_VenueUpdatePartial", venueUpdateDTO);
+        }
 
         #endregion
 
@@ -77,6 +101,45 @@ namespace FVenue.API.Controllers
                     Console.WriteLine(ex.Message);
                     transaction.Rollback();
                     //return $"{ex.Message}";
+                }
+            }
+            return View("Index");
+        }
+
+        /// <summary>
+        /// Update Public Venue
+        /// </summary>
+        /// <param name="venueUpdateDTO"></param>
+        /// <returns></returns>
+        [HttpPost, Route("Venues/UpdateVenue")]
+        public IActionResult UpdateVenue([FromForm] VenueUpdateDTO venueUpdateDTO)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    var venue = _venueService.GetVenue(venueUpdateDTO.Id);
+                    _venueService.UpdateVenue(new Venue
+                    {
+                        Id = venueUpdateDTO.Id,
+                        Name = venueUpdateDTO.Name,
+                        //Image = venueUpdateDTO.ImageFile != null ? _imageService.GetImagePath(venueUpdateDTO.ImageFile) : venue.Image,
+                        //Description = venueUpdateDTO.Description,
+                        Street = venueUpdateDTO.Street,
+                        WardId = venueUpdateDTO.WardId,
+                        GeoLocation = venueUpdateDTO.GeoLocation,
+                        OpenTime = Common.ConvertTimeOnlyToDateTime(venueUpdateDTO.OpenTime),
+                        CloseTime = Common.ConvertTimeOnlyToDateTime(venueUpdateDTO.CloseTime),
+                        LowerPrice = venue.LowerPrice,
+                        UpperPrice = venue.UpperPrice,
+                        Status = venue.Status,
+                        AccountId = venueUpdateDTO.AccountId
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    transaction.Rollback();
                 }
             }
             return View("Index");

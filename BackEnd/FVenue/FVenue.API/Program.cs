@@ -25,6 +25,7 @@ namespace FVenue.API
             builder.Services.AddDbContext<DatabaseContext>();
 
             // Authentication
+            builder.Services.AddSession();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -75,6 +76,7 @@ namespace FVenue.API
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -83,7 +85,7 @@ namespace FVenue.API
             app.UseAuthorization();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=AuthenticationMiddleware}/{id?}");
 
             app.Run();
         }

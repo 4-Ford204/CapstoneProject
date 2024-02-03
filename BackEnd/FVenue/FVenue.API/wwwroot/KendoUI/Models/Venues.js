@@ -249,13 +249,25 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Nhà Quản Lý</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:AccountName#</div>",
                     width: 150,
-                    filterable: false
+                    filterable: {
+                        multi: true,
+                        search: true,
+                        messages: {
+                            info: "",
+                            search: "Tìm kiếm",
+                            checkAll: "Chọn tất cả",
+                            selectedItemsFormat: "Đã chọn {0} mục",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        }
+                    }
                 },
                 {
-                    template:
-                        "<div class=\"kendo-grid-cell\">" +
-                        "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
-                        "</div>",
+                    command: {
+                        text: "Cập nhật",
+                        click: UpdateVenue,
+                        className: "kendo-grid-btn"
+                    },
                     width: 100
                 },
             ]
@@ -381,7 +393,6 @@
                     ids: ids
                 },
                 success: function (result) {
-                    console.log(result);
                     DOM.VenuesGrid.data("kendoGrid").dataSource.read();
                     DOM.VenuesGrid.data("kendoGrid").refresh();
                 },
@@ -396,6 +407,24 @@
         $("#removePopup").on("click", (function () {
             DOM.Popup.innerHTML = "";
         }));
+    }
+
+    function UpdateVenue(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: globalData.baseURL + "Venues/UpdateVenuePopup/" + dataItem.Id,
+            type: "GET",
+            success: function (result) {
+                DOM.Popup.innerHTML = result;
+                WardsDropDownList();
+                AdministratorsDropDownList();
+                RemovePopup();
+            },
+            error: function (result) {
+                console.log(result);
+            }
+        });
     }
 
     return {
