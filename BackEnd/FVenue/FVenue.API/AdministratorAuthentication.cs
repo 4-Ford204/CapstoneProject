@@ -7,12 +7,12 @@ namespace FVenue.API
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session.GetString("UserName") == null)
+            if (filterContext.HttpContext.Session.GetString("AdministratorName") == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
                     new RouteValueDictionary {
                         { "Controller", "Home" },
-                        { "Action", "LoginPage" }
+                        { "Action", "AuthenticationMiddleware" }
                     });
             }
         }

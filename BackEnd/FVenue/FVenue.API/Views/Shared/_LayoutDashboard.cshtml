@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
@@ -81,7 +83,7 @@
                         <img src="~/Image/Administrator/SuperAdmin.jpg" class="img-circle elevation-2" alt="Administrator Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Lê Tự Huỳnh Duy</a>
+                        <a href="#" class="d-block">@HttpContextAccessor?.HttpContext?.Session.GetString("AdministratorName")</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
