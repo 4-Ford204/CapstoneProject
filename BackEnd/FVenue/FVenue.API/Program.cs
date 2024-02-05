@@ -3,6 +3,7 @@ using BusinessObjects;
 using DTOs.Repositories.Interfaces;
 using DTOs.Repositories.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -46,6 +47,7 @@ namespace FVenue.API
                 });
 
             // Services
+            builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
