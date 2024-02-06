@@ -9,8 +9,7 @@
         baseURL: "../"
     }
 
-    function bindEvents() {
-    }
+    function bindEvents() { }
 
     function bindControls() { }
 
@@ -58,7 +57,7 @@
                     }
                 }
             },
-            height: 680,
+            height: AutoFitHeight,
             pageable: {
                 pageSize: 10,
                 refresh: true,
@@ -247,6 +246,14 @@
                 },
             ]
         });
+    }
+
+    function AutoFitHeight() {
+        return document.documentElement.clientHeight -
+            (
+                document.querySelector(".main-header").clientHeight +
+                document.querySelector(".main-footer").clientHeight
+            );
     }
 
     function onDataBound(e) {

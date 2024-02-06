@@ -30,7 +30,12 @@ namespace FVenue.API.Controllers
 
 
         [AdministratorAuthentication]
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            // Người Đăng Kí Trong 7 Ngày
+            ViewBag.NewRegistrantInSevenDays = 10;
+            return View();
+        }
 
         [HttpPost]
         public IActionResult AdministratorAuthentication([FromForm] AccountLoginDTO accountLoginDTO)
@@ -60,7 +65,7 @@ namespace FVenue.API.Controllers
                         var administratorName = account.FullName;
                         Response.Cookies.Append("AdministratorName", administratorName, options);
                         HttpContext.Session.SetString("AdministratorName", administratorName);
-                        return View("Index");
+                        return RedirectToAction("Index");
                     }
                 }
                 else

@@ -42,7 +42,7 @@ namespace FVenue.API
                         ValidateLifetime = true,
                         // Validate Signing Key Matching 
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
                     };
                 });
 

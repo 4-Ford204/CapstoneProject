@@ -3,6 +3,7 @@ using BusinessObjects;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -24,6 +25,7 @@ namespace FVenue.API.Controllers
             _tokenService = tokenService;
         }
 
+        [Authorize(Roles = nameof(EnumModel.Role.Administrator))]
         [HttpGet, Route("GetAccountDTOs")]
         public ActionResult<JsonModel> GetAccountDTOs()
         {
@@ -169,6 +171,25 @@ namespace FVenue.API.Controllers
                         Data = accessToken
                     };
             }
+        }
+
+        [HttpPost, Route("Login")]
+        public ActionResult<JsonModel> Login(AccountLoginDTO accountLoginDTO)
+        {
+            var account = _accountService.Login(accountLoginDTO, out string error);
+            return new JsonModel
+            {
+                Code = EnumModel.ResultCode.OK,
+                Message = String.IsNullOrEmpty(error) ? "Đăng Nhập Thành Công" : error,
+                Data = new AccountTokenDTO
+                {
+                    Email = account.Email,
+                    RoleName = Common.GetRoleName(account.RoleId),
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    Token = _tokenService.GetTokenAPI(account)
+                }
+            };
         }
     }
 }
