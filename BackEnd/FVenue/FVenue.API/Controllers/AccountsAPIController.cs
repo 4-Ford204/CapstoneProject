@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using BusinessObjects;
-using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -25,6 +25,7 @@ namespace FVenue.API.Controllers
             _tokenService = tokenService;
         }
 
+        [Authorize(Roles = nameof(EnumModel.Role.Administrator))]
         [HttpGet, Route("GetAccountDTOs")]
         public ActionResult<JsonModel> GetAccountDTOs()
         {
@@ -41,15 +42,15 @@ namespace FVenue.API.Controllers
                     Email = x.Email,
                     Image = x.Image,
                     PhoneNumber = x.PhoneNumber,
-                    CreateDate = x.CreateDate,
-                    LastUpdateDate = x.LastUpdateDate,
+                    CreateDate = Common.FormatDateTime(x.CreateDate),
+                    LastUpdateDate = Common.FormatDateTime(x.LastUpdateDate),
                     Status = x.Status,
                     RoleName = Common.GetRoleName(x.RoleId),
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     Gender = x.Gender,
-                    BirthDay = x.BirthDay,
-                    LoginVia = x.LoginVia,
+                    BirthDay = Common.FormatDateTime(x.BirthDay),
+                    LoginMethod = x.LoginMethod,
                     IsEmailConfirmed = x.IsEmailConfirmed,
                 })
                     .ToList();
@@ -170,6 +171,25 @@ namespace FVenue.API.Controllers
                         Data = accessToken
                     };
             }
+        }
+
+        [HttpPost, Route("Login")]
+        public ActionResult<JsonModel> Login(AccountLoginDTO accountLoginDTO)
+        {
+            var account = _accountService.Login(accountLoginDTO, out string error);
+            return new JsonModel
+            {
+                Code = EnumModel.ResultCode.OK,
+                Message = String.IsNullOrEmpty(error) ? "Đăng Nhập Thành Công" : error,
+                Data = new AccountTokenDTO
+                {
+                    Email = account.Email,
+                    RoleName = Common.GetRoleName(account.RoleId),
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    Token = _tokenService.GetTokenAPI(account)
+                }
+            };
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | FVenue</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/FAVICON.png" />
     <!-- CSS -->
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -33,7 +36,7 @@
     <link rel="stylesheet" href="~/KendoUI/kendo.default-ocean-blue.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KendoUI/kendo.custom.css" asp-append-version="true" />
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed layout-navbar-fixed">
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -53,8 +56,13 @@
             <!-- Right Navbar Links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <a class="nav-link" data-widget="fullscreen" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Logout", "Home")" role="button">
+                        <i class="fa-solid fa-right-from-bracket" style="color: #FF0000;"></i>
                     </a>
                 </li>
             </ul>
@@ -75,7 +83,7 @@
                         <img src="~/Image/Administrator/SuperAdmin.jpg" class="img-circle elevation-2" alt="Administrator Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Lê Tự Huỳnh Duy</a>
+                        <a href="#" class="d-block">@HttpContextAccessor?.HttpContext?.Session.GetString("AdministratorName")</a>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
@@ -92,7 +100,6 @@
                 </nav>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Accounts" asp-action="Index">
                                 <i class="nav-icon fa-solid fa-user"></i>
@@ -103,22 +110,10 @@
                 </nav>
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Categories" asp-action="Index">
-                                <i class="nav-icon fa-solid fa-braille"></i>
-                                <p>Phân loại </p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="SubCategories" asp-action="Index">
-                                <i class="nav-icon fa-solid fa-hashtag"></i>
-                                <p>Danh mục phụ</p>
+                                <i class="nav-icon fa-solid fa-list"></i>
+                                <p>Thể loại</p>
                             </a>
                         </li>
                     </ul>
@@ -159,7 +154,6 @@
     <script src="~/KendoUI/Models/Venues.js"></script>
     <script src="~/KendoUI/Models/Accounts.js"></script>
     <script src="~/KendoUI/Models/Categories.js"></script>
-    <script src="~/KendoUI/Models/SubCategories.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/Plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
