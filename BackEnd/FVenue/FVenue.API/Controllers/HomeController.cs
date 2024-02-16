@@ -7,10 +7,12 @@ namespace FVenue.API.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DatabaseContext _context;
         private readonly IAccountService _accountService;
 
-        public HomeController(IAccountService accountService)
+        public HomeController(DatabaseContext context, IAccountService accountService)
         {
+            _context = context;
             _accountService = accountService;
         }
 
@@ -33,7 +35,8 @@ namespace FVenue.API.Controllers
         public IActionResult Index()
         {
             // Người Đăng Kí Trong 7 Ngày
-            ViewBag.NewRegistrantInSevenDays = 10;
+            var newRegistrantInSevenDays = _context.Accounts.Where(x => x.CreateDate.AddDays(7) >= DateTime.Now).Count();
+            ViewBag.NewRegistrantInSevenDays = newRegistrantInSevenDays;
             return View();
         }
 
