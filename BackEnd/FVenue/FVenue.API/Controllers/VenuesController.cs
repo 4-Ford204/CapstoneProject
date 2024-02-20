@@ -73,6 +73,10 @@ namespace FVenue.API.Controllers
         public List<VenueDTO> GetVenueDTOs()
             => _mapper.Map<List<Venue>, List<VenueDTO>>(_context.Venues.OrderByDescending(x => x.Id).ToList());
 
+        [HttpGet, Route("Venues/GetVenueDescription/{id}")]
+        public string GetVenueDescription(int id)
+            => _context.Venues.Find(id).Description ?? "Chưa có mô tả về địa điểm này";
+
         [HttpPost, Route("Venues/InsertVenue")]
         public IActionResult InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
@@ -81,20 +85,33 @@ namespace FVenue.API.Controllers
                 try
                 {
                     var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
-                    // Upload Image Process + Insert Venue
-                    var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
-                    if (!imageValidation.Key)
-                        throw new Exception(imageValidation.Value);
-                    var imagePath = _imageService.GetImagePath(venueInsertDTO.Image);
-                    venue.Image = imagePath;
-                    venue.LowerPrice = 0;
-                    venue.UpperPrice = 0;
-                    venue.Status = true;
-                    _venueService.InsertVenue(venue);
-                    var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
-                    if (!uploadImage)
-                        throw new Exception("Tệp tải lên thất bại");
-                    //return "Thêm địa điểm thành công";
+                    if (venueInsertDTO.Image != null)
+                    {
+                        // Upload Image Process + Insert Venue
+                        var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
+                        if (!imageValidation.Key)
+                            throw new Exception(imageValidation.Value);
+                        var imagePath = _imageService.GetImagePath(venueInsertDTO.Image);
+                        venue.Image = imagePath;
+                        venue.LowerPrice = 0;
+                        venue.UpperPrice = 0;
+                        venue.Status = true;
+                        _context.Venues.Add(venue);
+                        _context.SaveChanges();
+                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
+                        if (!uploadImage)
+                            throw new Exception("Tệp tải lên thất bại");
+                        //return "Thêm địa điểm thành công";
+                    }
+                    else
+                    {
+                        venue.LowerPrice = 0;
+                        venue.UpperPrice = 0;
+                        venue.Status = true;
+                        _context.Venues.Add(venue);
+                        _context.SaveChanges();
+                    }
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
@@ -119,7 +136,7 @@ namespace FVenue.API.Controllers
                 try
                 {
                     var venue = _venueService.GetVenue(venueUpdateDTO.Id);
-                    _venueService.UpdateVenue(new Venue
+                    _context.Venues.Update(new Venue
                     {
                         Id = venueUpdateDTO.Id,
                         Name = venueUpdateDTO.Name,
@@ -135,6 +152,8 @@ namespace FVenue.API.Controllers
                         Status = venue.Status,
                         AccountId = venueUpdateDTO.AccountId
                     });
+                    _context.SaveChanges();
+                    transaction.Commit();
                 }
                 catch (Exception ex)
                 {
