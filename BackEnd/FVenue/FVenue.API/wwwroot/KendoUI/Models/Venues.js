@@ -272,6 +272,30 @@
                 },
             ]
         });
+
+        DOM.VenuesGrid.kendoTooltip({
+            // Chọn cột thứ hai (Tên)
+            filter: "td:nth-child(2)",
+            position: "right",
+            content: function (e) {
+                var dataItem = DOM.VenuesGrid.data("kendoGrid").dataItem(e.target.closest("tr"));
+                var content = null;
+                $.ajax({
+                    url: globalData.baseURL + "Venues/GetVenueDescription/" + dataItem.Id,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    success: function (result) {
+                        content = result;
+                    },
+                    error: function (result) {
+                        content = result;
+                    }
+                });
+                return "<div style=\"width: " + content.length * .7 + "em; max-width: 14em;\">" + content + "</div>";
+            }
+        });
     }
 
     function AutoFitHeight() {
