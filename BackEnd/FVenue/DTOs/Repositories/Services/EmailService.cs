@@ -43,14 +43,7 @@ namespace DTOs.Repositories.Services
                     mailMessage.Subject = "Xác Nhận Gmail Đăng Nhập";
                     mailMessage.SubjectEncoding = Encoding.UTF8;
                     string redirectURL = $"{host}/API/AccountsAPI/RegisterConfirmationHandler/{toEmail}";
-                    mailMessage.Body =
-                       "<div style=\"display: inline-block; margin: 10px;\">" +
-                       "<div>Nhấn nút &nbsp;<strong>Đồng ý</strong>&nbsp; bên dưới để xác nhận đây sẽ là gmail của bạn trong hệ thống <strong>FVenue</strong>.</div>" +
-                       "<br>" +
-                       "<div style=\"text-align: center;\">" +
-                       $"<a style=\"background-color: #04AA6D; border-radius: 5px; color: white; padding: 10px; text-align: center; text-decoration: none;\" href=\"{redirectURL}\">Đồng ý</a>" +
-                       "</div>" +
-                       "</div>";
+                    mailMessage.Body = Common.GetEmailConfirmation(redirectURL);
                     mailMessage.BodyEncoding = Encoding.UTF8;
                     mailMessage.IsBodyHtml = true;
 
