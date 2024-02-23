@@ -10,7 +10,7 @@ namespace BusinessObjects.Models
         public string HashPassword { get; set; }
         public string Image { get; set; }
         public string PhoneNumber { get; set; }
-        public DateTime CreatDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
         public bool Status { get; set; }
         [ForeignKey("Role")]
@@ -18,9 +18,10 @@ namespace BusinessObjects.Models
         public Role Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public bool? Gender { get; set; }
         public DateTime? BirthDay { get; set; }
-        public int LoginVia { get; set; }
+        public int LoginMethod { get; set; }
         public bool IsEmailConfirmed { get; set; }
     }
 }

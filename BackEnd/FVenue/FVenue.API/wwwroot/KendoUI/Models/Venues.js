@@ -2,7 +2,7 @@
 
     var DOM = {
         VenuesGrid: $("#venuesGrid"),
-        Popup: document.getElementById("popup"),
+        Popup: document.getElementById("popup")
     }
 
     var globalData = {
@@ -52,11 +52,12 @@
                             LowerPrice: { type: "number", editable: false },
                             UpperPrice: { type: "number", editable: false },
                             Status: { type: "boolean", editable: false },
+                            AccountName: { type: "string", editable: false }
                         }
                     }
                 }
             },
-            height: 680,
+            height: AutoFitHeight,
             pageable: {
                 pageSize: 10,
                 refresh: true,
@@ -230,17 +231,79 @@
                     field: "Status",
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
-                    width: 150
+                    width: 150,
+                    filterable: {
+                        extra: false,
+                        showOperators: false,
+                        messages: {
+                            info: "",
+                            filter: "Lọc",
+                            clear: "Xoá",
+                            isTrue: " Hoạt Động",
+                            isFalse: " Ngưng Hoạt Động"
+                        }
+                    }
                 },
                 {
-                    template:
-                        "<div class=\"kendo-grid-cell\">" +
-                        "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
-                        "</div>",
+                    field: "AccountName",
+                    headerTemplate: "<div class=\"kendo-grid-header\"><strong>Nhà Quản Lý</strong></div>",
+                    template: "<div class=\"kendo-grid-cell\">#:AccountName#</div>",
+                    width: 150,
+                    filterable: {
+                        multi: true,
+                        search: true,
+                        messages: {
+                            info: "",
+                            search: "Tìm kiếm",
+                            checkAll: "Chọn tất cả",
+                            selectedItemsFormat: "Đã chọn {0} mục",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        }
+                    }
+                },
+                {
+                    command: {
+                        text: "Cập nhật",
+                        click: UpdateVenue,
+                        className: "kendo-grid-btn"
+                    },
                     width: 100
                 },
-            ],
+            ]
         });
+
+        DOM.VenuesGrid.kendoTooltip({
+            // Chọn cột thứ hai (Tên)
+            filter: "td:nth-child(2)",
+            position: "right",
+            content: function (e) {
+                var dataItem = DOM.VenuesGrid.data("kendoGrid").dataItem(e.target.closest("tr"));
+                var content = null;
+                $.ajax({
+                    url: globalData.baseURL + "Venues/GetVenueDescription/" + dataItem.Id,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    success: function (result) {
+                        content = result;
+                    },
+                    error: function (result) {
+                        content = result;
+                    }
+                });
+                return "<div style=\"width: " + content.length * .7 + "em; max-width: 14em;\">" + content + "</div>";
+            }
+        });
+    }
+
+    function AutoFitHeight() {
+        return document.documentElement.clientHeight -
+            (
+                document.querySelector(".main-header").clientHeight +
+                document.querySelector(".main-footer").clientHeight
+            );
     }
 
     function onDataBound(e) {
@@ -253,50 +316,147 @@
 
             $(this).find(".badgeTemplate").kendoBadge({
                 themeColor: themeColor,
-                text: text,
+                text: text
             });
         });
     }
 
     function InsertButton() {
-        $(".k-grid-add:first").click(function () {
+        $(".k-grid-add:first").on("click", (function () {
             $.ajax({
                 url: globalData.baseURL + "Venues/InsertVenuePopup",
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
+                    WardsDropDownList();
+                    AdministratorsDropDownList();
                     RemovePopup();
                 },
                 error: function (result) {
                     console.log(result);
                 }
             });
+        }));
+    }
+
+    function WardsDropDownList() {
+        $("#wardsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "API/LocationAPI/GetWards",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            Name: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "Name", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quận",
+            dataValueField: "Id",
+            dataTextField: "Name",
+            filter: "contains"
+        });
+    }
+
+    function AdministratorsDropDownList() {
+        $("#administratorsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "Accounts/GetAdministratorDTOs",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            FullName: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "FullName", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quản trị viên",
+            dataValueField: "Id",
+            dataTextField: "FullName",
+            filter: "contains"
         });
     }
 
     function DeleteButton() {
-        $(".k-grid-cancel-changes:first").click(function () {
+        $(".k-grid-cancel-changes:first").on("click", (function () {
             var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
-            console.log(ids);
-            DOM.VenuesGrid.data("kendoGrid").dataSource.read();
-            //$.ajax({
-            //    url: globalData.baseURL + "Venues/DeleteVenue",
-            //    type: "DELETE",
-            //    success: function (result) {
-            //        DOM.Popup.innerHTML = result;
-            //        RemovePopup();
-            //    },
-            //    error: function (result) {
-            //        console.log(result);
-            //    }
-            //});
-        });
+            $.ajax({
+                url: globalData.baseURL + "Venues/ChangeVenueStatus",
+                type: "PUT",
+                data: {
+                    ids: ids
+                },
+                success: function (result) {
+                    DOM.VenuesGrid.data("kendoGrid").dataSource.read();
+                    DOM.VenuesGrid.data("kendoGrid").refresh();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }));
     }
 
     function RemovePopup() {
-        $("#removePopup").click(function () {
+        $("#removePopup").on("click", (function () {
             DOM.Popup.innerHTML = "";
-        })
+        }));
+    }
+
+    function UpdateVenue(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: globalData.baseURL + "Venues/UpdateVenuePopup/" + dataItem.Id,
+            type: "GET",
+            success: function (result) {
+                DOM.Popup.innerHTML = result;
+                WardsDropDownList();
+                AdministratorsDropDownList();
+                RemovePopup();
+            },
+            error: function (result) {
+                console.log(result);
+            }
+        });
     }
 
     return {
@@ -309,6 +469,6 @@
 
 })();
 
-$(document).ready(function () {
+$(function () {
     venuesKendoUIManagement.init();
 });

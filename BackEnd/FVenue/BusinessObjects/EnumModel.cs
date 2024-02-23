@@ -2,7 +2,7 @@
 {
     public class EnumModel
     {
-        public enum LoginVia
+        public enum LoginMethod
         {
             Email = 1,
             Google = 2

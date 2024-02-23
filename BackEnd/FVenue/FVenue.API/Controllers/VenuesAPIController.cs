@@ -45,6 +45,30 @@ namespace FVenue.API.Controllers
             }
         }
 
+        [HttpGet, Route("GetVenueDTO/{id}")]
+        public ActionResult<JsonModel> GetVenueDTO(int id)
+        {
+            try
+            {
+                var venue = _venueService.GetVenue(id);
+                var venueDTO = _mapper.Map<Venue, VenueDTO>(venue);
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"Venue {venueDTO.Name}",
+                    Data = venueDTO
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
+        }
+
         [HttpPost, Route("InsertVenue")]
         public ActionResult<JsonModel> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
         {

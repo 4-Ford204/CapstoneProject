@@ -24,6 +24,8 @@ namespace BusinessObjects
         {
             if (!optionsBuilder.IsConfigured)
             {
+                //optionsBuilder.EnableSensitiveDataLogging();
+
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -55,7 +57,7 @@ namespace BusinessObjects
         private List<Role> GetRoles()
             => new List<Role> {
                 new Role { Id = 1, Name = "Administrator" },
-                new Role { Id = 2, Name = "Venue Manager"},
+                new Role { Id = 2, Name = "VenueManager"},
                 new Role { Id = 3, Name = "User" }
             };
         private List<Account> GetAccounts(out int defaultAccountNumber)
@@ -73,18 +75,99 @@ namespace BusinessObjects
                         Email = "huynhduy20042002@gmail.com",
                         SaltPassword = salt,
                         HashPassword = hashPassword,
-                        Image = "~/Image/Administrator/SuperAdmin.jpg",
+                        Image = Environment.CurrentDirectory + "wwwroot/Image/Administrator/SuperAdmin.jpg",
                         PhoneNumber = Common.RandomPhoneNumber(),
-                        CreatDate = DateTime.Now,
+                        CreateDate = DateTime.Now,
                         LastUpdateDate = DateTime.Now,
                         Status = true,
                         RoleId = (int)EnumModel.Role.Administrator,
                         FirstName = "Duy",
                         LastName = "Lê Tự Huỳnh",
+                        FullName = "Duy Lê Tự Huỳnh",
                         Gender = true,
                         BirthDay = new DateTime(2002, 04, 20),
-                        LoginVia = (int)EnumModel.LoginVia.Email,
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
                         IsEmailConfirmed = false
+                    },
+                    new Account
+                    {
+                        Id = 2,
+                        Email = "phuchvde160270@fpt.edu.vn",
+                        SaltPassword = salt,
+                        HashPassword = hashPassword,
+                        Image = Environment.CurrentDirectory + "wwwroot/Image/Administrator/SuperAdmin.jpg",
+                        PhoneNumber = Common.RandomPhoneNumber(),
+                        CreateDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now,
+                        Status = true,
+                        RoleId = (int)EnumModel.Role.Administrator,
+                        FirstName = "Phúc",
+                        LastName = "Hồ Văn",
+                        FullName = "Phúc Hồ Văn",
+                        Gender = true,
+                        BirthDay = new DateTime(2002, 01, 31),
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
+                        IsEmailConfirmed = false
+                    },
+                    new Account
+                    {
+                        Id = 3,
+                        Email = "hungnhde160214@fpt.edu.vn",
+                        SaltPassword = salt,
+                        HashPassword = hashPassword,
+                        Image = Environment.CurrentDirectory + "wwwroot/Image/Administrator/SuperAdmin.jpg",
+                        PhoneNumber = Common.RandomPhoneNumber(),
+                        CreateDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now,
+                        Status = true,
+                        RoleId = (int)EnumModel.Role.Administrator,
+                        FirstName = "Hùng",
+                        LastName = "Nguyễn Huy",
+                        FullName = "Hùng Nguyễn Huy",
+                        Gender = true,
+                        BirthDay = new DateTime(2000, 11, 21),
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
+                        IsEmailConfirmed = false
+                    },
+                    new Account
+                    {
+                        Id = 4,
+                        Email = "trilmde160230@fpt.edu.vn",
+                        SaltPassword = salt,
+                        HashPassword = hashPassword,
+                        Image = Environment.CurrentDirectory + "wwwroot/Image/Administrator/SuperAdmin.jpg",
+                        PhoneNumber = Common.RandomPhoneNumber(),
+                        CreateDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now,
+                        Status = true,
+                        RoleId = (int)EnumModel.Role.Administrator,
+                        FirstName = "Trí",
+                        LastName = "Lê Minh",
+                        FullName = "Trí Lê Minh",
+                        Gender = true,
+                        BirthDay = new DateTime(2002, 10, 19),
+                        LoginMethod = (int)EnumModel.LoginMethod.Email,
+                        IsEmailConfirmed = false
+                    },
+                    new Account
+                    {
+                        Id = 5,
+                        Email = "quocndcde160171@fpt.edu.vn",
+                        SaltPassword = salt,
+                        HashPassword = hashPassword,
+                        Image = Environment.CurrentDirectory + "wwwroot/Image/Administrator/SuperAdmin.jpg",
+                        PhoneNumber = Common.RandomPhoneNumber(),
+                        CreateDate = DateTime.Now,
+                        LastUpdateDate = DateTime.Now,
+                        Status = false,
+                        RoleId = (int)EnumModel.Role.Administrator,
+                        FirstName = "Quốc",
+                        LastName = "Nguyễn Đăng Cường",
+                        FullName = "Quốc Nguyễn Đăng Cường",
+                        Gender = false,
+                        BirthDay = new DateTime(2002, 04, 23),
+                        LoginMethod = (int)EnumModel.LoginMethod.Google,
+                        IsEmailConfirmed = true
                     }
                 };
                 //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
@@ -104,7 +187,7 @@ namespace BusinessObjects
                 //                HashPassword = hashPassword,
                 //                Image = "",
                 //                PhoneNumber = Common.RandomPhoneNumber(),
-                //                CreatDate = DateTime.Now,
+                //                CreateDate = DateTime.Now,
                 //                LastUpdateDate = DateTime.Now,
                 //                Status = true,
                 //                RoleId = 2,
