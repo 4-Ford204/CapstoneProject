@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
+using DTOs.Models;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using DTOs.Repositories.Services;
@@ -36,6 +37,30 @@ namespace FVenue.API.Controllers
                     Code = EnumModel.ResultCode.OK,
                     Message = $"{venues.Count} venues",
                     Data = new PaginationModel<VenueDTO>(venueDTOs, pageIndex, pageSize)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
+        }
+
+        [HttpGet, Route("GetVenueDTO/{id}")]
+        public ActionResult<JsonModel> GetVenueDTO(int id)
+        {
+            try
+            {
+                var venue = _venueService.GetVenue(id);
+                var venueDTO = _mapper.Map<Venue, VenueDTO>(venue);
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"Venue {venueDTO.Name}",
+                    Data = venueDTO
                 };
             }
             catch (Exception ex)
@@ -124,5 +149,13 @@ namespace FVenue.API.Controllers
                     Data = result.Value
                 };
         }
+        [HttpPost, Route("ImageUpload")]
+        public IActionResult ImageUpload(IFormFile formFile)
+        {
+            var responseInfo = _imageService.UploadImage(formFile);
+            return StatusCode(responseInfo.Code, new { message = responseInfo.Message, url = responseInfo.Data });
+
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using BusinessObjects;
 using DTOs.Repositories.Interfaces;
 using DTOs.Repositories.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -25,6 +26,7 @@ namespace FVenue.API
             builder.Services.AddDbContext<DatabaseContext>();
 
             // Authentication
+            builder.Services.AddSession();
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -40,14 +42,16 @@ namespace FVenue.API
                         ValidateLifetime = true,
                         // Validate Signing Key Matching 
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
                     };
                 });
 
             // Services
+            builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
@@ -78,6 +82,7 @@ namespace FVenue.API
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -86,7 +91,7 @@ namespace FVenue.API
             app.UseAuthorization();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=AuthenticationMiddleware}/{id?}");
 
             app.Run();
         }

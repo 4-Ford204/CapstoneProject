@@ -14,6 +14,9 @@ namespace DTOs.Models.Venue
         [DisplayName("Ảnh")]
         public IFormFile Image { get; set; }
 
+        [DisplayName("Link Ảnh ")]
+        public string FeatureImageUrl { get; set; }
+
         [Required]
         [DisplayName("Địa chỉ")]
         public string Street { get; set; }

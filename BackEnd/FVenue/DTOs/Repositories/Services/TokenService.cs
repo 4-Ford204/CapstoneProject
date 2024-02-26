@@ -1,6 +1,12 @@
-﻿using DTOs.Repositories.Interfaces;
+﻿using BusinessObjects;
+using BusinessObjects.Models;
+using DTOs.Repositories.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -18,6 +24,9 @@ namespace DTOs.Repositories.Services
         private readonly string googleRespsoneType;
         private readonly string googleScope;
         private readonly string googleGrantType;
+        private readonly string jwtIssuer;
+        private readonly string jwtKey;
+        private readonly int jwtExpireDays;
 
         public TokenService(IConfiguration configuration)
         {
@@ -31,6 +40,9 @@ namespace DTOs.Repositories.Services
             googleRespsoneType = configuration["Google:ResponseType"];
             googleScope = configuration["Google:Scope"];
             googleGrantType = configuration["Google:GrantType"];
+            jwtIssuer = configuration["JWT:Issuer"];
+            jwtKey = configuration["JWT:Key"];
+            jwtExpireDays = int.Parse(configuration["JWT:ExpireDays"]);
         }
 
         public string GetGoogleRequestURL()
@@ -80,6 +92,35 @@ namespace DTOs.Repositories.Services
             }
             else
                 return null;
+        }
+
+        public string GetTokenAPI(Account account)
+        {
+            if (account != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Role, Common.GetRoleName(account.RoleId)),
+                    new Claim(nameof(account.Email), account.Email),
+                    new Claim(nameof(account.FirstName), account.FirstName),
+                    new Claim(nameof(account.LastName), account.LastName),
+                    new Claim(nameof(account.FullName), account.FullName)
+                };
+                var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+                var securityTokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Issuer = jwtIssuer,
+                    Audience = jwtIssuer,
+                    Expires = DateTime.Now.AddDays(jwtExpireDays),
+                    SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512Signature)
+                };
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var token = tokenHandler.CreateToken(securityTokenDescriptor);
+                return tokenHandler.WriteToken(token);
+            }
+            else
+                return String.Empty;
         }
     }
 }

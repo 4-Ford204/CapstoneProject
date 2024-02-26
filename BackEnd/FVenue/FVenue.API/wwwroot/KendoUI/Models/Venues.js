@@ -57,7 +57,7 @@
                     }
                 }
             },
-            height: 680,
+            height: AutoFitHeight,
             pageable: {
                 pageSize: 10,
                 refresh: true,
@@ -249,17 +249,61 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Nhà Quản Lý</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:AccountName#</div>",
                     width: 150,
-                    filterable: false
+                    filterable: {
+                        multi: true,
+                        search: true,
+                        messages: {
+                            info: "",
+                            search: "Tìm kiếm",
+                            checkAll: "Chọn tất cả",
+                            selectedItemsFormat: "Đã chọn {0} mục",
+                            filter: "Lọc",
+                            clear: "Xoá"
+                        }
+                    }
                 },
                 {
-                    template:
-                        "<div class=\"kendo-grid-cell\">" +
-                        "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
-                        "</div>",
+                    command: {
+                        text: "Cập nhật",
+                        click: UpdateVenue,
+                        className: "kendo-grid-btn"
+                    },
                     width: 100
                 },
             ]
         });
+
+        DOM.VenuesGrid.kendoTooltip({
+            // Chọn cột thứ hai (Tên)
+            filter: "td:nth-child(2)",
+            position: "right",
+            content: function (e) {
+                var dataItem = DOM.VenuesGrid.data("kendoGrid").dataItem(e.target.closest("tr"));
+                var content = null;
+                $.ajax({
+                    url: globalData.baseURL + "Venues/GetVenueDescription/" + dataItem.Id,
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    async: false,
+                    success: function (result) {
+                        content = result;
+                    },
+                    error: function (result) {
+                        content = result;
+                    }
+                });
+                return "<div style=\"width: " + content.length * .7 + "em; max-width: 14em;\">" + content + "</div>";
+            }
+        });
+    }
+
+    function AutoFitHeight() {
+        return document.documentElement.clientHeight -
+            (
+                document.querySelector(".main-header").clientHeight +
+                document.querySelector(".main-footer").clientHeight
+            );
     }
 
     function onDataBound(e) {
@@ -272,7 +316,7 @@
 
             $(this).find(".badgeTemplate").kendoBadge({
                 themeColor: themeColor,
-                text: text,
+                text: text
             });
         });
     }
@@ -284,6 +328,10 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
+                    console.log(featureUploadElement);
+                    document.getElementById('featureImageUpload').addEventListener("change", uploadFeatureImage);
+                    WardsDropDownList();
+                    AdministratorsDropDownList();
                     RemovePopup();
                 },
                 error: function (result) {
@@ -291,6 +339,82 @@
                 }
             });
         }));
+    }
+
+    function WardsDropDownList() {
+        $("#wardsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "API/LocationAPI/GetWards",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            Name: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "Name", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quận",
+            dataValueField: "Id",
+            dataTextField: "Name",
+            filter: "contains"
+        });
+    }
+
+    function AdministratorsDropDownList() {
+        $("#administratorsDropDownList").kendoDropDownList({
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: globalData.baseURL + "Accounts/GetAdministratorDTOs",
+                            type: "GET",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "JSON",
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false, nullable: false },
+                            FullName: { type: "string", editable: false }
+                        }
+                    }
+                },
+                sort: { field: "FullName", dir: "asc" },
+            },
+            height: 300,
+            optionLabel: "Chọn quản trị viên",
+            dataValueField: "Id",
+            dataTextField: "FullName",
+            filter: "contains"
+        });
     }
 
     function DeleteButton() {
@@ -303,7 +427,6 @@
                     ids: ids
                 },
                 success: function (result) {
-                    console.log(result);
                     DOM.VenuesGrid.data("kendoGrid").dataSource.read();
                     DOM.VenuesGrid.data("kendoGrid").refresh();
                 },
@@ -318,6 +441,51 @@
         $("#removePopup").on("click", (function () {
             DOM.Popup.innerHTML = "";
         }));
+    }
+
+    function UpdateVenue(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: globalData.baseURL + "Venues/UpdateVenuePopup/" + dataItem.Id,
+            type: "GET",
+            success: function (result) {
+                DOM.Popup.innerHTML = result;
+                WardsDropDownList();
+                AdministratorsDropDownList();
+                RemovePopup();
+            },
+            error: function (result) {
+                console.log(result);
+            }
+        });
+    }
+
+    const featureUploadElement = document.getElementById('featureImageUpload');
+    const featureImageUrlElement = document.getElementById('featureImageUrl');
+    const featureImageDisplayElement = document.getElementById('featureImageDisplay');
+
+    async function uploadFeatureImage(e) {
+        let data = new FormData();
+
+        console.log(e.target.files[0]);
+        console.log("debug");
+        
+        data.append('formFile', e.target.files[0]);
+        await fetch('/API/VenuesAPI/ImageUpload', {
+            method: 'POST',
+            headers: {
+                'Aceept': '*/*',
+            },
+            body: data
+        }).then(response => response.json())
+            .then(result => {
+                console.log(result.url);
+                console.log(result);
+                document.getElementById('featureImageUrl').value = result.url;
+                document.getElementById('featureImageDisplay').src = result.url;
+                document.getElementById('featureImageDisplay').style.display = 'block';
+            });
     }
 
     return {
