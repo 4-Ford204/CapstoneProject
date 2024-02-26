@@ -2,26 +2,26 @@
 2, Bình Thuận, 1
 3, Hải Châu 1, 1
 4, Hải Châu 2, 1
-5, Hoà Cường Bắc, 1
-6, Hoà Cường Nam, 1
-7, Hoà Thuận Đông, 1
-8, Hoà Thuận Tây, 1
+5, Hòa Cường Bắc, 1
+6, Hòa Cường Nam, 1
+7, Hòa Thuận Đông, 1
+8, Hòa Thuận Tây, 1
 9, Nam Dương, 1
 10, Phước Ninh, 1
 11, Thạch Thang, 1
 12, Thanh Bình, 1
 13, Thuận Phước, 1
-14, Hoà An, 2
-15, Hoà Phát, 2
-16, Hoà Thọ Đông, 2
-17, Hoà Thọ Tây, 2
-18, Hoà Xuân, 2
+14, Hòa An, 2
+15, Hòa Phát, 2
+16, Hòa Thọ Đông, 2
+17, Hòa Thọ Tây, 2
+18, Hòa Xuân, 2
 19, Khuê Trung, 2
-20, Hoà Hiệp Bắc, 3
-21, Hoà Hiệp Nam, 3
-22, Hoà Khánh Bắc, 3
-23, Hoà Khánh Nam, 3
-24, Hoà Minh, 3
+20, Hòa Hiệp Bắc, 3
+21, Hòa Hiệp Nam, 3
+22, Hòa Khánh Bắc, 3
+23, Hòa Khánh Nam, 3
+24, Hòa Minh, 3
 25, An Khê, 4
 26, Hòa Khê, 4
 27, Thanh Khê Đông, 4
@@ -39,7 +39,7 @@
 39, Nại Hiên Đông, 5
 40, Phước Mỹ, 5
 41, Thọ Quang, 5
-42, Hoà Hải, 6
-43, Hoà Quý, 6
+42, Hòa Hải, 6
+43, Hòa Quý, 6
 44, Khuê Mỹ, 6
 45, Mỹ An, 6

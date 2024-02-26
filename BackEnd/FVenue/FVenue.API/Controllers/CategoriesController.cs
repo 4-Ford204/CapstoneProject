@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FVenue.API.Controllers
 {
+    [AdministratorAuthentication]
     public class CategoriesController : Controller
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private ICategoryService _categoryService;
-        private ISubCategoryService _subCategoryService;
+        private readonly ICategoryService _categoryService;
+        private readonly ISubCategoryService _subCategoryService;
 
         public CategoriesController(
             DatabaseContext context,

@@ -10,9 +10,10 @@ namespace DTOs.Repositories.Services
 {
     public class EmailService : IEmailService
     {
+        private readonly string host;
         private readonly string server;
         private readonly int port;
-        private readonly string host;
+        private readonly string emailHost;
         private readonly string appPassword;
         private readonly string userHost;
         private readonly string routeRegisterConfirmationEmailSuccess;
@@ -20,9 +21,10 @@ namespace DTOs.Repositories.Services
 
         public EmailService(IConfiguration configuration)
         {
+            host = configuration["Host"];
             server = configuration["Email:Server"];
             port = Int32.Parse(configuration["Email:Port"]);
-            host = configuration["Email:Host"];
+            emailHost = configuration["Email:Host"];
             appPassword = configuration["Email:AppPassword"];
             userHost = configuration["UserSite:UserHost"];
             routeRegisterConfirmationEmailSuccess = configuration["UserSite:RouteRegisterConfirmationEmailSuccess"];
@@ -36,18 +38,19 @@ namespace DTOs.Repositories.Services
                 bool result = false;
                 using (MailMessage mailMessage = new MailMessage())
                 {
-                    mailMessage.From = new MailAddress(host);
+                    mailMessage.From = new MailAddress(emailHost);
                     mailMessage.To.Add(toEmail);
                     mailMessage.Subject = "Xác Nhận Gmail Đăng Nhập";
                     mailMessage.SubjectEncoding = Encoding.UTF8;
-                    mailMessage.Body = "<h1>Nhấn nút \"Đồng Ý\" bên dưới để xác nhận</h1>";
+                    string redirectURL = $"{host}/API/AccountsAPI/RegisterConfirmationHandler/{toEmail}";
+                    mailMessage.Body = Common.GetEmailConfirmation(redirectURL);
                     mailMessage.BodyEncoding = Encoding.UTF8;
                     mailMessage.IsBodyHtml = true;
 
                     using (SmtpClient smtpClient = new SmtpClient(server, port))
                     {
                         smtpClient.UseDefaultCredentials = false;
-                        smtpClient.Credentials = new NetworkCredential(host, appPassword);
+                        smtpClient.Credentials = new NetworkCredential(emailHost, appPassword);
                         smtpClient.EnableSsl = true;
                         smtpClient.SendCompleted += (sender, e) =>
                         {
