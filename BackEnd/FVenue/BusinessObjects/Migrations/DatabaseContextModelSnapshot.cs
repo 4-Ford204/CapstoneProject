@@ -86,21 +86,19 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 1,
                             BirthDay = new DateTime(2002, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            CreateDate = new DateTime(2024, 1, 24, 21, 23, 3, 608, DateTimeKind.Local).AddTicks(5986),
+                            CreateDate = new DateTime(2024, 2, 26, 18, 35, 38, 71, DateTimeKind.Local).AddTicks(7361),
                             Email = "huynhduy20042002@gmail.com",
                             FirstName = "Duy",
                             Gender = true,
-                            HashPassword = "B8E2C7CD6D3422EC05C05F52FE4F4525331F0786D2DFF8AE28284B1CB73E2C28F8409D6481529C82C8A20D4DEC7EE4BEA96C274209673C8FEEDC5088921AFDD8",
+                            HashPassword = "C7F8CDB9CDB219B92CDA0CDB4FAA2F4C5B9F86C99F26E4BB5EA62E04F765CE897FC4A91C0AFEF67837EC7206829E39696F1F3D44B1A8D80E8BD0AB56BBFCF5B1",
                             Image = "~/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Lê Tự Huỳnh",
-                            LastUpdateDate = new DateTime(2024, 1, 24, 21, 23, 3, 608, DateTimeKind.Local).AddTicks(5999),
+                            LastUpdateDate = new DateTime(2024, 2, 26, 18, 35, 38, 71, DateTimeKind.Local).AddTicks(7384),
                             LoginVia = 1,
-                            PhoneNumber = "0178382448",
+                            PhoneNumber = "0875871444",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 255, 7, 83, 158, 20, 101, 201, 185, 71, 244, 251, 0, 109, 246, 72, 201, 213, 36, 157, 100, 108, 2, 45, 68, 188, 193, 222, 53, 214, 159, 169, 158, 60, 45, 197, 252, 66, 189, 69, 247, 113, 24, 165, 225, 121, 158, 206, 155, 87, 120, 163, 115, 91, 130, 243, 212, 48, 15, 197, 185, 93, 250, 129, 85 },
-
+                            SaltPassword = new byte[] { 228, 142, 240, 230, 218, 220, 195, 2, 2, 240, 18, 123, 124, 150, 217, 21, 178, 229, 67, 98, 19, 246, 223, 238, 23, 53, 52, 176, 245, 11, 169, 161, 118, 111, 137, 227, 145, 59, 232, 115, 54, 9, 18, 218, 118, 37, 110, 65, 126, 36, 29, 25, 66, 69, 159, 191, 193, 138, 127, 238, 231, 34, 14, 254 },
                             Status = true
                         });
                 });
@@ -119,28 +117,6 @@ namespace BusinessObjects.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Địa điểm giải trí"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Ẩm thực"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Thức uống"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Giải trí về đêm"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.City", b =>
@@ -162,14 +138,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CountryId = 1,
-                            Name = "Đà Nẵng"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Country", b =>
@@ -186,13 +154,6 @@ namespace BusinessObjects.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Việt Nam"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.District", b =>
@@ -214,44 +175,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Districts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CityId = 1,
-                            Name = "Hải Châu"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CityId = 1,
-                            Name = "Cẩm Lệ"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CityId = 1,
-                            Name = "Liên Chiểu"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CityId = 1,
-                            Name = "Thanh Khê"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CityId = 1,
-                            Name = "Sơn Trà"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CityId = 1,
-                            Name = "Ngũ Hành Sơn"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
@@ -306,14 +229,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Name = "Địa điểm công cộng"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Venue", b =>
@@ -331,6 +246,9 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatureImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GeoLocation")
@@ -367,301 +285,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("WardId");
 
                     b.ToTable("Venues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Đỉnh Bàn Cờ",
-                            GeoLocation = "16.1203775657414,108.27607464602765",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
-                            LowerPrice = 0f,
-                            Name = "Đỉnh Bàn Cờ",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "",
-                            UpperPrice = 0f,
-                            WardId = 41
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Cầu Rồng",
-                            GeoLocation = "16.061233815354754,108.22749003748194",
-                            Image = "https://static.vinwonders.com/2022/04/cau-rong-da-nang-1-1.jpg",
-                            LowerPrice = 0f,
-                            Name = "Cầu Rồng",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Nguyễn Văn Linh",
-                            UpperPrice = 0f,
-                            WardId = 10
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Cầu Sông Hàn",
-                            GeoLocation = "16.072169332052994,108.22683626631773",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipPR0yFg71ydHaR3xXbbMApGnySOSmF5IBCXeWmc=w408-h306-k-no",
-                            LowerPrice = 0f,
-                            Name = "Cầu Sông Hàn",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Lê Duẩn",
-                            UpperPrice = 0f,
-                            WardId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Cầu Nguyễn Văn Trỗi",
-                            GeoLocation = "16.05112083078253,108.22907016535224",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
-                            LowerPrice = 0f,
-                            Name = "Cầu Nguyễn Văn Trỗi",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Nguyễn Văn Thoại",
-                            UpperPrice = 0f,
-                            WardId = 37
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Cầu Tình Yêu",
-                            GeoLocation = "16.1203775657414,108.27607464602765",
-                            Image = "https://ik.imagekit.io/tvlk/blog/2023/08/cau-tinh-yeu-da-nang-2.jpg?tr=dpr-2",
-                            LowerPrice = 0f,
-                            Name = "Cầu Tình Yêu",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Trần Hưng Đạo",
-                            UpperPrice = 0f,
-                            WardId = 37
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Chợ đêm Sơn Trà",
-                            GeoLocation = "16.06160809465977,108.23198549515325",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipOy3zJV9uGKBOAvqq7JfD47k-pJ3pJdX08AsFqt=w493-h240-k-no",
-                            LowerPrice = 0f,
-                            Name = "Chợ đêm Sơn Trà",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 18, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Mai Hắc Đế",
-                            UpperPrice = 0f,
-                            WardId = 37
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AccountId = 1,
-
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Tượng Cá Chép hóa Rồng",
-                            GeoLocation = "16.062920294590672,108.22982572398891",
-                            Image = "https://lh3.googleusercontent.com/p/AF1QipOsja5mY4FutBBksUpPGk7xtTfT2LONbebEZsIY=s1360-w1360-h1020",
-                            LowerPrice = 0f,
-                            Name = "Tượng Cá Chép hóa Rồng",
-
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Trần Hưng Đạo",
-                            UpperPrice = 0f,
-                            WardId = 37
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Biển Mỹ Khê",
-                            GeoLocation = "16.05658360521848,108.24744872398874",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipPgpkvaWeKD9pejm2Org-oEx-SWXLyGH_qSUneu=w426-h240-k-no",
-                            LowerPrice = 0f,
-                            Name = "Biển Mỹ Khê",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Võ Nguyên Giáp",
-                            UpperPrice = 0f,
-                            WardId = 42
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Công viên 29/3",
-                            GeoLocation = "16.1203775657414,108.27607464602765",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipNPIejeI79llYfMNFnAdGnaBKNCt6G4Fwo6Q2tM=w426-h240-k-no",
-                            LowerPrice = 0f,
-                            Name = "Công viên 29/3",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "23 Nguyễn Tri Phương",
-                            UpperPrice = 0f,
-                            WardId = 33
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Bãi tắm Phạm Văn Đồng",
-                            GeoLocation = "16.07338349250206,108.24686918822724",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipMeJRsg8S_9w2m3KaBuovV_87uF5IsM8eubr1vY=w408-h272-k-no",
-                            LowerPrice = 0f,
-                            Name = "Bãi tắm Phạm Văn Đồng",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Võ Nguyên Giáp",
-                            UpperPrice = 0f,
-                            WardId = 37
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Bãi đá Obama",
-                            GeoLocation = "16.09979446980971,108.30122137705182",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipNZY0gLKkyBp6SeM7KEMPadCos2lOCHNwWhAIvI=w408-h354-k-no",
-                            LowerPrice = 0f,
-                            Name = "Bãi đá Obama",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "",
-                            UpperPrice = 0f,
-                            WardId = 41
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Chân cầu Thuận Phước.",
-                            GeoLocation = "16.095265292762104,108.22045666551136",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipP4U2h2NuO5IC4xNdkPtRO0hTpg-kRLkUo1RuYY=w408-h271-k-no",
-                            LowerPrice = 0f,
-                            Name = "Chân cầu Thuận Phước.",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "Lê Đức Thọ",
-                            UpperPrice = 0f,
-                            WardId = 39
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 22, 30, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Chợ đêm Helio",
-                            GeoLocation = "16.037429266613337,108.22457798825782",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipOT5qP5cG4MJAC6pFlFwbNhpTJRFBKDZi16uD79=w408-h306-k-no",
-                            LowerPrice = 0f,
-                            Name = "Chợ đêm Helio",
-
-                            OpenTime = new DateTime(2024, 1, 24, 17, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "2 Tháng 9",
-                            UpperPrice = 0f,
-                            WardId = 5
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AccountId = 1,
-
-                            CloseTime = new DateTime(2024, 1, 24, 23, 59, 0, 0, DateTimeKind.Unspecified),
-
-                            Description = "Đây là mô tả về Rạn Nam Ô",
-                            GeoLocation = "16.117981036882956,108.13000619993463",
-                            Image = "https://lh5.googleusercontent.com/p/AF1QipPLWohOtxqRtG8sPz8yFNmPk7UA_QovxpBtwifr=w408-h305-k-no",
-                            LowerPrice = 0f,
-                            Name = "Rạn Nam Ô",
-
-                            OpenTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
-                            Status = true,
-                            Street = "",
-                            UpperPrice = 0f,
-                            WardId = 21
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.VenueSubCategory", b =>
@@ -677,78 +300,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("VenueSubCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            VenueId = 1,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 2,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 3,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 4,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 5,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 6,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 7,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 8,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 9,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 10,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 11,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 12,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 13,
-                            SubCategoryId = 1
-                        },
-                        new
-                        {
-                            VenueId = 14,
-                            SubCategoryId = 1
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Ward", b =>
@@ -770,278 +321,6 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("DistrictId");
 
                     b.ToTable("Wards");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DistrictId = 1,
-                            Name = "Bình Hiên"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DistrictId = 1,
-                            Name = "Bình Thuận"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DistrictId = 1,
-                            Name = "Hải Châu 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            DistrictId = 1,
-                            Name = "Hải Châu 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            DistrictId = 1,
-                            Name = "Hoà Cường Bắc"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            DistrictId = 1,
-                            Name = "Hoà Cường Nam"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            DistrictId = 1,
-                            Name = "Hoà Thuận Đông"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            DistrictId = 1,
-                            Name = "Hoà Thuận Tây"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            DistrictId = 1,
-                            Name = "Nam Dương"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            DistrictId = 1,
-                            Name = "Phước Ninh"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            DistrictId = 1,
-                            Name = "Thạch Thang"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            DistrictId = 1,
-                            Name = "Thanh Bình"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            DistrictId = 1,
-                            Name = "Thuận Phước"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            DistrictId = 2,
-                            Name = "Hoà An"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            DistrictId = 2,
-                            Name = "Hoà Phát"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            DistrictId = 2,
-                            Name = "Hoà Thọ Đông"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            DistrictId = 2,
-                            Name = "Hoà Thọ Tây"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            DistrictId = 2,
-                            Name = "Hoà Xuân"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            DistrictId = 2,
-                            Name = "Khuê Trung"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            DistrictId = 3,
-                            Name = "Hoà Hiệp Bắc"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            DistrictId = 3,
-                            Name = "Hoà Hiệp Nam"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            DistrictId = 3,
-                            Name = "Hoà Khánh Bắc"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            DistrictId = 3,
-                            Name = "Hoà Khánh Nam"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            DistrictId = 3,
-                            Name = "Hoà Minh"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            DistrictId = 4,
-                            Name = "An Khê"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            DistrictId = 4,
-                            Name = "Hòa Khê"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            DistrictId = 4,
-                            Name = "Thanh Khê Đông"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            DistrictId = 4,
-                            Name = "Thanh Khê Tây"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            DistrictId = 4,
-                            Name = "Xuân Hà"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            DistrictId = 4,
-                            Name = "Tam Thuận"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            DistrictId = 4,
-                            Name = "Tân Chính"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            DistrictId = 4,
-                            Name = "Chính Gián"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            DistrictId = 4,
-                            Name = "Thạc Gián"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            DistrictId = 4,
-                            Name = "Vĩnh Trung"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            DistrictId = 5,
-                            Name = "An Hải Bắc"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            DistrictId = 5,
-                            Name = "An Hải Đông"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            DistrictId = 5,
-                            Name = "An Hải Tây"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            DistrictId = 5,
-                            Name = "Mân Thái"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            DistrictId = 5,
-                            Name = "Nại Hiên Đông"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            DistrictId = 5,
-                            Name = "Phước Mỹ"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            DistrictId = 5,
-                            Name = "Thọ Quang"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            DistrictId = 6,
-                            Name = "Hoà Hải"
-                        },
-                        new
-                        {
-                            Id = 43,
-                            DistrictId = 6,
-                            Name = "Hoà Quý"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            DistrictId = 6,
-                            Name = "Khuê Mỹ"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            DistrictId = 6,
-                            Name = "Mỹ An"
-                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Account", b =>
