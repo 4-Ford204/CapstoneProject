@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using DTOs.Models.SubCategory;
+using DTOs.Models.SubCategoryRequest;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,12 @@ namespace FVenue.API.Controllers
             })
                 .ToList();
             return result;
+        }
+
+        [HttpPost, Route("SubCategories/UpdateSubCategoryRequestStatus")]
+        public List<SubCategoryRequestDTO> UpdateSubCategoryRequestStatus([FromBody] int[] ids, string status)
+        {
+            return new List<SubCategoryRequestDTO>();
         }
 
         #endregion
