@@ -6,5 +6,6 @@ namespace DTOs.Repositories.Interfaces
     {
         List<Category> GetCategories();
         int GetVenueNumber(int id);
+        string GetCategoryName(int id);
     }
 }

@@ -3,6 +3,7 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Models.Category;
+using DTOs.Models.SubCategoryRequest;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 
@@ -10,7 +11,7 @@ namespace FVenue.API
 {
     public class ProgramMapper : Profile
     {
-        public ProgramMapper(IAccountService accountService, ILocationService locationService)
+        public ProgramMapper(IAccountService accountService, ICategoryService categoryService, ILocationService locationService)
         {
             #region Account
 
@@ -34,6 +35,15 @@ namespace FVenue.API
             #region Category
 
             CreateMap<Category, CategoryDTO>();
+
+            #endregion
+
+            #region SubCategoryRequest
+
+            CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
+                .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
+                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)));
 
             #endregion
 

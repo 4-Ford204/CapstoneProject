@@ -28,5 +28,14 @@ namespace DTOs.Repositories.Services
                 return venueNumber;
             }
         }
+
+        public string GetCategoryName(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+                return category.Name;
+            }
+        }
     }
 }

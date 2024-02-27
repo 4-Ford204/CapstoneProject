@@ -31,5 +31,12 @@
             VenueManager = 2,
             User = 3
         }
+
+        public enum SubCategoryRequestStatus
+        {
+            Pending = 1,
+            Approved = 2,
+            Rejected = 3
+        }
     }
 }
