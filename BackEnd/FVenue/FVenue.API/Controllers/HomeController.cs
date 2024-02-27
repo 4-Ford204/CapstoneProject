@@ -1,6 +1,10 @@
-﻿using BusinessObjects;
+﻿using AutoMapper;
+using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Models.Account;
+using DTOs.Models.SubCategoryRequest;
 using DTOs.Repositories.Interfaces;
+using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FVenue.API.Controllers
@@ -8,12 +12,20 @@ namespace FVenue.API.Controllers
     public class HomeController : Controller
     {
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
+        private readonly ISubCategoryService _subCategoryService;
 
-        public HomeController(DatabaseContext context, IAccountService accountService)
+        public HomeController(
+            DatabaseContext context,
+            IMapper mapper,
+            IAccountService accountService,
+            ISubCategoryService subCategoryService)
         {
             _context = context;
+            _mapper = mapper;
             _accountService = accountService;
+            _subCategoryService = subCategoryService;
         }
 
         public IActionResult AuthenticationMiddleware()
@@ -37,6 +49,18 @@ namespace FVenue.API.Controllers
             // Người Đăng Kí Trong 7 Ngày
             var newRegistrantInSevenDays = _context.Accounts.Where(x => x.CreateDate.AddDays(7) >= DateTime.Now).Count();
             ViewBag.NewRegistrantInSevenDays = newRegistrantInSevenDays;
+            // Yêu Cầu Về Phân Loại Phụ
+            var x = _subCategoryService.GetPendingSubCategoryRequests();
+            var paginationModel = new PaginationModel<SubCategoryRequestDTO>(_mapper.Map<List<SubCategoryRequest>, List<SubCategoryRequestDTO>>(_subCategoryService.GetPendingSubCategoryRequests()), 1, 5);
+            ViewBag.SubCategoryRequestPaginationModel = new SubCategoryRequestPaginationModel()
+            {
+                FirstPage = Common.GetFirstPageInPagination(),
+                PageIndex = paginationModel.PageIndex,
+                PageSize = paginationModel.PageSize,
+                TotalPages = paginationModel.TotalPages,
+                PaginationPage = paginationModel.TotalPages < 4 ? paginationModel.TotalPages : 4,
+                SubCategoryRequestDTOs = paginationModel.Result
+            };
             return View();
         }
 
