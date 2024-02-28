@@ -6,6 +6,23 @@ namespace DTOs.Repositories.Services
 {
     public class SubCategoryService : ISubCategoryService
     {
+        public List<SubCategory> GetSubCategories()
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var subcategories = _context.SubCategories.ToList();
+                return subcategories;
+            }
+        }
+
+        public SubCategory GetSubCategory(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var subcategory = _context.SubCategories.Find(id);
+                return subcategory;
+            }
+        }
         public int GetSubCategoryNumber(int id)
         {
             using (var _context = new DatabaseContext())
