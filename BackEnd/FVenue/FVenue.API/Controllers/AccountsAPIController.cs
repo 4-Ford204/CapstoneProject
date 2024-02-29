@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
@@ -190,6 +191,30 @@ namespace FVenue.API.Controllers
                     Token = _tokenService.GetTokenAPI(account)
                 }
             };
+        }
+
+        [HttpGet("GetAccounts/{id}")]
+        public ActionResult<JsonModel> GetAccountDTO([FromRoute] int id)
+        {
+            try
+            {
+                var account = _accountService.GetAccount(id);
+                var accountDTO = _mapper.Map<Account, AccountDTO>(account);
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"{account.FullName}",
+                    Data = accountDTO
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
         }
     }
 }

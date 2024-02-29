@@ -35,6 +35,15 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public Account GetAccount(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var account = _context.Accounts.FirstOrDefault(x => x.Id == id);
+                return account;
+            }
+        }
+
         public List<Account> GetAdministrators()
         {
             using (var _context = new DatabaseContext())
