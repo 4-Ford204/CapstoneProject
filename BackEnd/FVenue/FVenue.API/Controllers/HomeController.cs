@@ -42,25 +42,12 @@ namespace FVenue.API.Controllers
 
         public IActionResult LoginPage() => View();
 
-
         [AdministratorAuthentication]
         public IActionResult Index()
         {
             // Người Đăng Kí Trong 7 Ngày
             var newRegistrantInSevenDays = _context.Accounts.Where(x => x.CreateDate.AddDays(7) >= DateTime.Now).Count();
             ViewBag.NewRegistrantInSevenDays = newRegistrantInSevenDays;
-            // Yêu Cầu Về Phân Loại Phụ
-            var x = _subCategoryService.GetPendingSubCategoryRequests();
-            var paginationModel = new PaginationModel<SubCategoryRequestDTO>(_mapper.Map<List<SubCategoryRequest>, List<SubCategoryRequestDTO>>(_subCategoryService.GetPendingSubCategoryRequests()), 1, 5);
-            ViewBag.SubCategoryRequestPaginationModel = new SubCategoryRequestPaginationModel()
-            {
-                FirstPage = Common.GetFirstPageInPagination(),
-                PageIndex = paginationModel.PageIndex,
-                PageSize = paginationModel.PageSize,
-                TotalPages = paginationModel.TotalPages,
-                PaginationPage = paginationModel.TotalPages < 4 ? paginationModel.TotalPages : 4,
-                SubCategoryRequestDTOs = paginationModel.Result
-            };
             return View();
         }
 

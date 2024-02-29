@@ -69,57 +69,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <section class="col-lg-7 connectedSortable ui-sortable">
-                <!-- Yêu Cầu Về Phân Loại Phụ -->
-                <div class="card">
-                    @{
-                        SubCategoryRequestPaginationModel subCategoryRequestPaginationModel = ViewBag.SubCategoryRequestPaginationModel;
-                    }
-                    <!-- Card Header -->
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <i class="ion ion-clipboard mr-1"></i> Yêu Cầu Về Phân Loại Phụ
-                        </h3>
-                        <!-- Phân Trang -->
-                        <div class="card-tools">
-                            <ul class="pagination pagination-sm">
-                                <li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
-                                @for (int i = subCategoryRequestPaginationModel.FirstPage; i < subCategoryRequestPaginationModel.PaginationPage + subCategoryRequestPaginationModel.FirstPage; i++)
-                                {
-                                    <li class="page-item"><a href="#" class="page-link">@i</a></li>
-                                }
-                                <li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Card Header -->
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <ul class="todo-list" data-widget="todo-list">
-                            @foreach (var subCategoryRequest in subCategoryRequestPaginationModel.SubCategoryRequestDTOs)
-                            {
-                                <li>
-                                    <!-- Checkbox -->
-                                    <div class="icheck-primary d-inline ml-2">
-                                        <input id="@("subCategoryRequest" + @subCategoryRequest.Id)" type="checkbox" value="@subCategoryRequest.Id">
-                                        <label for="@("subCategoryRequest" + @subCategoryRequest.Id)"></label>
-                                    </div>
-                                    <!-- Request -->
-                                    <span class="text">@subCategoryRequest.RequestUserName đã yêu cầu thêm <u>@subCategoryRequest.Name</u> vào @subCategoryRequest.CategoryName</span>
-                                    <!-- Emphasis Label -->
-                                    <small class="badge @subCategoryRequest.Badge.Key"><i class="far fa-clock"></i> @subCategoryRequest.Badge.Value</small>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                    <!-- End Cart Body -->
-                    <div class="card-footer clearfix">
-                        <button id="subCategoryRequestRejected" type="button" class="btn btn-danger float-right" style="margin-left: 5px;"><i class="fa-solid fa-ban"></i> Từ Chối</button>
-                        <button id="subCategoryRequestApproved" type="button" class="btn btn-primary float-right"><i class="fa-solid fa-plus"></i> Xác Nhận</button>
-                    </div>
-                </div>
-            </section>
-        </div>
+        <div id="subCategoryRequestTable" class="row"></div>
     </div>
 </section>

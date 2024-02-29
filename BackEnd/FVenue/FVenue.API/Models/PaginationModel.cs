@@ -9,10 +9,11 @@
 
         public PaginationModel(List<T> items, int pageIndex, int pageSize)
         {
-            PageIndex = pageIndex;
+            var totalPages = (int)Math.Ceiling(items.Count / (double)pageSize);
+            PageIndex = pageIndex <= 0 ? 1 : pageIndex > totalPages ? totalPages : pageIndex;
             PageSize = pageSize;
-            TotalPages = (int)Math.Ceiling(items.Count / (double)pageSize);
-            Result = items.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            TotalPages = totalPages;
+            Result = items.Skip((PageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
     }
 }

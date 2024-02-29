@@ -86,7 +86,7 @@ namespace DTOs.Repositories.Services
                     Id = 5,
                     Name = "Đồ Bim nấu",
                     RequestUserId = 1,
-                    CategoryId = 1,
+                    CategoryId = 2,
                     AdministratorId = 1,
                     CreateDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
                     LastUpdateDate = DateTime.Now,
@@ -94,10 +94,10 @@ namespace DTOs.Repositories.Services
                 },
                 new SubCategoryRequest()
                 {
-                    Id = 5,
+                    Id = 6,
                     Name = "Đồ Bim làm",
                     RequestUserId = 1,
-                    CategoryId = 1,
+                    CategoryId = 4,
                     AdministratorId = 1,
                     CreateDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
                     LastUpdateDate = DateTime.Now,

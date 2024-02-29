@@ -1,23 +1,68 @@
 ﻿var homeManagement = (function () {
 
     var DOM = {
-        SubCategoryRequestApprovedButton: $("#subCategoryRequestApproved"),
-        SubCategoryRequestRejectedButton: $("#subCategoryRequestRejected"),
+        SubCategoryRequestTable: document.getElementById("subCategoryRequestTable")
     }
 
     var globalData = {
         baseURL: "../"
     }
 
-    function bindEvents() {
+    function bindEvents() { }
+
+    function bindControls() { }
+
+    function initSubCategoryRequestTable() {
+        $.ajax({
+            url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/1",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                DOM.SubCategoryRequestTable.innerHTML = result;
+                SubCategoryRequestTableEvent();
+            },
+            error: function (result) {
+                console.log(result);
+            }
+        });
+    }
+
+    function SubCategoryRequestTableEvent() {
+        PaginationButtons();
         SubCategoryRequestApprovedButton();
         SubCategoryRequestRejectedButton();
     }
 
-    function bindControls() { }
+    function PaginationButtons() {
+        $(".page-link").on("click", (function () {
+            var page = $(this).attr("value");
+            switch (page) {
+                case "-1":
+                    page = Number($("#subCategoryRequestPageIndex").attr("value")) - 1;
+                    break;
+                case "0":
+                    page = Number($("#subCategoryRequestPageIndex").attr("value")) + 1;
+                    break;
+                default:
+                    break;
+            };
+            $.ajax({
+                url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/" + page,
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    DOM.SubCategoryRequestTable.innerHTML = result;
+                    SubCategoryRequestTableEvent();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }));
+    }
 
     function SubCategoryRequestApprovedButton() {
-        DOM.SubCategoryRequestApprovedButton.on("click", (function () {
+        $("#subCategoryRequestApproved").on("click", (function () {
             var ids = [];
             $("input[id^=\"subCategoryRequest\"]").each(function (index, element) {
                 if (element.checked) ids.push(element.value);
@@ -42,13 +87,14 @@
     }
 
     function SubCategoryRequestRejectedButton() {
-        DOM.SubCategoryRequestRejectedButton.on("click", (function () {
+        $("#subCategoryRequestRejected").on("click", (function () {
 
         }));
     }
 
     return {
         init: function () {
+            initSubCategoryRequestTable();
             bindEvents();
             bindControls();
         }
