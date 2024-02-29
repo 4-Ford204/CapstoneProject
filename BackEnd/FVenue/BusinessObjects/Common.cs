@@ -5,10 +5,8 @@ namespace BusinessObjects
 {
     public static class Common
     {
-        public static int GetFirstPageInPagination()
-        {
-            return 1;
-        }
+        public static int GetFirstPageInPagination(int indexPage, int paginationPage, int totalPages)
+            => totalPages <= paginationPage ? 1 : indexPage + paginationPage <= totalPages ? indexPage : totalPages - paginationPage + 1;
 
         #region Account
 
