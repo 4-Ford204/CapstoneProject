@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects.Models;
 using BusinessObjects;
-using DTOs.Models.Category;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;

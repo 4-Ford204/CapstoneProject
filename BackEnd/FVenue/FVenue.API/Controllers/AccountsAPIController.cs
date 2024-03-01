@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BusinessObjects;
-using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
@@ -49,10 +48,11 @@ namespace FVenue.API.Controllers
                     RoleName = Common.GetRoleName(x.RoleId),
                     FirstName = x.FirstName,
                     LastName = x.LastName,
+                    FullName = x.FullName,
                     Gender = x.Gender,
                     BirthDay = Common.FormatDateTime(x.BirthDay),
                     LoginMethod = x.LoginMethod,
-                    IsEmailConfirmed = x.IsEmailConfirmed,
+                    IsEmailConfirmed = x.IsEmailConfirmed
                 })
                     .ToList();
                 return new JsonModel
@@ -60,6 +60,51 @@ namespace FVenue.API.Controllers
                     Code = EnumModel.ResultCode.OK,
                     Message = $"{accounts.Count} accounts",
                     Data = accountDTOs
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
+        }
+
+        [HttpGet("GetAccountDTO/{id}")]
+        public ActionResult<JsonModel> GetAccountDTO([FromRoute] int id)
+        {
+            try
+            {
+                var account = _accountService.GetAccount(id);
+                /// <summary>
+                /// Lỗi "Object reference not set to an instance of an object"
+                /// </summary>
+                // var accountDTO = _mapper.Map<Account, AccountDTO>(account);
+                var accountDTO = new AccountDTO()
+                {
+                    Id = account.Id,
+                    Email = account.Email,
+                    Image = account.Image,
+                    PhoneNumber = account.PhoneNumber,
+                    CreateDate = Common.FormatDateTime(account.CreateDate),
+                    LastUpdateDate = Common.FormatDateTime(account.LastUpdateDate),
+                    Status = account.Status,
+                    RoleName = Common.GetRoleName(account.RoleId),
+                    FirstName = account.FirstName,
+                    LastName = account.LastName,
+                    FullName = account.FullName,
+                    Gender = account.Gender,
+                    BirthDay = Common.FormatDateTime(account.BirthDay),
+                    LoginMethod = account.LoginMethod,
+                    IsEmailConfirmed = account.IsEmailConfirmed
+                };
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"{account.FullName}'s Account",
+                    Data = accountDTO
                 };
             }
             catch (Exception ex)
@@ -191,30 +236,6 @@ namespace FVenue.API.Controllers
                     Token = _tokenService.GetTokenAPI(account)
                 }
             };
-        }
-
-        [HttpGet("GetAccounts/{id}")]
-        public ActionResult<JsonModel> GetAccountDTO([FromRoute] int id)
-        {
-            try
-            {
-                var account = _accountService.GetAccount(id);
-                var accountDTO = _mapper.Map<Account, AccountDTO>(account);
-                return new JsonModel
-                {
-                    Code = EnumModel.ResultCode.OK,
-                    Message = $"{account.FullName}",
-                    Data = accountDTO
-                };
-            }
-            catch (Exception ex)
-            {
-                return new JsonModel
-                {
-                    Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"{ex.Message}"
-                };
-            }
         }
     }
 }
