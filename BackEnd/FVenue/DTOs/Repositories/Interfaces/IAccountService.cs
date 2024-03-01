@@ -7,6 +7,7 @@ namespace DTOs.Repositories.Interfaces
     {
         Account Login(AccountLoginDTO accountLoginDTO, out string error);
         List<Account> GetAccounts();
+        Account GetAccount(int id);
         public List<Account> GetAdministrators();
         string GetAccountName(int id);
         KeyValuePair<bool, string> Registration(AccountInsertDTO accountInsertDTO);
