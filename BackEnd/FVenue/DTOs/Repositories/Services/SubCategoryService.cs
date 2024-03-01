@@ -23,6 +23,7 @@ namespace DTOs.Repositories.Services
                 return subcategory;
             }
         }
+        
         public int GetSubCategoryNumber(int id)
         {
             using (var _context = new DatabaseContext())

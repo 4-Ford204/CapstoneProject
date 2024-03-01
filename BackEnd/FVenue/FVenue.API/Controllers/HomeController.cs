@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
-using BusinessObjects.Models;
 using DTOs.Models.Account;
-using DTOs.Models.SubCategoryRequest;
 using DTOs.Repositories.Interfaces;
-using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FVenue.API.Controllers
