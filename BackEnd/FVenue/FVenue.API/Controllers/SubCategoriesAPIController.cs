@@ -1,40 +1,39 @@
 ﻿using AutoMapper;
-using BusinessObjects;
 using BusinessObjects.Models;
+using BusinessObjects;
 using DTOs.Models.Category;
-using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
-using DTOs.Repositories.Services;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using DTOs.Models.SubCategory;
 
 namespace FVenue.API.Controllers
 {
     [Route("API/[controller]")]
     [ApiController]
-    public class CategoriesAPIController : ControllerBase
+    public class SubCategoriesAPIController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ICategoryService _categoryService;
+        private readonly ISubCategoryService _subcategoryService;
 
-        public CategoriesAPIController(ICategoryService categoryService, IMapper mapper)
+        public SubCategoriesAPIController(ISubCategoryService subcategoryService, IMapper mapper)
         {
-            _categoryService = categoryService;
+            _subcategoryService = subcategoryService;
             _mapper = mapper;
         }
 
-        [HttpGet, Route("GetCategoryDTOs")]
-        public ActionResult<JsonModel> GetCategoryDTOs()
+        [HttpGet, Route("GetSubCategoryDTOs")]
+        public ActionResult<JsonModel> GetSubCategoryDTOs()
         {
             try
             {
-                var category = _categoryService.GetCategories();
-                var categoryDTOs = _mapper.Map<List<Category>, List<CategoryDTO>>(category);
+                var subcategory = _subcategoryService.GetSubCategories();
+                var subcategoryDTOs = _mapper.Map<List<SubCategory>, List<SubCategoryDTO>>(subcategory);
                 return new JsonModel
                 {
                     Code = EnumModel.ResultCode.OK,
-                    Message = $"{category.Count} categories",
-                    Data = categoryDTOs
+                    Message = $"{subcategory.Count} subcategories",
+                    Data = subcategoryDTOs
                 };
             }
             catch (Exception ex)
@@ -47,18 +46,18 @@ namespace FVenue.API.Controllers
             }
         }
 
-        [HttpGet, Route("GetCategoryDTO/{id}")]
-        public ActionResult<JsonModel> GetCategoryDTO(int id)
+        [HttpGet, Route("GetSubCategoryDTO/{id}")]
+        public ActionResult<JsonModel> GetSubCategoryDTO(int id)
         {
             try
             {
-                var category = _categoryService.GetCategory(id);
-                var categoryDTO = _mapper.Map<Category, CategoryDTO>(category);
+                var subcategory = _subcategoryService.GetSubCategory(id);
+                var subcategoryDTO = _mapper.Map<SubCategory, SubCategoryDTO>(subcategory);
                 return new JsonModel
                 {
                     Code = EnumModel.ResultCode.OK,
-                    Message = $"Category {categoryDTO.Name}",
-                    Data = categoryDTO
+                    Message = $"SubCategory {subcategoryDTO.Name}",
+                    Data = subcategoryDTO
                 };
             }
             catch (Exception ex)
@@ -72,3 +71,4 @@ namespace FVenue.API.Controllers
         }
     }
 }
+

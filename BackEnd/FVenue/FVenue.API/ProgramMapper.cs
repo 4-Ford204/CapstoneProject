@@ -3,6 +3,7 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Models.Category;
+using DTOs.Models.SubCategory;
 using DTOs.Models.SubCategoryRequest;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
@@ -35,6 +36,12 @@ namespace FVenue.API
             #region Category
 
             CreateMap<Category, CategoryDTO>();
+
+            #endregion
+
+            #region SubCategory
+
+            CreateMap<SubCategory, SubCategoryDTO>();
 
             #endregion
 
