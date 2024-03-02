@@ -23,7 +23,7 @@ namespace DTOs.Repositories.Services
                 return subcategory;
             }
         }
-        
+
         public int GetSubCategoryNumber(int id)
         {
             using (var _context = new DatabaseContext())
@@ -48,79 +48,13 @@ namespace DTOs.Repositories.Services
         /// <returns></returns>
         public List<SubCategoryRequest> GetPendingSubCategoryRequests()
         {
-            //using (var _context = new DatabaseContext())
-            //{
-            //    var subCategoryRequests = _context.SubCategoryRequests.OrderBy().Where(x => x.Status == ).ToList();
-            //    return subCategoryRequests;
-            //};
-            return new List<SubCategoryRequest>()
+            using (var _context = new DatabaseContext())
             {
-                new SubCategoryRequest()
-                {
-                    Id = 1,
-                    Name = "Quán điện tử",
-                    RequestUserId = 1,
-                    CategoryId = 1,
-                    AdministratorId = 0,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromDays(2)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                },
-                new SubCategoryRequest()
-                {
-                    Id = 2,
-                    Name = "Lounge",
-                    RequestUserId = 4,
-                    CategoryId = 4,
-                    AdministratorId = 0,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromDays(7)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                },
-                new SubCategoryRequest()
-                {
-                    Id = 3,
-                    Name = "Sushi",
-                    RequestUserId = 1,
-                    CategoryId = 2,
-                    AdministratorId = 1,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromHours(5)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                },
-                new SubCategoryRequest()
-                {
-                    Id = 4,
-                    Name = "Nước dừa",
-                    RequestUserId = 1,
-                    CategoryId = 3,
-                    AdministratorId = 1,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromDays(4)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                },
-                new SubCategoryRequest()
-                {
-                    Id = 5,
-                    Name = "Đồ Bim nấu",
-                    RequestUserId = 1,
-                    CategoryId = 2,
-                    AdministratorId = 1,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                },
-                new SubCategoryRequest()
-                {
-                    Id = 6,
-                    Name = "Đồ Bim làm",
-                    RequestUserId = 1,
-                    CategoryId = 4,
-                    AdministratorId = 1,
-                    CreateDate = DateTime.Now.Subtract(TimeSpan.FromHours(2)),
-                    LastUpdateDate = DateTime.Now,
-                    Status = 1
-                }
+                var subCategoryRequests = _context.SubCategoryRequests
+                    .OrderBy(x => x.CreateDate)
+                    .Where(x => x.AdministratorId == 0 && x.Status == (int)EnumModel.SubCategoryRequestStatus.Pending)
+                    .ToList();
+                return subCategoryRequests;
             };
         }
     }

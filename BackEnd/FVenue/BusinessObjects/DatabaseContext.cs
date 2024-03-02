@@ -17,6 +17,7 @@ namespace BusinessObjects
         public DbSet<Ward> Wards { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<SubCategoryRequest> SubCategoryRequests { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<VenueSubCategory> VenueSubCategories { get; set; }
 
@@ -48,6 +49,7 @@ namespace BusinessObjects
             modelBuilder.Entity<Ward>().HasData(GetWards());
             modelBuilder.Entity<Category>().HasData(GetCategories());
             modelBuilder.Entity<SubCategory>().HasData(GetSubCategories());
+            modelBuilder.Entity<SubCategoryRequest>().HasData(GetSubCategoryRequests());
             modelBuilder.Entity<Venue>().HasData(GetVenues(ref defaultAccountNumber, out int defaultVenueNumber));
             modelBuilder.Entity<VenueSubCategory>().HasData(GetVenueSubCategories(ref defaultVenueNumber));
         }
@@ -375,6 +377,40 @@ namespace BusinessObjects
             catch
             {
                 return new List<SubCategory>();
+            }
+        }
+        private List<SubCategoryRequest> GetSubCategoryRequests()
+        {
+            try
+            {
+                using (FileStream fileStream = new FileStream("Data/SubCategoryRequest.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        List<SubCategoryRequest> subCategoryRequests = new List<SubCategoryRequest>();
+                        string subCategoryRequest;
+                        while ((subCategoryRequest = streamReader.ReadLine()) != null)
+                        {
+                            string[] subCategoryRequestField = subCategoryRequest.Split(',');
+                            subCategoryRequests.Add(new SubCategoryRequest
+                            {
+                                Id = int.Parse(subCategoryRequestField[0].Trim()),
+                                Name = subCategoryRequestField[1].Trim(),
+                                RequestUserId = int.Parse(subCategoryRequestField[2].Trim()),
+                                CategoryId = int.Parse(subCategoryRequestField[3].Trim()),
+                                AdministratorId = int.Parse(subCategoryRequestField[4].Trim()),
+                                CreateDate = DateTime.Now.Subtract(TimeSpan.FromMinutes(int.Parse(subCategoryRequestField[5].Trim()))),
+                                LastUpdateDate = DateTime.Now.Subtract(TimeSpan.FromMinutes(int.Parse(subCategoryRequestField[5].Trim()))),
+                                Status = int.Parse(subCategoryRequestField[6].Trim())
+                            });
+                        };
+                        return subCategoryRequests;
+                    };
+                };
+            }
+            catch
+            {
+                return new List<SubCategoryRequest>();
             }
         }
         private List<Venue> GetVenues(ref int defaultAccountNumber, out int defaultVenueNumber)
