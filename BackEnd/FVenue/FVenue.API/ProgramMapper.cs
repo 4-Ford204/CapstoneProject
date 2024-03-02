@@ -3,6 +3,8 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Models.Category;
+using DTOs.Models.SubCategory;
+using DTOs.Models.SubCategoryRequest;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 
@@ -10,7 +12,7 @@ namespace FVenue.API
 {
     public class ProgramMapper : Profile
     {
-        public ProgramMapper(IAccountService accountService, ILocationService locationService)
+        public ProgramMapper(IAccountService accountService, ICategoryService categoryService, ILocationService locationService)
         {
             #region Account
 
@@ -21,9 +23,11 @@ namespace FVenue.API
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(src => Common.FormatDateTime(src.CreateDate)))
                 .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => Common.FormatDateTime(src.LastUpdateDate)))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
                 .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => Common.GetRoleName(src.RoleId)))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.FullName))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => Common.FormatDateTime(src.BirthDay)))
                 .ForMember(dest => dest.LoginMethod, opt => opt.MapFrom(src => src.LoginMethod))
@@ -34,6 +38,21 @@ namespace FVenue.API
             #region Category
 
             CreateMap<Category, CategoryDTO>();
+
+            #endregion
+
+            #region SubCategory
+
+            CreateMap<SubCategory, SubCategoryDTO>();
+
+            #endregion
+
+            #region SubCategoryRequest
+
+            CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
+                .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
+                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)));
 
             #endregion
 

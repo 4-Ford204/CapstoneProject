@@ -15,6 +15,15 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public Category GetCategory(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var category = _context.Categories.Find(id);
+                return category;
+            }
+        }
+
         public int GetVenueNumber(int id)
         {
             using (var _context = new DatabaseContext())
@@ -26,6 +35,15 @@ namespace DTOs.Repositories.Services
                     (subCategory, venueSubCategory) => venueSubCategory.VenueId)
                     .Count();
                 return venueNumber;
+            }
+        }
+
+        public string GetCategoryName(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+                return category.Name;
             }
         }
     }

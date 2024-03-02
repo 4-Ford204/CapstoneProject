@@ -5,6 +5,9 @@ namespace BusinessObjects
 {
     public static class Common
     {
+        public static int GetFirstPageInPagination(int indexPage, int paginationPage, int totalPages)
+            => totalPages <= paginationPage ? 1 : indexPage + paginationPage <= totalPages ? indexPage : totalPages - paginationPage + 1;
+
         #region Account
 
         public static string HashPassword(string password, out byte[] salt, int keySize = 64, int iterations = 350000)
@@ -145,9 +148,7 @@ namespace BusinessObjects
         public static string FormatDateTime(DateTime dateTime)
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
         public static string FormatDateTime(DateTime? dateTime)
-        {
-            return dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
-        }
+            => dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
 
         #endregion
 
@@ -159,6 +160,35 @@ namespace BusinessObjects
                 if ((int)role == id)
                     return role.ToString() ?? "";
             return String.Empty;
+        }
+
+        #endregion
+
+        #region SubCategoryRequest
+
+        public static KeyValuePair<string, string> SetBadgeBaseOnCreateDate(DateTime createDate)
+        {
+            var minute = 60;
+            var hour = 3600;
+            var day = 86400;
+            var week = 604800;
+            // badge-info: light gray
+            // badge-primary: blue
+            // badge-success: green
+            // badge-warning: yellow
+            // badge-danger: red
+            // badge-secondary: gray
+            double result = (DateTime.Now - createDate).TotalSeconds;
+            if (result < day)
+                return new KeyValuePair<string, string>(
+                    "badge-primary",
+                    result < minute ? $"{(int)result} giây" : result < hour ? $"{(int)result / minute} phút" : $"{(int)result / hour} giờ");
+            else if (result < 4 * day)
+                return new KeyValuePair<string, string>("badge-success", $"{(int)result / day} ngày");
+            else if (result < week)
+                return new KeyValuePair<string, string>("badge-warning", $"{(int)result / day} ngày");
+            else
+                return new KeyValuePair<string, string>("badge-danger", $"{(int)result / 604800} tuần");
         }
 
         #endregion
