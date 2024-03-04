@@ -44,6 +44,16 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public Account GetAdministratorAccount(string name)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var account = _context.Accounts
+                    .FirstOrDefault(x => x.RoleId == (int)EnumModel.Role.Administrator && x.FullName == name);
+                return account;
+            }
+        }
+
         public List<Account> GetAdministrators()
         {
             using (var _context = new DatabaseContext())
