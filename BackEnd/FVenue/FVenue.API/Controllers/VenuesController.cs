@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
+using DTOs;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +15,24 @@ namespace FVenue.API.Controllers
         private readonly IMapper _mapper;
         private readonly IWardService _wardService;
         private readonly IAccountService _accountService;
+        private readonly IVenueService _venueService;
+        private readonly IImageService _imageService;
+        
 
         public VenuesController(
             DatabaseContext context,
             IMapper mapper,
             IWardService wardService,
-            IAccountService accountService)
+            IAccountService accountService,
+            IVenueService venueService,
+            IImageService imageService)
         {
             _context = context;
             _mapper = mapper;
             _wardService = wardService;
             _accountService = accountService;
+            _venueService = venueService;
+            _imageService = imageService;
         }
 
         #region View

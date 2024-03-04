@@ -22,11 +22,7 @@ namespace BusinessObjects.Models
         public int AccountId { get; set; }
         public Account Account { get; set; }
         public string FeatureImageUrl { get; set; }
-<<<<<<< Updated upstream
-        
 
-=======
->>>>>>> Stashed changes
         public virtual ICollection<VenueSubCategory> VenueSubCategories { get; set; }
     }
 }

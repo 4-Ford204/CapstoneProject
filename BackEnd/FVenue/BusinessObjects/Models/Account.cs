@@ -23,6 +23,6 @@ namespace BusinessObjects.Models
         public DateTime? BirthDay { get; set; }
         public int LoginMethod { get; set; }
         public bool IsEmailConfirmed { get; set; }
-        public string FullName { get => $"{FirstName} {LastName}"; }
+       
     }
 }

@@ -86,34 +86,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 1,
                             BirthDay = new DateTime(2002, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                            CreateDate = new DateTime(2024, 2, 26, 18, 35, 38, 71, DateTimeKind.Local).AddTicks(7361),
-=======
+
                             CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9336),
->>>>>>> Stashed changes
+
                             Email = "huynhduy20042002@gmail.com",
                             FirstName = "Duy",
                             Gender = true,
-<<<<<<< Updated upstream
-=======
-                            CreateDate = new DateTime(2024, 2, 26, 18, 35, 38, 71, DateTimeKind.Local).AddTicks(7361),
-                            Email = "huynhduy20042002@gmail.com",
-                            FirstName = "Duy",
-                            Gender = true,
->>>>>>> 5fd6c8a91fe57740ee3d4aba6c73f1ab207abc77
-                            HashPassword = "C7F8CDB9CDB219B92CDA0CDB4FAA2F4C5B9F86C99F26E4BB5EA62E04F765CE897FC4A91C0AFEF67837EC7206829E39696F1F3D44B1A8D80E8BD0AB56BBFCF5B1",
-                            Image = "~/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = false,
-                            LastName = "Lê Tự Huỳnh",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 18, 35, 38, 71, DateTimeKind.Local).AddTicks(7384),
-                            LoginVia = 1,
-                            PhoneNumber = "0875871444",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 228, 142, 240, 230, 218, 220, 195, 2, 2, 240, 18, 123, 124, 150, 217, 21, 178, 229, 67, 98, 19, 246, 223, 238, 23, 53, 52, 176, 245, 11, 169, 161, 118, 111, 137, 227, 145, 59, 232, 115, 54, 9, 18, 218, 118, 37, 110, 65, 126, 36, 29, 25, 66, 69, 159, 191, 193, 138, 127, 238, 231, 34, 14, 254 },
-<<<<<<< HEAD
-                            Status = true
-=======
+
                             HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
                             Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
@@ -204,10 +183,7 @@ namespace BusinessObjects.Migrations
                             RoleId = 1,
                             SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
                             Status = false
->>>>>>> Stashed changes
-=======
-                            Status = true
->>>>>>> 5fd6c8a91fe57740ee3d4aba6c73f1ab207abc77
+
                         });
                 });
 
@@ -393,9 +369,7 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("WardId");
 
                     b.ToTable("Venues");
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
+
 
                     b.HasData(
                         new
@@ -622,9 +596,7 @@ namespace BusinessObjects.Migrations
                             UpperPrice = 0f,
                             WardId = 21
                         });
->>>>>>> Stashed changes
-=======
->>>>>>> 5fd6c8a91fe57740ee3d4aba6c73f1ab207abc77
+
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.VenueSubCategory", b =>

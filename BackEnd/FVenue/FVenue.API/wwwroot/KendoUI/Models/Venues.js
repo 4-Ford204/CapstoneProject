@@ -4,6 +4,9 @@
         VenuesGrid: $("#venuesGrid"),
         Popup: document.getElementById("popup")
     }
+    var editor = new FroalaEditor('#content', {
+        imageUploadUrl: '/API/VenuesAPI/ImageUpload'
+    });
 
     var globalData = {
         baseURL: "../"
@@ -328,7 +331,7 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
-                    console.log(featureUploadElement);
+                    
                     document.getElementById('featureImageUpload').addEventListener("change", uploadFeatureImage);
                     WardsDropDownList();
                     AdministratorsDropDownList();
@@ -461,9 +464,7 @@
         });
     }
 
-    const featureUploadElement = document.getElementById('featureImageUpload');
-    const featureImageUrlElement = document.getElementById('featureImageUrl');
-    const featureImageDisplayElement = document.getElementById('featureImageDisplay');
+   
 
     async function uploadFeatureImage(e) {
         let data = new FormData();
@@ -484,7 +485,7 @@
                 console.log(result);
                 document.getElementById('featureImageUrl').value = result.url;
                 document.getElementById('featureImageDisplay').src = result.url;
-                document.getElementById('featureImageDisplay').style.display = 'block';
+                document.getElementById('featureImageDisplay').style.display = 'inline-block';
             });
     }
 
