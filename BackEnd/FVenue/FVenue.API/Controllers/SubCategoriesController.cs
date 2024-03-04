@@ -14,12 +14,18 @@ namespace FVenue.API.Controllers
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
+        private readonly IAccountService _accountService;
         private readonly ISubCategoryService _subCategoryService;
 
-        public SubCategoriesController(DatabaseContext context, IMapper mapper, ISubCategoryService subCategoryService)
+        public SubCategoriesController(
+            DatabaseContext context,
+            IMapper mapper,
+            IAccountService accountService,
+            ISubCategoryService subCategoryService)
         {
             _context = context;
             _mapper = mapper;
+            _accountService = accountService;
             _subCategoryService = subCategoryService;
         }
 
@@ -62,9 +68,47 @@ namespace FVenue.API.Controllers
         }
 
         [HttpPost, Route("SubCategories/UpdateSubCategoryRequestStatus")]
-        public List<SubCategoryRequestDTO> UpdateSubCategoryRequestStatus([FromBody] int[] ids, string status)
+        public IActionResult UpdateSubCategoryRequestStatus([FromBody] SubCategoryRequestUpdateListDTO subCategoryRequestUpdateListDTO)
         {
-            return new List<SubCategoryRequestDTO>();
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    if (subCategoryRequestUpdateListDTO.Status == EnumModel.SubCategoryRequestStatus.Approved.ToString())
+                    {
+                        foreach (int id in subCategoryRequestUpdateListDTO.Ids)
+                        {
+                            var subCategoryRequest = _context.SubCategoryRequests.Find(id);
+                            _context.SubCategories.Add(new SubCategory()
+                            {
+                                Name = subCategoryRequest.Name,
+                                CategoryId = subCategoryRequest.CategoryId
+                            });
+                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+                            subCategoryRequest.Status = (int)EnumModel.SubCategoryRequestStatus.Approved;
+                            _context.SubCategoryRequests.Update(subCategoryRequest);
+                        }
+                    }
+                    else if (subCategoryRequestUpdateListDTO.Status == EnumModel.SubCategoryRequestStatus.Rejected.ToString())
+                    {
+                        foreach (int id in subCategoryRequestUpdateListDTO.Ids)
+                        {
+                            var subCategoryRequest = _context.SubCategoryRequests.Find(id);
+                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+                            subCategoryRequest.Status = (int)EnumModel.SubCategoryRequestStatus.Rejected;
+                            _context.SubCategoryRequests.Update(subCategoryRequest);
+                        }
+                    }
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("SubCategoryRequestTable", new { page = 1 });
         }
 
         #endregion

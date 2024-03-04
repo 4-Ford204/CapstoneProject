@@ -44,11 +44,6 @@ namespace FVenue.API
             #region SubCategory
 
             CreateMap<SubCategory, SubCategoryDTO>();
-
-            #endregion
-
-            #region SubCategoryRequest
-
             CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
                 .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
