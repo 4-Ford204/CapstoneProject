@@ -12,5 +12,8 @@ namespace BusinessObjects.Models
         [ForeignKey("SubCategory")]
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
+        public DateTime CreateDate { get; set; }
+        public DateTime LastUpdateDate { get; set; }
+        public bool Status { get; set; }
     }
 }

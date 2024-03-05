@@ -61,7 +61,9 @@ namespace FVenue.API.Controllers
                 Id = x.Id,
                 Name = x.Name,
                 CategoryId = x.CategoryId,
-                VenueNumber = _subCategoryService.GetVenueNumber(x.Id)
+                VenueActiveNumber = _subCategoryService.GetVenueActiveNumber(x.Id),
+                VenueInactiveNumber = _subCategoryService.GetVenueInactiveNumber(x.Id),
+                Status = x.Status
             })
                 .ToList();
             return result;
@@ -82,7 +84,10 @@ namespace FVenue.API.Controllers
                             _context.SubCategories.Add(new SubCategory()
                             {
                                 Name = subCategoryRequest.Name,
-                                CategoryId = subCategoryRequest.CategoryId
+                                CategoryId = subCategoryRequest.CategoryId,
+                                CreateDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true
                             });
                             subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
                             subCategoryRequest.Status = (int)EnumModel.SubCategoryRequestStatus.Approved;

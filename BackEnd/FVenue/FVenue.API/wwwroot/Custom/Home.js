@@ -13,18 +13,20 @@
     function bindControls() { }
 
     function initSubCategoryRequestTable() {
-        $.ajax({
-            url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/1",
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                DOM.SubCategoryRequestTable.innerHTML = result;
-                SubCategoryRequestTableEvent();
-            },
-            error: function (result) {
-                console.log(result);
-            }
-        });
+        if (DOM.SubCategoryRequestTable != null) {
+            $.ajax({
+                url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/1",
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    DOM.SubCategoryRequestTable.innerHTML = result;
+                    SubCategoryRequestTableEvent();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }
     }
 
     function SubCategoryRequestTableEvent() {

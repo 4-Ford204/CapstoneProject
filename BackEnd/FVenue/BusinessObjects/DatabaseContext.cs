@@ -368,6 +368,9 @@ namespace BusinessObjects
                                 Id = int.Parse(subCategoryField[0].Trim()),
                                 Name = subCategoryField[1].Trim(),
                                 CategoryId = int.Parse(subCategoryField[2].Trim()),
+                                CreateDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true
                             });
                         }
                         return subCategories;
@@ -498,6 +501,9 @@ namespace BusinessObjects
                             {
                                 VenueId = int.Parse(venueSubCategoryField[0].Trim()),
                                 SubCategoryId = int.Parse(venueSubCategoryField[13].Trim()),
+                                CreateDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true
                             });
                         }
                     };
