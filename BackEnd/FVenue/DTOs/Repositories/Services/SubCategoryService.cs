@@ -24,20 +24,38 @@ namespace DTOs.Repositories.Services
             }
         }
 
-        public int GetSubCategoryNumber(int id)
+        public int GetSubCategoryActiveNumber(int id)
         {
             using (var _context = new DatabaseContext())
             {
-                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id).Count();
+                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id && x.Status).Count();
                 return subCategoryNumber;
             };
         }
 
-        public int GetVenueNumber(int id)
+        public int GetSubCategoryInactiveNumber(int id)
         {
             using (var _context = new DatabaseContext())
             {
-                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id).Count();
+                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id && !x.Status).Count();
+                return subCategoryNumber;
+            };
+        }
+
+        public int GetVenueActiveNumber(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id && x.Status).Count();
+                return venueNumber;
+            };
+        }
+
+        public int GetVenueInactiveNumber(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id && !x.Status).Count();
                 return venueNumber;
             };
         }

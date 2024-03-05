@@ -6,8 +6,10 @@ namespace DTOs.Repositories.Interfaces
     {
         List<SubCategory> GetSubCategories();
         SubCategory GetSubCategory(int id);
-        int GetSubCategoryNumber(int id);
-        int GetVenueNumber(int id);
+        int GetSubCategoryActiveNumber(int id);
+        int GetSubCategoryInactiveNumber(int id);
+        int GetVenueActiveNumber(int id);
+        int GetVenueInactiveNumber(int id);
         List<SubCategoryRequest> GetPendingSubCategoryRequests();
     }
 }
