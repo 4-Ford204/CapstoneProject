@@ -75,5 +75,25 @@ namespace DTOs.Repositories.Services
                 return subCategoryRequests;
             };
         }
+
+        public List<String> GetSimilaritySubCategories(string name)
+        {
+            int size = 2;
+            using (var _context = new DatabaseContext())
+            {
+                var similaritySubCategories = _context.SubCategories
+                    .Select(x => new
+                    {
+                        x.Name,
+                        SimilarityPercentage = Common.SimilarityPercentage(name, x.Name),
+                        LevenshteinDistance = Common.LevenshteinDistance(name, x.Name)
+                    })
+                    .AsEnumerable()
+                    .OrderByDescending(x => x.SimilarityPercentage)
+                    .ThenBy(x => x.LevenshteinDistance)
+                    .ToList();
+                return similaritySubCategories.Select(x => x.Name).Take(size).ToList();
+            };
+        }
     }
 }

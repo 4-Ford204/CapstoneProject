@@ -11,5 +11,6 @@ namespace DTOs.Repositories.Interfaces
         int GetVenueActiveNumber(int id);
         int GetVenueInactiveNumber(int id);
         List<SubCategoryRequest> GetPendingSubCategoryRequests();
+        List<String> GetSimilaritySubCategories(string name);
     }
 }
