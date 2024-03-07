@@ -13,5 +13,6 @@
         public DateTime LastUpdateDate { get; set; }
         public int Status { get; set; }
         public KeyValuePair<string, string> Badge { get; set; }
+        public List<String> SimilaritySubCategories { get; set; }
     }
 }

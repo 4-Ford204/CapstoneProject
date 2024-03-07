@@ -12,7 +12,11 @@ namespace FVenue.API
 {
     public class ProgramMapper : Profile
     {
-        public ProgramMapper(IAccountService accountService, ICategoryService categoryService, ILocationService locationService)
+        public ProgramMapper(
+            IAccountService accountService,
+            ICategoryService categoryService,
+            ILocationService locationService,
+            ISubCategoryService subCategoryService)
         {
             #region Account
 
@@ -47,7 +51,8 @@ namespace FVenue.API
             CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
                 .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
-                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)));
+                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)))
+                .ForMember(dest => dest.SimilaritySubCategories, opt => opt.MapFrom(src => subCategoryService.GetSimilaritySubCategories(src.Name)));
 
             #endregion
 

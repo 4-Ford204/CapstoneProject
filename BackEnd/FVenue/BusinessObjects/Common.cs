@@ -5,8 +5,109 @@ namespace BusinessObjects
 {
     public static class Common
     {
+        #region Algorithm
+        public static Dictionary<char, int> GetDictionary(string source)
+        {
+            source = FilterVietNamChar(source).ToLower().Replace(" ", String.Empty);
+            Dictionary<char, int> result = new Dictionary<char, int>();
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (result.TryGetValue(source[i], out int value))
+                    result[source[i]] = value++;
+                else
+                    result.Add(source[i], 1);
+            }
+            return result;
+        }
+
         public static int GetFirstPageInPagination(int indexPage, int paginationPage, int totalPages)
             => totalPages <= paginationPage ? 1 : indexPage + paginationPage <= totalPages ? indexPage : totalPages - paginationPage + 1;
+
+        /// <summary>
+        /// Fuzzy Search (Approximate Search) sử dụng 
+        /// thuật toán Levenshtein Distance (số bước ngắn nhất để biến đổi từ chuỗi nguồn thành chuỗi đích)
+        /// </summary>
+        /// <param name="destination">Chuỗi Đích</param>
+        /// <param name="source">Chuỗi Nguồn</param>
+        /// <returns>Số bước ngắn nhất (thêm, sửa, xóa) để biến đổi từ chuỗi nguồn thành chuỗi đích</returns>
+        public static int LevenshteinDistance(string destination, string source)
+        {
+            destination = FilterVietNamChar(destination).ToLower().Replace(" ", String.Empty);
+            source = FilterVietNamChar(source).ToLower().Replace(" ", String.Empty);
+            int destinationLength = destination.Length;
+            int sourceLength = source.Length;
+            int[,] LevenshteinDistanceTable = new int[destinationLength + 1, sourceLength + 1];
+            if (destinationLength == 0)
+                return sourceLength;
+            else if (sourceLength == 0)
+                return destinationLength;
+            else
+            {
+                for (int i = 0; i <= destinationLength; LevenshteinDistanceTable[i, 0] = i++) ;
+                for (int i = 0; i <= sourceLength; LevenshteinDistanceTable[0, i] = i++) ;
+                for (int i = 1; i <= destinationLength; i++)
+                {
+                    for (int j = 1; j <= sourceLength; j++)
+                    {
+                        int cost = source[j - 1] == destination[i - 1] ? 0 : 1;
+                        LevenshteinDistanceTable[i, j] =
+                            Math.Min(
+                                Math.Min(
+                                    LevenshteinDistanceTable[i - 1, j] + 1,
+                                    LevenshteinDistanceTable[i, j - 1] + 1
+                                    ),
+                                LevenshteinDistanceTable[i - 1, j - 1] + cost
+                                );
+                    }
+                }
+                return LevenshteinDistanceTable[destinationLength, sourceLength];
+            }
+        }
+
+        public static float SimilarityPercentage(string stringValue, string stringSource)
+        {
+            Task<Dictionary<char, int>> stringValueTask = Task.Run(() => { return GetDictionary(stringValue); });
+            Task<Dictionary<char, int>> stringSourceTask = Task.Run(() => { return GetDictionary(stringSource); });
+            Task.WaitAny(stringValueTask, stringSourceTask);
+            Dictionary<char, int> stringValueDictionary = stringValueTask.Result;
+            Dictionary<char, int> stringSourceDictionary = stringSourceTask.Result;
+            float similarityChars = 0;
+            float sumChars = 0;
+            foreach (var kpv in stringValueDictionary)
+            {
+                sumChars += kpv.Value;
+                if (stringSourceDictionary.TryGetValue(kpv.Key, out int value))
+                    similarityChars = Math.Max(kpv.Key, value);
+            }
+            return similarityChars / sumChars;
+        }
+
+        public static string FilterVietNamChar(string value)
+        {
+            string[] VietNamChar = new string[]
+            {
+                "aAeEoOuUiIdDyY",
+                "áàạảãâấầậẩẫăắằặẳẵ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "éèẹẻẽêếềệểễ",
+                "ÉÈẸẺẼÊẾỀỆỂỄ",
+                "óòọỏõôốồộổỗơớờợởỡ",
+                "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                "úùụủũưứừựửữ",
+                "ÚÙỤỦŨƯỨỪỰỬỮ",
+                "íìịỉĩ",
+                "ÍÌỊỈĨ",
+                "đ",
+                "Đ",
+                "ýỳỵỷỹ",
+                "ÝỲỴỶỸ"
+            };
+            for (int i = 1; i < VietNamChar.Length; i++)
+                for (int j = 0; j < VietNamChar[i].Length; j++) value = value.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+            return value;
+        }
+
+        #endregion
 
         #region Account
 
