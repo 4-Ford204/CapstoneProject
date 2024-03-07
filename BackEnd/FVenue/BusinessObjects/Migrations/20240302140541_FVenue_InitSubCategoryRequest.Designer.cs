@@ -4,6 +4,7 @@ using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240302140541_FVenue_InitSubCategoryRequest")]
+    partial class FVenue_InitSubCategoryRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +45,9 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool?>("Gender")
                         .HasColumnType("bit");
 
@@ -60,7 +66,7 @@ namespace BusinessObjects.Migrations
                     b.Property<DateTime>("LastUpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LoginVia")
+                    b.Property<int>("LoginMethod")
                         .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
@@ -86,182 +92,101 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 1,
                             BirthDay = new DateTime(2002, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-
-=======
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(1887),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CreateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5047),
                             Email = "huynhduy20042002@gmail.com",
                             FirstName = "Duy",
+                            FullName = "Duy Lê Tự Huỳnh",
                             Gender = true,
-<<<<<<< HEAD
-
-                            HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
-                            Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = false,
-                            LastName = "Lê Tự Huỳnh",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9351),
-                            LoginMethod = 1,
-                            PhoneNumber = "0118138278",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
-=======
-                            HashPassword = "F659D5BF6DF70C163E9C654C78196AB91C5F2EB53F13C5A3303198DCBA50AAECAAAF864BA126D6D06D73D9E09DBEE5A1556EEAF5BE96EB2B39ED78B8591A4F94",
+                            HashPassword = "D03F97C02F29C0EB6DFE7A72E193EF7033D2BA9E63EC38D7B24A951EF2B5D21B93CE0C7F202B03388319F6725977BEC10EA3F238D2497EE7A277E8C1FF860BF7",
                             Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Lê Tự Huỳnh",
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(1898),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5059),
                             LoginMethod = 1,
-                            PhoneNumber = "0298723362",
+                            PhoneNumber = "0172722523",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 241, 237, 170, 103, 210, 129, 18, 117, 100, 11, 254, 234, 249, 46, 186, 192, 128, 58, 24, 113, 69, 130, 167, 103, 153, 121, 130, 73, 137, 131, 179, 110, 230, 24, 152, 8, 0, 130, 231, 99, 179, 210, 246, 73, 237, 167, 129, 196, 160, 68, 118, 146, 29, 78, 32, 20, 196, 77, 146, 62, 250, 241, 152, 233 },
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            SaltPassword = new byte[] { 8, 235, 191, 143, 2, 201, 204, 110, 98, 81, 190, 72, 19, 107, 185, 236, 69, 243, 86, 41, 53, 85, 3, 145, 126, 79, 184, 134, 131, 89, 84, 186, 156, 44, 44, 140, 200, 38, 11, 143, 54, 195, 144, 107, 200, 124, 60, 173, 211, 111, 66, 225, 3, 95, 203, 51, 177, 235, 250, 94, 32, 72, 111, 202 },
                             Status = true
                         },
                         new
                         {
                             Id = 2,
                             BirthDay = new DateTime(2002, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9421),
-=======
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2054),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CreateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5112),
                             Email = "phuchvde160270@fpt.edu.vn",
                             FirstName = "Phúc",
                             FullName = "Phúc Hồ Văn",
                             Gender = true,
-<<<<<<< HEAD
-                            HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
-                            Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = false,
-                            LastName = "Hồ Văn",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9422),
-                            LoginMethod = 1,
-                            PhoneNumber = "0278569488",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
-=======
-                            HashPassword = "F659D5BF6DF70C163E9C654C78196AB91C5F2EB53F13C5A3303198DCBA50AAECAAAF864BA126D6D06D73D9E09DBEE5A1556EEAF5BE96EB2B39ED78B8591A4F94",
+                            HashPassword = "D03F97C02F29C0EB6DFE7A72E193EF7033D2BA9E63EC38D7B24A951EF2B5D21B93CE0C7F202B03388319F6725977BEC10EA3F238D2497EE7A277E8C1FF860BF7",
                             Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Hồ Văn",
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2055),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5113),
                             LoginMethod = 1,
-                            PhoneNumber = "0466911912",
+                            PhoneNumber = "0445186266",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 241, 237, 170, 103, 210, 129, 18, 117, 100, 11, 254, 234, 249, 46, 186, 192, 128, 58, 24, 113, 69, 130, 167, 103, 153, 121, 130, 73, 137, 131, 179, 110, 230, 24, 152, 8, 0, 130, 231, 99, 179, 210, 246, 73, 237, 167, 129, 196, 160, 68, 118, 146, 29, 78, 32, 20, 196, 77, 146, 62, 250, 241, 152, 233 },
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            SaltPassword = new byte[] { 8, 235, 191, 143, 2, 201, 204, 110, 98, 81, 190, 72, 19, 107, 185, 236, 69, 243, 86, 41, 53, 85, 3, 145, 126, 79, 184, 134, 131, 89, 84, 186, 156, 44, 44, 140, 200, 38, 11, 143, 54, 195, 144, 107, 200, 124, 60, 173, 211, 111, 66, 225, 3, 95, 203, 51, 177, 235, 250, 94, 32, 72, 111, 202 },
                             Status = true
                         },
                         new
                         {
                             Id = 3,
                             BirthDay = new DateTime(2000, 11, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9451),
-=======
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2081),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CreateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5136),
                             Email = "hungnhde160214@fpt.edu.vn",
                             FirstName = "Hùng",
                             FullName = "Hùng Nguyễn Huy",
                             Gender = true,
-<<<<<<< HEAD
-                            HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
-                            Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = false,
-                            LastName = "Nguyễn Huy",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9452),
-                            LoginMethod = 1,
-                            PhoneNumber = "0163249576",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
-=======
-                            HashPassword = "F659D5BF6DF70C163E9C654C78196AB91C5F2EB53F13C5A3303198DCBA50AAECAAAF864BA126D6D06D73D9E09DBEE5A1556EEAF5BE96EB2B39ED78B8591A4F94",
+                            HashPassword = "D03F97C02F29C0EB6DFE7A72E193EF7033D2BA9E63EC38D7B24A951EF2B5D21B93CE0C7F202B03388319F6725977BEC10EA3F238D2497EE7A277E8C1FF860BF7",
                             Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Nguyễn Huy",
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2082),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5136),
                             LoginMethod = 1,
-                            PhoneNumber = "0524733747",
+                            PhoneNumber = "0753517734",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 241, 237, 170, 103, 210, 129, 18, 117, 100, 11, 254, 234, 249, 46, 186, 192, 128, 58, 24, 113, 69, 130, 167, 103, 153, 121, 130, 73, 137, 131, 179, 110, 230, 24, 152, 8, 0, 130, 231, 99, 179, 210, 246, 73, 237, 167, 129, 196, 160, 68, 118, 146, 29, 78, 32, 20, 196, 77, 146, 62, 250, 241, 152, 233 },
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            SaltPassword = new byte[] { 8, 235, 191, 143, 2, 201, 204, 110, 98, 81, 190, 72, 19, 107, 185, 236, 69, 243, 86, 41, 53, 85, 3, 145, 126, 79, 184, 134, 131, 89, 84, 186, 156, 44, 44, 140, 200, 38, 11, 143, 54, 195, 144, 107, 200, 124, 60, 173, 211, 111, 66, 225, 3, 95, 203, 51, 177, 235, 250, 94, 32, 72, 111, 202 },
                             Status = true
                         },
                         new
                         {
                             Id = 4,
                             BirthDay = new DateTime(2002, 10, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9518),
-=======
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2149),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CreateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5185),
                             Email = "trilmde160230@fpt.edu.vn",
                             FirstName = "Trí",
                             FullName = "Trí Lê Minh",
                             Gender = true,
-<<<<<<< HEAD
-                            HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
-                            Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = false,
-                            LastName = "Lê Minh",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9519),
-                            LoginMethod = 1,
-                            PhoneNumber = "0245747692",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
-=======
-                            HashPassword = "F659D5BF6DF70C163E9C654C78196AB91C5F2EB53F13C5A3303198DCBA50AAECAAAF864BA126D6D06D73D9E09DBEE5A1556EEAF5BE96EB2B39ED78B8591A4F94",
+                            HashPassword = "D03F97C02F29C0EB6DFE7A72E193EF7033D2BA9E63EC38D7B24A951EF2B5D21B93CE0C7F202B03388319F6725977BEC10EA3F238D2497EE7A277E8C1FF860BF7",
                             Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = false,
                             LastName = "Lê Minh",
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2149),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5186),
                             LoginMethod = 1,
-                            PhoneNumber = "0435312994",
+                            PhoneNumber = "0871213477",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 241, 237, 170, 103, 210, 129, 18, 117, 100, 11, 254, 234, 249, 46, 186, 192, 128, 58, 24, 113, 69, 130, 167, 103, 153, 121, 130, 73, 137, 131, 179, 110, 230, 24, 152, 8, 0, 130, 231, 99, 179, 210, 246, 73, 237, 167, 129, 196, 160, 68, 118, 146, 29, 78, 32, 20, 196, 77, 146, 62, 250, 241, 152, 233 },
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            SaltPassword = new byte[] { 8, 235, 191, 143, 2, 201, 204, 110, 98, 81, 190, 72, 19, 107, 185, 236, 69, 243, 86, 41, 53, 85, 3, 145, 126, 79, 184, 134, 131, 89, 84, 186, 156, 44, 44, 140, 200, 38, 11, 143, 54, 195, 144, 107, 200, 124, 60, 173, 211, 111, 66, 225, 3, 95, 203, 51, 177, 235, 250, 94, 32, 72, 111, 202 },
                             Status = true
                         },
                         new
                         {
                             Id = 5,
                             BirthDay = new DateTime(2002, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-<<<<<<< HEAD
-                            CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9581),
-=======
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2172),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CreateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5232),
                             Email = "quocndcde160171@fpt.edu.vn",
                             FirstName = "Quốc",
                             FullName = "Quốc Nguyễn Đăng Cường",
                             Gender = false,
-<<<<<<< HEAD
-                            HashPassword = "FB410C2474AFDF5B8FCF6B3C3BE115954315CAD7EA7870A39A1C708813A690F1B15B789570BF6918CCAFEF6812C211110783F65AA4289B1A8740D50841421D1F",
-                            Image = "C:\\Capstone_Project\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
-                            IsEmailConfirmed = true,
-                            LastName = "Nguyễn Đăng Cường",
-                            LastUpdateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9582),
-                            LoginMethod = 2,
-                            PhoneNumber = "0458367938",
-                            RoleId = 1,
-                            SaltPassword = new byte[] { 104, 218, 233, 238, 19, 210, 66, 16, 187, 39, 222, 169, 82, 221, 39, 97, 220, 202, 120, 111, 95, 79, 43, 184, 118, 247, 45, 22, 131, 49, 56, 20, 225, 142, 60, 54, 213, 232, 67, 30, 245, 199, 49, 251, 184, 169, 57, 68, 49, 229, 156, 240, 118, 220, 37, 190, 138, 205, 29, 9, 206, 4, 72, 30 },
-=======
-                            HashPassword = "F659D5BF6DF70C163E9C654C78196AB91C5F2EB53F13C5A3303198DCBA50AAECAAAF864BA126D6D06D73D9E09DBEE5A1556EEAF5BE96EB2B39ED78B8591A4F94",
+                            HashPassword = "D03F97C02F29C0EB6DFE7A72E193EF7033D2BA9E63EC38D7B24A951EF2B5D21B93CE0C7F202B03388319F6725977BEC10EA3F238D2497EE7A277E8C1FF860BF7",
                             Image = "D:\\Visual Studio 2022\\C#\\CapstoneProject\\BackEnd\\FVenue\\BusinessObjectswwwroot/Image/Administrator/SuperAdmin.jpg",
                             IsEmailConfirmed = true,
                             LastName = "Nguyễn Đăng Cường",
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(2173),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 5, 40, 838, DateTimeKind.Local).AddTicks(5233),
                             LoginMethod = 2,
-                            PhoneNumber = "0963941125",
+                            PhoneNumber = "0937944622",
                             RoleId = 1,
-                            SaltPassword = new byte[] { 241, 237, 170, 103, 210, 129, 18, 117, 100, 11, 254, 234, 249, 46, 186, 192, 128, 58, 24, 113, 69, 130, 167, 103, 153, 121, 130, 73, 137, 131, 179, 110, 230, 24, 152, 8, 0, 130, 231, 99, 179, 210, 246, 73, 237, 167, 129, 196, 160, 68, 118, 146, 29, 78, 32, 20, 196, 77, 146, 62, 250, 241, 152, 233 },
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            SaltPassword = new byte[] { 8, 235, 191, 143, 2, 201, 204, 110, 98, 81, 190, 72, 19, 107, 185, 236, 69, 243, 86, 41, 53, 85, 3, 145, 126, 79, 184, 134, 131, 89, 84, 186, 156, 44, 44, 140, 200, 38, 11, 143, 54, 195, 144, 107, 200, 124, 60, 173, 211, 111, 66, 225, 3, 95, 203, 51, 177, 235, 250, 94, 32, 72, 111, 202 },
                             Status = false
-
                         });
                 });
 
@@ -279,6 +204,28 @@ namespace BusinessObjects.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Địa điểm giải trí"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Ẩm thực"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Thức uống"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Giải trí về đêm"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.City", b =>
@@ -300,6 +247,14 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            Name = "Đà Nẵng"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Country", b =>
@@ -316,6 +271,13 @@ namespace BusinessObjects.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Việt Nam"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.District", b =>
@@ -337,6 +299,44 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Districts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            Name = "Hải Châu"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CityId = 1,
+                            Name = "Cẩm Lệ"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 1,
+                            Name = "Liên Chiểu"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 1,
+                            Name = "Thanh Khê"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CityId = 1,
+                            Name = "Sơn Trà"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CityId = 1,
+                            Name = "Ngũ Hành Sơn"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
@@ -383,35 +383,21 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
-<<<<<<< HEAD
-=======
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(7763),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(7773),
-                            Name = "Địa điểm công cộng",
-                            Status = true
+                            Name = "Địa điểm công cộng"
                         });
                 });
 
@@ -461,8 +447,8 @@ namespace BusinessObjects.Migrations
                             Id = 1,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 2, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8368),
-                            LastUpdateDate = new DateTime(2024, 3, 2, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8385),
+                            CreateDate = new DateTime(2024, 2, 28, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(241),
+                            LastUpdateDate = new DateTime(2024, 2, 28, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(251),
                             Name = "Bún đậu mắm tôm",
                             RequestUserId = 2,
                             Status = 1
@@ -472,8 +458,8 @@ namespace BusinessObjects.Migrations
                             Id = 2,
                             AdministratorId = 0,
                             CategoryId = 4,
-                            CreateDate = new DateTime(2024, 3, 4, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8397),
-                            LastUpdateDate = new DateTime(2024, 3, 4, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8398),
+                            CreateDate = new DateTime(2024, 3, 1, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(266),
+                            LastUpdateDate = new DateTime(2024, 3, 1, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(267),
                             Name = "Karaoke",
                             RequestUserId = 3,
                             Status = 1
@@ -483,8 +469,8 @@ namespace BusinessObjects.Migrations
                             Id = 3,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 2, 27, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8405),
-                            LastUpdateDate = new DateTime(2024, 2, 27, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8407),
+                            CreateDate = new DateTime(2024, 2, 24, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(272),
+                            LastUpdateDate = new DateTime(2024, 2, 24, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(273),
                             Name = "Nước mía",
                             RequestUserId = 4,
                             Status = 1
@@ -494,8 +480,8 @@ namespace BusinessObjects.Migrations
                             Id = 4,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 3, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8414),
-                            LastUpdateDate = new DateTime(2024, 3, 3, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8415),
+                            CreateDate = new DateTime(2024, 2, 29, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(278),
+                            LastUpdateDate = new DateTime(2024, 2, 29, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(279),
                             Name = "Bánh canh ruộng",
                             RequestUserId = 3,
                             Status = 1
@@ -505,8 +491,8 @@ namespace BusinessObjects.Migrations
                             Id = 5,
                             AdministratorId = 0,
                             CategoryId = 4,
-                            CreateDate = new DateTime(2024, 2, 20, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8422),
-                            LastUpdateDate = new DateTime(2024, 2, 20, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8423),
+                            CreateDate = new DateTime(2024, 2, 17, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(284),
+                            LastUpdateDate = new DateTime(2024, 2, 17, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(284),
                             Name = "Bar",
                             RequestUserId = 4,
                             Status = 1
@@ -516,8 +502,8 @@ namespace BusinessObjects.Migrations
                             Id = 6,
                             AdministratorId = 0,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 13, 23, 556, DateTimeKind.Local).AddTicks(8432),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 13, 23, 556, DateTimeKind.Local).AddTicks(8433),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 35, 40, 839, DateTimeKind.Local).AddTicks(290),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 35, 40, 839, DateTimeKind.Local).AddTicks(292),
                             Name = "Rạp phim",
                             RequestUserId = 2,
                             Status = 1
@@ -527,8 +513,8 @@ namespace BusinessObjects.Migrations
                             Id = 7,
                             AdministratorId = 0,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 10, 58, 23, 556, DateTimeKind.Local).AddTicks(8440),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 10, 58, 23, 556, DateTimeKind.Local).AddTicks(8441),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 20, 40, 839, DateTimeKind.Local).AddTicks(296),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 20, 40, 839, DateTimeKind.Local).AddTicks(297),
                             Name = "Bảo tàng",
                             RequestUserId = 2,
                             Status = 1
@@ -538,8 +524,8 @@ namespace BusinessObjects.Migrations
                             Id = 8,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 8, 43, 23, 556, DateTimeKind.Local).AddTicks(8449),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 8, 43, 23, 556, DateTimeKind.Local).AddTicks(8451),
+                            CreateDate = new DateTime(2024, 3, 2, 18, 5, 40, 839, DateTimeKind.Local).AddTicks(303),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 18, 5, 40, 839, DateTimeKind.Local).AddTicks(304),
                             Name = "Ốc",
                             RequestUserId = 4,
                             Status = 1
@@ -549,8 +535,8 @@ namespace BusinessObjects.Migrations
                             Id = 9,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 6, 43, 23, 556, DateTimeKind.Local).AddTicks(8457),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 6, 43, 23, 556, DateTimeKind.Local).AddTicks(8476),
+                            CreateDate = new DateTime(2024, 3, 2, 16, 5, 40, 839, DateTimeKind.Local).AddTicks(309),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 16, 5, 40, 839, DateTimeKind.Local).AddTicks(309),
                             Name = "Gelato",
                             RequestUserId = 3,
                             Status = 1
@@ -560,8 +546,8 @@ namespace BusinessObjects.Migrations
                             Id = 10,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 18, 23, 556, DateTimeKind.Local).AddTicks(8511),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 18, 23, 556, DateTimeKind.Local).AddTicks(8512),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 40, 40, 839, DateTimeKind.Local).AddTicks(315),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 40, 40, 839, DateTimeKind.Local).AddTicks(326),
                             Name = "Bingsu",
                             RequestUserId = 3,
                             Status = 1
@@ -571,8 +557,8 @@ namespace BusinessObjects.Migrations
                             Id = 11,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 41, 23, 556, DateTimeKind.Local).AddTicks(8519),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 41, 23, 556, DateTimeKind.Local).AddTicks(8520),
+                            CreateDate = new DateTime(2024, 3, 2, 21, 3, 40, 839, DateTimeKind.Local).AddTicks(344),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 21, 3, 40, 839, DateTimeKind.Local).AddTicks(345),
                             Name = "Sinh tố",
                             RequestUserId = 4,
                             Status = 1
@@ -582,8 +568,8 @@ namespace BusinessObjects.Migrations
                             Id = 12,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8527),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8528),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(350),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(351),
                             Name = "Chè",
                             RequestUserId = 2,
                             Status = 1
@@ -593,8 +579,8 @@ namespace BusinessObjects.Migrations
                             Id = 13,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 33, 23, 556, DateTimeKind.Local).AddTicks(8544),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 33, 23, 556, DateTimeKind.Local).AddTicks(8545),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 55, 40, 839, DateTimeKind.Local).AddTicks(363),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 55, 40, 839, DateTimeKind.Local).AddTicks(364),
                             Name = "Súp cua",
                             RequestUserId = 1,
                             Status = 1
@@ -604,8 +590,8 @@ namespace BusinessObjects.Migrations
                             Id = 14,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 1, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8551),
-                            LastUpdateDate = new DateTime(2024, 3, 1, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8553),
+                            CreateDate = new DateTime(2024, 2, 27, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(369),
+                            LastUpdateDate = new DateTime(2024, 2, 27, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(370),
                             Name = "Trà sữa",
                             RequestUserId = 2,
                             Status = 1
@@ -615,8 +601,8 @@ namespace BusinessObjects.Migrations
                             Id = 15,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 0, 43, 23, 556, DateTimeKind.Local).AddTicks(8559),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 0, 43, 23, 556, DateTimeKind.Local).AddTicks(8560),
+                            CreateDate = new DateTime(2024, 3, 2, 10, 5, 40, 839, DateTimeKind.Local).AddTicks(375),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 10, 5, 40, 839, DateTimeKind.Local).AddTicks(376),
                             Name = "Trà sữa pha máy",
                             RequestUserId = 3,
                             Status = 1
@@ -626,8 +612,8 @@ namespace BusinessObjects.Migrations
                             Id = 16,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 1, 43, 23, 556, DateTimeKind.Local).AddTicks(8587),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 1, 43, 23, 556, DateTimeKind.Local).AddTicks(8589),
+                            CreateDate = new DateTime(2024, 3, 2, 11, 5, 40, 839, DateTimeKind.Local).AddTicks(383),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 11, 5, 40, 839, DateTimeKind.Local).AddTicks(384),
                             Name = "Trà sữa ủ lạnh",
                             RequestUserId = 2,
                             Status = 1
@@ -637,8 +623,8 @@ namespace BusinessObjects.Migrations
                             Id = 17,
                             AdministratorId = 0,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 2, 27, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8596),
-                            LastUpdateDate = new DateTime(2024, 2, 27, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8597),
+                            CreateDate = new DateTime(2024, 2, 24, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(389),
+                            LastUpdateDate = new DateTime(2024, 2, 24, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(390),
                             Name = "Bida",
                             RequestUserId = 4,
                             Status = 1
@@ -648,8 +634,8 @@ namespace BusinessObjects.Migrations
                             Id = 18,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 9, 43, 23, 556, DateTimeKind.Local).AddTicks(8613),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 9, 43, 23, 556, DateTimeKind.Local).AddTicks(8614),
+                            CreateDate = new DateTime(2024, 3, 2, 19, 5, 40, 839, DateTimeKind.Local).AddTicks(395),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 19, 5, 40, 839, DateTimeKind.Local).AddTicks(396),
                             Name = "Bún chả cá",
                             RequestUserId = 3,
                             Status = 1
@@ -659,8 +645,8 @@ namespace BusinessObjects.Migrations
                             Id = 19,
                             AdministratorId = 0,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 4, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8620),
-                            LastUpdateDate = new DateTime(2024, 3, 4, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8622),
+                            CreateDate = new DateTime(2024, 3, 1, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(401),
+                            LastUpdateDate = new DateTime(2024, 3, 1, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(402),
                             Name = "Quán net",
                             RequestUserId = 3,
                             Status = 1
@@ -670,8 +656,8 @@ namespace BusinessObjects.Migrations
                             Id = 20,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8628),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8629),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(407),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(407),
                             Name = "Ẩm thực Thái Lan",
                             RequestUserId = 1,
                             Status = 1
@@ -681,8 +667,8 @@ namespace BusinessObjects.Migrations
                             Id = 21,
                             AdministratorId = 0,
                             CategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 2, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8636),
-                            LastUpdateDate = new DateTime(2024, 3, 2, 11, 43, 23, 556, DateTimeKind.Local).AddTicks(8638),
+                            CreateDate = new DateTime(2024, 2, 28, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(412),
+                            LastUpdateDate = new DateTime(2024, 2, 28, 21, 5, 40, 839, DateTimeKind.Local).AddTicks(413),
                             Name = "Spa",
                             RequestUserId = 2,
                             Status = 1
@@ -692,8 +678,8 @@ namespace BusinessObjects.Migrations
                             Id = 22,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 7, 43, 23, 556, DateTimeKind.Local).AddTicks(8644),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 7, 43, 23, 556, DateTimeKind.Local).AddTicks(8645),
+                            CreateDate = new DateTime(2024, 3, 2, 17, 5, 40, 839, DateTimeKind.Local).AddTicks(417),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 17, 5, 40, 839, DateTimeKind.Local).AddTicks(418),
                             Name = "Kem bơ",
                             RequestUserId = 1,
                             Status = 1
@@ -703,8 +689,8 @@ namespace BusinessObjects.Migrations
                             Id = 23,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 28, 23, 556, DateTimeKind.Local).AddTicks(8651),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 28, 23, 556, DateTimeKind.Local).AddTicks(8652),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 50, 40, 839, DateTimeKind.Local).AddTicks(422),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 50, 40, 839, DateTimeKind.Local).AddTicks(423),
                             Name = "Cơm gà",
                             RequestUserId = 3,
                             Status = 1
@@ -714,8 +700,8 @@ namespace BusinessObjects.Migrations
                             Id = 24,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 2, 43, 23, 556, DateTimeKind.Local).AddTicks(8668),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 2, 43, 23, 556, DateTimeKind.Local).AddTicks(8669),
+                            CreateDate = new DateTime(2024, 3, 2, 12, 5, 40, 839, DateTimeKind.Local).AddTicks(434),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 12, 5, 40, 839, DateTimeKind.Local).AddTicks(434),
                             Name = "Pizza",
                             RequestUserId = 2,
                             Status = 1
@@ -725,8 +711,8 @@ namespace BusinessObjects.Migrations
                             Id = 25,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 13, 23, 556, DateTimeKind.Local).AddTicks(8675),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 13, 23, 556, DateTimeKind.Local).AddTicks(8676),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 35, 40, 839, DateTimeKind.Local).AddTicks(439),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 35, 40, 839, DateTimeKind.Local).AddTicks(439),
                             Name = "Bánh tráng nướng",
                             RequestUserId = 4,
                             Status = 1
@@ -736,8 +722,8 @@ namespace BusinessObjects.Migrations
                             Id = 26,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 10, 53, 23, 556, DateTimeKind.Local).AddTicks(8683),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 10, 53, 23, 556, DateTimeKind.Local).AddTicks(8684),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 15, 40, 839, DateTimeKind.Local).AddTicks(444),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 15, 40, 839, DateTimeKind.Local).AddTicks(445),
                             Name = "Thức uống detox",
                             RequestUserId = 3,
                             Status = 1
@@ -747,8 +733,8 @@ namespace BusinessObjects.Migrations
                             Id = 27,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8690),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 10, 43, 23, 556, DateTimeKind.Local).AddTicks(8691),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(449),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 5, 40, 839, DateTimeKind.Local).AddTicks(450),
                             Name = "Đồ chay",
                             RequestUserId = 3,
                             Status = 1
@@ -758,8 +744,8 @@ namespace BusinessObjects.Migrations
                             Id = 28,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 7, 43, 23, 556, DateTimeKind.Local).AddTicks(8697),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 7, 43, 23, 556, DateTimeKind.Local).AddTicks(8698),
+                            CreateDate = new DateTime(2024, 3, 2, 17, 5, 40, 839, DateTimeKind.Local).AddTicks(454),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 17, 5, 40, 839, DateTimeKind.Local).AddTicks(455),
                             Name = "Bún bò",
                             RequestUserId = 3,
                             Status = 1
@@ -769,8 +755,8 @@ namespace BusinessObjects.Migrations
                             Id = 29,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 8, 23, 556, DateTimeKind.Local).AddTicks(8705),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 8, 23, 556, DateTimeKind.Local).AddTicks(8706),
+                            CreateDate = new DateTime(2024, 3, 2, 20, 30, 40, 839, DateTimeKind.Local).AddTicks(460),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 20, 30, 40, 839, DateTimeKind.Local).AddTicks(461),
                             Name = "Hải sản tươi sống",
                             RequestUserId = 4,
                             Status = 1
@@ -780,8 +766,8 @@ namespace BusinessObjects.Migrations
                             Id = 30,
                             AdministratorId = 0,
                             CategoryId = 3,
-                            CreateDate = new DateTime(2024, 3, 5, 5, 43, 23, 556, DateTimeKind.Local).AddTicks(8758),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 5, 43, 23, 556, DateTimeKind.Local).AddTicks(8760),
+                            CreateDate = new DateTime(2024, 3, 2, 15, 5, 40, 839, DateTimeKind.Local).AddTicks(506),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 15, 5, 40, 839, DateTimeKind.Local).AddTicks(507),
                             Name = "Nước ép trái cây",
                             RequestUserId = 2,
                             Status = 1
@@ -791,13 +777,12 @@ namespace BusinessObjects.Migrations
                             Id = 31,
                             AdministratorId = 0,
                             CategoryId = 2,
-                            CreateDate = new DateTime(2024, 3, 5, 9, 43, 23, 556, DateTimeKind.Local).AddTicks(8797),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 9, 43, 23, 556, DateTimeKind.Local).AddTicks(8798),
+                            CreateDate = new DateTime(2024, 3, 2, 19, 5, 40, 839, DateTimeKind.Local).AddTicks(545),
+                            LastUpdateDate = new DateTime(2024, 3, 2, 19, 5, 40, 839, DateTimeKind.Local).AddTicks(546),
                             Name = "Chân gà nướng",
                             RequestUserId = 1,
                             Status = 1
                         });
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Venue", b =>
@@ -815,9 +800,6 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FeatureImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GeoLocation")
@@ -855,27 +837,18 @@ namespace BusinessObjects.Migrations
 
                     b.ToTable("Venues");
 
-
                     b.HasData(
                         new
                         {
                             Id = 1,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Đỉnh Bàn Cờ",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Đỉnh Bàn Cờ",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
@@ -885,21 +858,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 2,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Rồng",
                             GeoLocation = "16.061233815354754,108.22749003748194",
                             Image = "https://static.vinwonders.com/2022/04/cau-rong-da-nang-1-1.jpg",
                             LowerPrice = 0f,
                             Name = "Cầu Rồng",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Nguyễn Văn Linh",
                             UpperPrice = 0f,
@@ -909,21 +874,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 3,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Sông Hàn",
                             GeoLocation = "16.072169332052994,108.22683626631773",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPR0yFg71ydHaR3xXbbMApGnySOSmF5IBCXeWmc=w408-h306-k-no",
                             LowerPrice = 0f,
                             Name = "Cầu Sông Hàn",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Lê Duẩn",
                             UpperPrice = 0f,
@@ -933,21 +890,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 4,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Nguyễn Văn Trỗi",
                             GeoLocation = "16.05112083078253,108.22907016535224",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNTJk8DvgrCr2RyeTfKzedNpx4o4LOO06rSXSVQ=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Cầu Nguyễn Văn Trỗi",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Nguyễn Văn Thoại",
                             UpperPrice = 0f,
@@ -957,21 +906,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 5,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Cầu Tình Yêu",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://ik.imagekit.io/tvlk/blog/2023/08/cau-tinh-yeu-da-nang-2.jpg?tr=dpr-2",
                             LowerPrice = 0f,
                             Name = "Cầu Tình Yêu",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Trần Hưng Đạo",
                             UpperPrice = 0f,
@@ -981,21 +922,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 6,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chợ đêm Sơn Trà",
                             GeoLocation = "16.06160809465977,108.23198549515325",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipOy3zJV9uGKBOAvqq7JfD47k-pJ3pJdX08AsFqt=w493-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Chợ đêm Sơn Trà",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 18, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 18, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Mai Hắc Đế",
                             UpperPrice = 0f,
@@ -1005,21 +938,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 7,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Tượng Cá Chép hóa Rồng",
                             GeoLocation = "16.062920294590672,108.22982572398891",
                             Image = "https://lh3.googleusercontent.com/p/AF1QipOsja5mY4FutBBksUpPGk7xtTfT2LONbebEZsIY=s1360-w1360-h1020",
                             LowerPrice = 0f,
                             Name = "Tượng Cá Chép hóa Rồng",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Trần Hưng Đạo",
                             UpperPrice = 0f,
@@ -1029,21 +954,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 8,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Biển Mỹ Khê",
                             GeoLocation = "16.05658360521848,108.24744872398874",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPgpkvaWeKD9pejm2Org-oEx-SWXLyGH_qSUneu=w426-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Biển Mỹ Khê",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Võ Nguyên Giáp",
                             UpperPrice = 0f,
@@ -1053,21 +970,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 9,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Công viên 29/3",
                             GeoLocation = "16.1203775657414,108.27607464602765",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNPIejeI79llYfMNFnAdGnaBKNCt6G4Fwo6Q2tM=w426-h240-k-no",
                             LowerPrice = 0f,
                             Name = "Công viên 29/3",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "23 Nguyễn Tri Phương",
                             UpperPrice = 0f,
@@ -1077,21 +986,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 10,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Bãi tắm Phạm Văn Đồng",
                             GeoLocation = "16.07338349250206,108.24686918822724",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipMeJRsg8S_9w2m3KaBuovV_87uF5IsM8eubr1vY=w408-h272-k-no",
                             LowerPrice = 0f,
                             Name = "Bãi tắm Phạm Văn Đồng",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Võ Nguyên Giáp",
                             UpperPrice = 0f,
@@ -1101,21 +1002,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 11,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Bãi đá Obama",
                             GeoLocation = "16.09979446980971,108.30122137705182",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipNZY0gLKkyBp6SeM7KEMPadCos2lOCHNwWhAIvI=w408-h354-k-no",
                             LowerPrice = 0f,
                             Name = "Bãi đá Obama",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
@@ -1125,21 +1018,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 12,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chân cầu Thuận Phước.",
                             GeoLocation = "16.095265292762104,108.22045666551136",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipP4U2h2NuO5IC4xNdkPtRO0hTpg-kRLkUo1RuYY=w408-h271-k-no",
                             LowerPrice = 0f,
                             Name = "Chân cầu Thuận Phước.",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "Lê Đức Thọ",
                             UpperPrice = 0f,
@@ -1149,21 +1034,13 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 13,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 22, 30, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 22, 30, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 22, 30, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Chợ đêm Helio",
                             GeoLocation = "16.037429266613337,108.22457798825782",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipOT5qP5cG4MJAC6pFlFwbNhpTJRFBKDZi16uD79=w408-h306-k-no",
                             LowerPrice = 0f,
                             Name = "Chợ đêm Helio",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 17, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 17, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 17, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "2 Tháng 9",
                             UpperPrice = 0f,
@@ -1173,27 +1050,18 @@ namespace BusinessObjects.Migrations
                         {
                             Id = 14,
                             AccountId = 1,
-<<<<<<< HEAD
-                            CloseTime = new DateTime(2024, 2, 26, 23, 59, 0, 0, DateTimeKind.Unspecified),
-=======
-                            CloseTime = new DateTime(2024, 3, 5, 23, 59, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            CloseTime = new DateTime(2024, 3, 2, 23, 59, 0, 0, DateTimeKind.Unspecified),
                             Description = "Đây là mô tả về Rạn Nam Ô",
                             GeoLocation = "16.117981036882956,108.13000619993463",
                             Image = "https://lh5.googleusercontent.com/p/AF1QipPLWohOtxqRtG8sPz8yFNmPk7UA_QovxpBtwifr=w408-h305-k-no",
                             LowerPrice = 0f,
                             Name = "Rạn Nam Ô",
-<<<<<<< HEAD
-                            OpenTime = new DateTime(2024, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-=======
-                            OpenTime = new DateTime(2024, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+                            OpenTime = new DateTime(2024, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = true,
                             Street = "",
                             UpperPrice = 0f,
                             WardId = 21
                         });
-
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.VenueSubCategory", b =>
@@ -1204,137 +1072,83 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LastUpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
                     b.HasKey("VenueId", "SubCategoryId");
 
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("VenueSubCategories");
-<<<<<<< HEAD
-=======
 
                     b.HasData(
                         new
                         {
                             VenueId = 1,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(792),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(794),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 2,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(806),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(807),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 3,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(814),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(815),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 4,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(822),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(822),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 5,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(829),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(829),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 6,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(849),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(849),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 7,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(866),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(867),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 8,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(873),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(874),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 9,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(880),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(880),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 10,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(930),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(930),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 11,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(937),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(937),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 12,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(954),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(955),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 13,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(961),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(962),
-                            Status = true
+                            SubCategoryId = 1
                         },
                         new
                         {
                             VenueId = 14,
-                            SubCategoryId = 1,
-                            CreateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(968),
-                            LastUpdateDate = new DateTime(2024, 3, 5, 11, 43, 23, 557, DateTimeKind.Local).AddTicks(969),
-                            Status = true
+                            SubCategoryId = 1
                         });
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Ward", b =>
@@ -1356,6 +1170,278 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("DistrictId");
 
                     b.ToTable("Wards");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DistrictId = 1,
+                            Name = "Bình Hiên"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DistrictId = 1,
+                            Name = "Bình Thuận"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DistrictId = 1,
+                            Name = "Hải Châu 1"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DistrictId = 1,
+                            Name = "Hải Châu 2"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            DistrictId = 1,
+                            Name = "Hòa Cường Bắc"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            DistrictId = 1,
+                            Name = "Hòa Cường Nam"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            DistrictId = 1,
+                            Name = "Hòa Thuận Đông"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            DistrictId = 1,
+                            Name = "Hòa Thuận Tây"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            DistrictId = 1,
+                            Name = "Nam Dương"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            DistrictId = 1,
+                            Name = "Phước Ninh"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            DistrictId = 1,
+                            Name = "Thạch Thang"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            DistrictId = 1,
+                            Name = "Thanh Bình"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            DistrictId = 1,
+                            Name = "Thuận Phước"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            DistrictId = 2,
+                            Name = "Hòa An"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            DistrictId = 2,
+                            Name = "Hòa Phát"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            DistrictId = 2,
+                            Name = "Hòa Thọ Đông"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            DistrictId = 2,
+                            Name = "Hòa Thọ Tây"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            DistrictId = 2,
+                            Name = "Hòa Xuân"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            DistrictId = 2,
+                            Name = "Khuê Trung"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            DistrictId = 3,
+                            Name = "Hòa Hiệp Bắc"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            DistrictId = 3,
+                            Name = "Hòa Hiệp Nam"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            DistrictId = 3,
+                            Name = "Hòa Khánh Bắc"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            DistrictId = 3,
+                            Name = "Hòa Khánh Nam"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            DistrictId = 3,
+                            Name = "Hòa Minh"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            DistrictId = 4,
+                            Name = "An Khê"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            DistrictId = 4,
+                            Name = "Hòa Khê"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            DistrictId = 4,
+                            Name = "Thanh Khê Đông"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            DistrictId = 4,
+                            Name = "Thanh Khê Tây"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            DistrictId = 4,
+                            Name = "Xuân Hà"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            DistrictId = 4,
+                            Name = "Tam Thuận"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            DistrictId = 4,
+                            Name = "Tân Chính"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            DistrictId = 4,
+                            Name = "Chính Gián"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            DistrictId = 4,
+                            Name = "Thạc Gián"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            DistrictId = 4,
+                            Name = "Vĩnh Trung"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            DistrictId = 5,
+                            Name = "An Hải Bắc"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            DistrictId = 5,
+                            Name = "An Hải Đông"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            DistrictId = 5,
+                            Name = "An Hải Tây"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            DistrictId = 5,
+                            Name = "Mân Thái"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            DistrictId = 5,
+                            Name = "Nại Hiên Đông"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            DistrictId = 5,
+                            Name = "Phước Mỹ"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            DistrictId = 5,
+                            Name = "Thọ Quang"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            DistrictId = 6,
+                            Name = "Hòa Hải"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            DistrictId = 6,
+                            Name = "Hòa Quý"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            DistrictId = 6,
+                            Name = "Khuê Mỹ"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            DistrictId = 6,
+                            Name = "Mỹ An"
+                        });
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Account", b =>

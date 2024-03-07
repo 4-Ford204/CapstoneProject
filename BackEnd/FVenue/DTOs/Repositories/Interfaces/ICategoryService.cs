@@ -5,6 +5,9 @@ namespace DTOs.Repositories.Interfaces
     public interface ICategoryService
     {
         List<Category> GetCategories();
-        int GetVenueNumber(int id);
+        Category GetCategory(int id);
+        int GetVenueActiveNumber(int id);
+        int GetVenueInactiveNumber(int id);
+        string GetCategoryName(int id);
     }
 }

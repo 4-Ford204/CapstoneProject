@@ -46,6 +46,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="wwwroot\Custom\Home.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Custom\LoginPage.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="wwwroot\KendoUI\kendo.custom.css">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

@@ -41,8 +41,10 @@ namespace FVenue.API.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                SubCategoryNumber = _subCategoryService.GetSubCategoryNumber(x.Id),
-                VenueNumber = _categoryService.GetVenueNumber(x.Id)
+                SubCategoryActiveNumber = _subCategoryService.GetSubCategoryActiveNumber(x.Id),
+                SubCategoryInactiveNumber = _subCategoryService.GetSubCategoryInactiveNumber(x.Id),
+                VenueActiveNumber = _categoryService.GetVenueActiveNumber(x.Id),
+                VenueInactiveNumber = _categoryService.GetVenueInactiveNumber(x.Id)
             })
                 .ToList();
             return result;

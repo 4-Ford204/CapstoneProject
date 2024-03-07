@@ -1,4 +1,5 @@
-﻿using BusinessObjects;
+﻿using AutoMapper;
+using BusinessObjects;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,20 @@ namespace FVenue.API.Controllers
     public class HomeController : Controller
     {
         private readonly DatabaseContext _context;
+        private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
+        private readonly ISubCategoryService _subCategoryService;
 
-        public HomeController(DatabaseContext context, IAccountService accountService)
+        public HomeController(
+            DatabaseContext context,
+            IMapper mapper,
+            IAccountService accountService,
+            ISubCategoryService subCategoryService)
         {
             _context = context;
+            _mapper = mapper;
             _accountService = accountService;
+            _subCategoryService = subCategoryService;
         }
 
         public IActionResult AuthenticationMiddleware()
@@ -29,7 +38,6 @@ namespace FVenue.API.Controllers
         }
 
         public IActionResult LoginPage() => View();
-
 
         [AdministratorAuthentication]
         public IActionResult Index()

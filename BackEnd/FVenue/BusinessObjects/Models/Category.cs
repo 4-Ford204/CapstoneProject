@@ -6,5 +6,6 @@
         public string Name { get; set; }
 
         public virtual ICollection<SubCategory> SubCategories { get; set; }
+        public virtual ICollection<SubCategoryRequest> SubCategoryRequests { get; set; }
     }
 }

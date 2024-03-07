@@ -66,7 +66,9 @@ namespace FVenue.API
                     {
                         config.AddProfile(new ProgramMapper(
                             provider.GetService<IAccountService>(),
-                            provider.GetService<ILocationService>()
+                            provider.GetService<ICategoryService>(),
+                            provider.GetService<ILocationService>(),
+                            provider.GetService<ISubCategoryService>()
                             ));
                     })
                 .CreateMapper());

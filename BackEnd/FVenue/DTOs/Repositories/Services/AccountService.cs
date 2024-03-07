@@ -36,6 +36,25 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public Account GetAccount(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var account = _context.Accounts.FirstOrDefault(x => x.Id == id);
+                return account;
+            }
+        }
+
+        public Account GetAdministratorAccount(string name)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var account = _context.Accounts
+                    .FirstOrDefault(x => x.RoleId == (int)EnumModel.Role.Administrator && x.FullName == name);
+                return account;
+            }
+        }
+
         public List<Account> GetAdministrators()
         {
             using (var _context = new DatabaseContext())
@@ -76,9 +95,10 @@ namespace DTOs.Repositories.Services
                     CreateDate = DateTime.Now,
                     LastUpdateDate = DateTime.Now,
                     Status = true,
-                    RoleId = accountInsertDTO.RoleId,
+                    RoleId = accountInsertDTO.RoleId != 0 ? accountInsertDTO.RoleId : (int)EnumModel.Role.User,
                     FirstName = accountInsertDTO.FirstName,
                     LastName = accountInsertDTO.LastName,
+                    FullName = $"{accountInsertDTO.FirstName} {accountInsertDTO.LastName}",
                     Gender = accountInsertDTO.Gender,
                     BirthDay = accountInsertDTO.BirthDay,
                     LoginMethod = (int)EnumModel.LoginMethod.Email,

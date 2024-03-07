@@ -23,6 +23,11 @@ namespace BusinessObjects.Models
         public DateTime? BirthDay { get; set; }
         public int LoginMethod { get; set; }
         public bool IsEmailConfirmed { get; set; }
+<<<<<<< HEAD
        
+=======
+
+        public virtual ICollection<SubCategoryRequest> SubCategoryRequests { get; set; }
+>>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
     }
 }
