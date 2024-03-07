@@ -16,15 +16,16 @@ namespace FVenue.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IVenueService _venueService;
-        private readonly IImageVenueService _imageVenueService;
-        private readonly IImageService _imageService;
 
-        public VenuesAPIController(IMapper mapper, IVenueService venueService, IImageVenueService imageVenueService, IImageService imageService)
+        private readonly IImageService _imageService;
+        
+        public VenuesAPIController(IMapper mapper, IVenueService venueService, IImageService imageService)
         {
             _mapper = mapper;
             _venueService = venueService;
-            _imageVenueService = imageVenueService;
             _imageService = imageService;
+            
+
         }
 
         [HttpGet, Route("GetVenueDTOs/{pageIndex}/{pageSize}")]

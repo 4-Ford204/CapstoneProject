@@ -87,8 +87,6 @@ namespace BusinessObjects.Migrations
                             Id = 1,
                             BirthDay = new DateTime(2002, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
 
-                            CreateDate = new DateTime(2024, 2, 26, 20, 16, 43, 379, DateTimeKind.Local).AddTicks(9336),
-
                             Email = "huynhduy20042002@gmail.com",
                             FirstName = "Duy",
                             Gender = true,

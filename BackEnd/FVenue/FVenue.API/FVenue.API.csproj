@@ -40,6 +40,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\insert.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Update="wwwroot\KendoUI\kendo.custom.css">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

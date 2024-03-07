@@ -331,7 +331,11 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
+<<<<<<< Updated upstream
                     
+=======
+                    console.log(featureUploadElement);
+>>>>>>> Stashed changes
                     document.getElementById('featureImageUpload').addEventListener("change", uploadFeatureImage);
                     WardsDropDownList();
                     AdministratorsDropDownList();
@@ -464,7 +468,13 @@
         });
     }
 
+<<<<<<< Updated upstream
    
+=======
+    const featureUploadElement = document.getElementById('featureImageUpload');
+    const featureImageUrlElement = document.getElementById('featureImageUrl');
+    const featureImageDisplayElement = document.getElementById('featureImageDisplay');
+>>>>>>> Stashed changes
 
     async function uploadFeatureImage(e) {
         let data = new FormData();
@@ -485,7 +495,11 @@
                 console.log(result);
                 document.getElementById('featureImageUrl').value = result.url;
                 document.getElementById('featureImageDisplay').src = result.url;
+<<<<<<< Updated upstream
                 document.getElementById('featureImageDisplay').style.display = 'inline-block';
+=======
+                document.getElementById('featureImageDisplay').style.display = 'block';
+>>>>>>> Stashed changes
             });
     }
 
