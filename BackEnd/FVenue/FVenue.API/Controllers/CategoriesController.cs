@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Models.Category;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,10 @@ namespace FVenue.API.Controllers
                 .ToList();
             return result;
         }
+
+        [HttpGet, Route("Categories/GetCategoryDTOs")]
+        public List<CategoryDTO> GetCategoryDTOs()
+            => _mapper.Map<List<Category>, List<CategoryDTO>>(_context.Categories.ToList());
 
         #endregion
     }

@@ -49,6 +49,18 @@ namespace FVenue.API.Controllers
             return PartialView("_SubCategoryRequestPartial", subCategoryRequestPaginationModel);
         }
 
+        [HttpGet, Route("SubCategories/InsertSubCategoryPopup")]
+        public PartialViewResult InsertSubCategoryPopup()
+            => PartialView("_SubCategoryInsertPartial");
+
+        [HttpGet, Route("SubCategories/UpdateSubCategoryPopup/{id}")]
+        public PartialViewResult UpdateSubCategoryPopup(int id)
+        {
+            var subCategory = _context.SubCategories.FirstOrDefault(x => x.Id == id);
+            var subCategoryUpdateDTO = _mapper.Map<SubCategory, SubCategoryUpdateDTO>(subCategory);
+            return PartialView("_SubCategoryUpdatePartial", subCategoryUpdateDTO);
+        }
+
         #endregion
 
         #region Data
@@ -63,8 +75,12 @@ namespace FVenue.API.Controllers
                 CategoryId = x.CategoryId,
                 VenueActiveNumber = _subCategoryService.GetVenueActiveNumber(x.Id),
                 VenueInactiveNumber = _subCategoryService.GetVenueInactiveNumber(x.Id),
+                CreateDate = Common.FormatDateTime(x.CreateDate),
+                LastUpdateDate = Common.FormatDateTime(x.LastUpdateDate),
                 Status = x.Status
             })
+                .AsEnumerable()
+                .OrderByDescending(x => x.LastUpdateDate)
                 .ToList();
             return result;
         }
@@ -114,6 +130,75 @@ namespace FVenue.API.Controllers
                 }
             }
             return RedirectToAction("SubCategoryRequestTable", new { page = 1 });
+        }
+
+        [HttpPost, Route("SubCategories/InsertSubCategory")]
+        public IActionResult InsertSubCategory([FromForm] SubCategoryInsertDTO subCategoryInsertDTO)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.SubCategories.Add(_mapper.Map<SubCategoryInsertDTO, SubCategory>(subCategoryInsertDTO));
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Index", "Categories");
+        }
+
+        [HttpPost, Route("SubCategories/UpdateSubCategory")]
+        public IActionResult UpdateSubCategory([FromForm] SubCategoryUpdateDTO subCategoryUpdateDTO)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.SubCategories.Update(_mapper.Map<SubCategoryUpdateDTO, SubCategory>(subCategoryUpdateDTO));
+                    _context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    transaction.Rollback();
+                }
+            }
+            return RedirectToAction("Index", "Categories");
+        }
+
+        [HttpPut, Route("SubCategories/ChangeSubCategoryStatus")]
+        public string ChangeSubCategoryStatus(int[] ids)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var id in ids)
+                    {
+                        var subCategory = _context.SubCategories.FirstOrDefault(x => x.Id == id);
+                        if (subCategory == null)
+                            throw new Exception($"{id} không tồn tại");
+                        subCategory.LastUpdateDate = DateTime.Now;
+                        subCategory.Status = !subCategory.Status;
+                        _context.Entry(subCategory).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                        if (_context.SaveChanges() != 1)
+                            throw new Exception("Save Changes Error");
+                    }
+                    transaction.Commit();
+                    return $"Đã đổi trạng thái của các thể loại phụ [{String.Join(",", ids)}]";
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    return ex.Message;
+                }
+            }
         }
 
         #endregion
