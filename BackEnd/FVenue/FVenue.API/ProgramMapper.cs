@@ -47,12 +47,20 @@ namespace FVenue.API
 
             #region SubCategory
 
-            CreateMap<SubCategory, SubCategoryDTO>();
+            CreateMap<SubCategory, SubCategoryDTO>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)));
             CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
                 .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
                 .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)))
                 .ForMember(dest => dest.SimilaritySubCategories, opt => opt.MapFrom(src => subCategoryService.GetSimilaritySubCategories(src.Name)));
+            CreateMap<SubCategoryInsertDTO, SubCategory>()
+                .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => true));
+            CreateMap<SubCategoryUpdateDTO, SubCategory>()
+                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => DateTime.Now));
+            CreateMap<SubCategory, SubCategoryUpdateDTO>();
 
             #endregion
 
