@@ -25,6 +25,9 @@
                                     <input id="categoriesDropDownList" asp-for="CategoryId" value="@Model.CategoryId" />
                                 </div>
                             </div>
+                            <input type="hidden" asp-for="CreateDate" value="@Model.CreateDate" />
+                            <input type="hidden" asp-for="LastUpdateDate" value="@Model.LastUpdateDate" />
+                            <input type="hidden" asp-for="Status" value="@Model.Status" />
                         </div>
                     </div>
                 </div>
