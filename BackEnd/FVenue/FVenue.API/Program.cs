@@ -53,6 +53,7 @@ namespace FVenue.API
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
             builder.Services.AddScoped<ITokenService, TokenService>();

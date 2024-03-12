@@ -8,6 +8,11 @@
             Google = 2
         }
 
+        public enum PaymentStatus
+        {
+            Pending = 1
+        }
+
         public enum ResultCode
         {
             // 1xx Informational Response

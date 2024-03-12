@@ -23,6 +23,20 @@ namespace BusinessObjects
         public static int GetFirstPageInPagination(int indexPage, int paginationPage, int totalPages)
             => totalPages <= paginationPage ? 1 : indexPage + paginationPage <= totalPages ? indexPage : totalPages - paginationPage + 1;
 
+        public static string HmacSHA512(string key, string input)
+        {
+            var hash = new StringBuilder();
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            using (var hmacSHA512 = new HMACSHA512(keyBytes))
+            {
+                byte[] hashValue = hmacSHA512.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                    hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
         /// <summary>
         /// Fuzzy Search (Approximate Search) sử dụng 
         /// thuật toán Levenshtein Distance (số bước ngắn nhất để biến đổi từ chuỗi nguồn thành chuỗi đích)
