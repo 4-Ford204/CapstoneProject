@@ -222,24 +222,6 @@ namespace BusinessObjects
 
         #endregion
 
-        #region GeoLocation
-
-        public static void ConvertGeoLocationToLatLong(string geoLocation, out float Latitude, out float Longitude)
-        {
-            var geo = geoLocation.Split(',');
-            Latitude = float.Parse(geo[0]);
-            Longitude = float.Parse(geo[1]);
-        }
-
-        public static string FormatGeoLocation(string geoLocation)
-        {
-            float Latitude, Longitude;
-            ConvertGeoLocationToLatLong(geoLocation, out Latitude, out Longitude);
-            return $"{Latitude.ToString("0.00")},{Longitude.ToString("0.00")}";
-        }
-
-        #endregion
-
         #region DateTime
 
         public static DateOnly ConvertDateTimeToDateOnly(DateTime dateTime)
@@ -264,6 +246,24 @@ namespace BusinessObjects
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
         public static string FormatDateTime(DateTime? dateTime)
             => dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+
+        #endregion
+
+        #region GeoLocation
+
+        public static void ConvertGeoLocationToLatLong(string geoLocation, out float Latitude, out float Longitude)
+        {
+            var geo = geoLocation.Split(',');
+            Latitude = float.Parse(geo[0]);
+            Longitude = float.Parse(geo[1]);
+        }
+
+        public static string FormatGeoLocation(string geoLocation)
+        {
+            float Latitude, Longitude;
+            ConvertGeoLocationToLatLong(geoLocation, out Latitude, out Longitude);
+            return $"{Latitude.ToString("0.00")},{Longitude.ToString("0.00")}";
+        }
 
         #endregion
 
@@ -304,6 +304,36 @@ namespace BusinessObjects
                 return new KeyValuePair<string, string>("badge-warning", $"{(int)result / day} ngày");
             else
                 return new KeyValuePair<string, string>("badge-danger", $"{(int)result / 604800} tuần");
+        }
+
+        #endregion
+
+        #region VNPAYPayment
+
+        public static string GetVNP_Response(string vnp_ResponseCode)
+        {
+            Dictionary<string, string> response = new Dictionary<string, string>()
+            {
+                { "00", "Giao dịch thành công." },
+                { "07", "Trừ tiền thành công. Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường)." },
+                { "09", "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking tại ngân hàng." },
+                { "10", "Giao dịch không thành công do: Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần." },
+                { "11", "Giao dịch không thành công do: Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "12", "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng bị khóa." },
+                { "13", "Giao dịch không thành công do: Quý khách nhập sai mật khẩu xác thực giao dịch (OTP). Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "24", "Giao dịch không thành công do: Khách hàng hủy giao dịch." },
+                { "51", "Giao dịch không thành công do: Tài khoản của quý khách không đủ số dư để thực hiện giao dịch." },
+                { "65", "Giao dịch không thành công do: Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày." },
+                { "75", "Ngân hàng thanh toán đang bảo trì." },
+                { "79", "Giao dịch không thành công do: KH nhập sai mật khẩu thanh toán quá số lần quy định. Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "99", "Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)." }
+            };
+            foreach (var kpv in response)
+            {
+                if (kpv.Key.Equals(vnp_ResponseCode))
+                    return kpv.Value;
+            }
+            return String.Empty;
         }
 
         #endregion

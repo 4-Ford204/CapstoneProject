@@ -28,13 +28,10 @@ namespace FVenue.API.Controllers
 
         [HttpGet, Route("PaymentTransactionHandler")]
         public JsonModel PaymentTransactionHandler()
-        {
-            return new JsonModel()
+            => new JsonModel()
             {
                 Code = BusinessObjects.EnumModel.ResultCode.OK,
-                Message = "",
-                Data = Request.QueryString
+                Message = _paymentService.UpdateVNPAYPayment(Request.Query.ToList())
             };
-        }
     }
 }

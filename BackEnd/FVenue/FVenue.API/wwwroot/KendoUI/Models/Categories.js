@@ -163,7 +163,7 @@
                 }
             },
             pageable: {
-                pageSize: 10,
+                pageSize: 4,
                 refresh: true,
                 serverPaging: true,
                 serverFiltering: true,
