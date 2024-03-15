@@ -4,6 +4,7 @@ namespace BusinessObjects.Models
 {
     public class SubCategory
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         [ForeignKey("Category")]

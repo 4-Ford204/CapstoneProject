@@ -10,7 +10,9 @@
 
         public enum PaymentStatus
         {
-            Pending = 1
+            Pending = 1,
+            Success = 2,
+            Failure = 3
         }
 
         public enum ResultCode

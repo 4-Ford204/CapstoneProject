@@ -8,11 +8,18 @@ namespace DTOs
     public class VNPAYLibrary
     {
         private SortedList<string, string> requestParameters = new SortedList<string, string>(new VNPAYCompare());
+        private SortedList<string, string> responseParamaters = new SortedList<string, string>(new VNPAYCompare());
 
         public void AddRequestParameter(string key, string value)
         {
             if (!String.IsNullOrEmpty(value))
                 requestParameters.Add(key, value);
+        }
+
+        public void AddResponseParameter(string key, string value)
+        {
+            if (!String.IsNullOrEmpty(value))
+                responseParamaters.Add(key, value);
         }
 
         public string GetVNPAYRequestURL(string baseURL, string VNP_HashSecret)
@@ -31,6 +38,40 @@ namespace DTOs
             string VNP_SecureHash = Common.HmacSHA512(VNP_HashSecret, signParameter);
             baseURL += "vnp_SecureHash=" + VNP_SecureHash;
             return baseURL;
+        }
+
+        public string GetResponseParameter(string key)
+        {
+            if (responseParamaters.TryGetValue(key, out string value))
+                return value;
+            else
+                return String.Empty;
+        }
+
+        public bool ValidateSignature(string VNP_SecureHash, string VNP_HashSecret)
+            => Common.HmacSHA512(VNP_HashSecret, GetResponseParametersURL()).Equals(VNP_SecureHash, StringComparison.InvariantCultureIgnoreCase);
+
+        private string GetResponseParametersURL()
+        {
+            StringBuilder parameters = new StringBuilder();
+            if (responseParamaters.ContainsKey("vnp_SecureHashType"))
+            {
+                responseParamaters.Remove("vnp_SecureHashType");
+            }
+            if (responseParamaters.ContainsKey("vnp_SecureHash"))
+            {
+                responseParamaters.Remove("vnp_SecureHash");
+            }
+            foreach (var kpv in responseParamaters)
+            {
+                if (!String.IsNullOrEmpty(kpv.Value))
+                {
+                    parameters.Append(WebUtility.UrlEncode(kpv.Key) + "=" + WebUtility.UrlEncode(kpv.Value) + "&");
+                }
+            }
+            if (parameters.Length > 0)
+                parameters.Remove(parameters.Length - 1, 1);
+            return parameters.ToString();
         }
     }
 
