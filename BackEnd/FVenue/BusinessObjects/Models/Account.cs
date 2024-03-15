@@ -4,6 +4,7 @@ namespace BusinessObjects.Models
 {
     public class Account
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Email { get; set; }
         public byte[] SaltPassword { get; set; }
@@ -25,5 +26,6 @@ namespace BusinessObjects.Models
         public bool IsEmailConfirmed { get; set; }
 
         public virtual ICollection<SubCategoryRequest> SubCategoryRequests { get; set; }
+        public virtual ICollection<VNPAYPayment> VNPAYPayments { get; set; }
     }
 }
