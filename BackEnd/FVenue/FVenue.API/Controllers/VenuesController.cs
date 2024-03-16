@@ -5,34 +5,33 @@ using DTOs;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FVenue.API.Controllers
 {
+    [AdministratorAuthentication]
     public class VenuesController : Controller
     {
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
-        private readonly IWardService _wardService;
         private readonly IAccountService _accountService;
-        private readonly IVenueService _venueService;
         private readonly IImageService _imageService;
-        
+        private readonly ILocationService _locationService;
+        private readonly IVenueService _venueService;
 
         public VenuesController(
             DatabaseContext context,
             IMapper mapper,
-            IWardService wardService,
             IAccountService accountService,
-            IVenueService venueService,
-            IImageService imageService)
+            IImageService imageService,
+            ILocationService locationService,
+            IVenueService venueService)
         {
             _context = context;
             _mapper = mapper;
-            _wardService = wardService;
             _accountService = accountService;
-            _venueService = venueService;
             _imageService = imageService;
+            _locationService = locationService;
+            _venueService = venueService;
         }
 
         #region View
@@ -40,17 +39,33 @@ namespace FVenue.API.Controllers
         public IActionResult Index() => View();
 
         [HttpGet, Route("Venues/InsertVenuePopup")]
-        public async Task<PartialViewResult> InsertVenuePopup()
+        public PartialViewResult InsertVenuePopup()
         {
-            var wards = await _wardService.GetListWards();
-            var selectListWards = new SelectList(wards, "Id", "Name");
+            ViewBag.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+            return PartialView("_VenueInsertPartial");
+        }
 
-            var accounts = await _accountService.GetListAccounts();
-            var selectListAccounts = new SelectList(accounts, "Id", "FullName");
-
-            ViewBag.ListWards = selectListWards;
-            ViewBag.ListAccounts = selectListAccounts;
-            return PartialView("_VenuePartial");
+        [HttpGet, Route("Venues/UpdateVenuePopup/{id}")]
+        public PartialViewResult UpdateVenuePopup(int id)
+        {
+            var venue = _context.Venues.FirstOrDefault(x => x.Id == id);
+            var venueUpdateDTO = new VenueUpdateDTO()
+            {
+                Id = venue.Id,
+                Name = venue.Name,
+                Image = venue.Image,
+                Description = venue.Description,
+                Street = venue.Street,
+                WardId = venue.WardId,
+                GeoLocation = venue.GeoLocation,
+                OpenTime = Common.ConvertDateTimeToTimeOnly(venue.OpenTime).ToString("HH:mm"),
+                CloseTime = Common.ConvertDateTimeToTimeOnly(venue.CloseTime).ToString("HH:mm"),
+                LowerPrice = venue.LowerPrice,
+                UpperPrice = venue.UpperPrice,
+                Status = venue.Status,
+                AccountId = venue.AccountId
+            };
+            return PartialView("_VenueUpdatePartial", venueUpdateDTO);
         }
 
         #endregion
@@ -86,8 +101,8 @@ namespace FVenue.API.Controllers
                         venue.Status = true;
                         _context.Venues.Add(venue);
                         _context.SaveChanges();
-                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image);
-                        if (uploadImage.Code != 200)
+                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
+                        if (!uploadImage)
                             throw new Exception("Tệp tải lên thất bại");
                         //return "Thêm địa điểm thành công";
                     }

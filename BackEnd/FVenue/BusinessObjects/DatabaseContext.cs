@@ -20,6 +20,7 @@ namespace BusinessObjects
         public DbSet<SubCategoryRequest> SubCategoryRequests { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<VenueSubCategory> VenueSubCategories { get; set; }
+        public DbSet<VNPAYPayment> VNPAYPayments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

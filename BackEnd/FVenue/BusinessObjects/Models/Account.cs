@@ -4,6 +4,7 @@ namespace BusinessObjects.Models
 {
     public class Account
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Email { get; set; }
         public byte[] SaltPassword { get; set; }
@@ -23,11 +24,8 @@ namespace BusinessObjects.Models
         public DateTime? BirthDay { get; set; }
         public int LoginMethod { get; set; }
         public bool IsEmailConfirmed { get; set; }
-<<<<<<< HEAD
-       
-=======
 
         public virtual ICollection<SubCategoryRequest> SubCategoryRequests { get; set; }
->>>>>>> f9ada662a50ff04e125ad295d1becce0cfadc34c
+        public virtual ICollection<VNPAYPayment> VNPAYPayments { get; set; }
     }
 }
