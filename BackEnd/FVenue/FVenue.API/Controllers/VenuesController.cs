@@ -41,7 +41,7 @@ namespace FVenue.API.Controllers
         [HttpGet, Route("Venues/InsertVenuePopup")]
         public PartialViewResult InsertVenuePopup()
         {
-            ViewBag.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+            ViewBag.AdministratorId = _accountService.GetAdministratorAccount(HttpContext.Session.GetString("AdministratorName")).Id;
             return PartialView("_VenueInsertPartial");
         }
 

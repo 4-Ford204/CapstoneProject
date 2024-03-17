@@ -105,7 +105,7 @@ namespace FVenue.API.Controllers
                                 LastUpdateDate = DateTime.Now,
                                 Status = true
                             });
-                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(HttpContext.Session.GetString("AdministratorName")).Id;
                             subCategoryRequest.Status = (int)EnumModel.SubCategoryRequestStatus.Approved;
                             _context.SubCategoryRequests.Update(subCategoryRequest);
                         }
@@ -115,7 +115,7 @@ namespace FVenue.API.Controllers
                         foreach (int id in subCategoryRequestUpdateListDTO.Ids)
                         {
                             var subCategoryRequest = _context.SubCategoryRequests.Find(id);
-                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(Request.Cookies["AdministratorName"]).Id;
+                            subCategoryRequest.AdministratorId = _accountService.GetAdministratorAccount(HttpContext.Session.GetString("AdministratorName")).Id;
                             subCategoryRequest.Status = (int)EnumModel.SubCategoryRequestStatus.Rejected;
                             _context.SubCategoryRequests.Update(subCategoryRequest);
                         }
