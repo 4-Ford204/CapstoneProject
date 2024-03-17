@@ -8,6 +8,7 @@ namespace FVenue.API.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly int COOKIE_EXPIRE = 4;
         private readonly DatabaseContext _context;
         private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
@@ -31,6 +32,8 @@ namespace FVenue.API.Controllers
             if (!String.IsNullOrEmpty(administratorName))
             {
                 HttpContext.Session.SetString("AdministratorName", administratorName);
+                Response.Cookies.Delete("AdministratorName");
+                Response.Cookies.Append("AdministratorName", administratorName, new CookieOptions { Expires = DateTime.Now.AddDays(COOKIE_EXPIRE) });
                 return RedirectToAction("Index");
             }
             else
@@ -68,7 +71,7 @@ namespace FVenue.API.Controllers
                             // Security policy: Specifies if the cookie should be accessible only over HTTPS.
                             // HttpOnly: Indicates if the cookie is available only to the server.
                             //Domain = HttpContext.Request.Host.Value,
-                            Expires = DateTime.Now.AddDays(7),
+                            Expires = DateTime.Now.AddDays(COOKIE_EXPIRE),
                             //Path = "/",
                             //Secure = true,
                             //HttpOnly = true
