@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTOs.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace DTOs.Repositories.Interfaces
 {
     public interface IImageService
     {
         string GetImagePath(IFormFile uFile);
-        bool UploadImage(IFormFile uFile, string filePath);
+        ResponseInfo UploadImage(IFormFile uFile);
     }
 }

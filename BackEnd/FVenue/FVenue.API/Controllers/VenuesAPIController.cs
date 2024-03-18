@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
+using DTOs.Models;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
+using DTOs.Repositories.Services;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +17,15 @@ namespace FVenue.API.Controllers
         private readonly IMapper _mapper;
         private readonly IVenueService _venueService;
 
-        public VenuesAPIController(IMapper mapper, IVenueService venueService)
+        private readonly IImageService _imageService;
+        
+        public VenuesAPIController(IMapper mapper, IVenueService venueService, IImageService imageService)
         {
             _mapper = mapper;
             _venueService = venueService;
+            _imageService = imageService;
+            
+
         }
 
         [HttpGet, Route("GetVenueDTOs/{pageIndex}/{pageSize}")]
@@ -70,7 +77,7 @@ namespace FVenue.API.Controllers
         }
 
         [HttpPost, Route("InsertVenue")]
-        public ActionResult<JsonModel> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
+        public ActionResult<JsonModel> InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
             if (!ModelState.IsValid)
                 return new JsonModel()
@@ -81,6 +88,7 @@ namespace FVenue.API.Controllers
                 };
             var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
             var result = _venueService.InsertVenue(venue);
+            var ImangeUpload = _imageVenueService.UploadImange(venueInsertDTO.Image);
             if (result.Key)
                 return new JsonModel()
                 {
@@ -144,5 +152,13 @@ namespace FVenue.API.Controllers
                     Data = result.Value
                 };
         }
+        [HttpPost, Route("ImageUpload")]
+        public IActionResult ImageUpload(IFormFile formFile)
+        {
+            var responseInfo = _imageService.UploadImage(formFile);
+            return StatusCode(responseInfo.Code, new { message = responseInfo.Message, url = responseInfo.Data });
+
+        }
+
     }
 }

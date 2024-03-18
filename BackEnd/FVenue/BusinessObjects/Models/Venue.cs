@@ -22,6 +22,7 @@ namespace BusinessObjects.Models
         [ForeignKey("Account")]
         public int AccountId { get; set; }
         public Account Account { get; set; }
+        public string FeatureImageUrl { get; set; }
 
         public virtual ICollection<VenueSubCategory> VenueSubCategories { get; set; }
     }
