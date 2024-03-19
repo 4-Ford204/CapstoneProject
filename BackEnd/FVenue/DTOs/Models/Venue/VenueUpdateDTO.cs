@@ -10,7 +10,11 @@ namespace DTOs.Models.Venue
         public int Id { get; set; }
         [DisplayName("Tên")]
         public string Name { get; set; }
-        public string Image { get; set; }
+        [DisplayName("Ảnh")]
+        public IFormFile Image { get; set; }
+        [DisplayName("Đường Dẫn Của Ảnh")]
+        public string ImageURL { get; set; }
+        [DisplayName("Mô Tả")]
         public string Description { get; set; }
         [DisplayName("Địa chỉ")]
         public string Street { get; set; }
@@ -30,7 +34,5 @@ namespace DTOs.Models.Venue
         public bool Status { get; set; }
         [DisplayName("Người quản lý")]
         public int AccountId { get; set; }
-        [DisplayName("Ảnh")]
-        public IFormFile ImageFile { get; set; }
     }
 }

@@ -73,9 +73,11 @@ namespace FVenue.API
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertDateTimeToTimeOnly(src.CloseTime)))
                 .ForMember(dest => dest.AccountName, opt => opt.MapFrom(src => accountService.GetAccountName(src.AccountId)));
             CreateMap<VenueInsertDTO, Venue>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageURL))
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
             CreateMap<VenueUpdateDTO, Venue>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageURL))
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
 

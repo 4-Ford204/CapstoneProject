@@ -14,8 +14,8 @@ namespace DTOs.Models.Venue
         [DisplayName("Ảnh")]
         public IFormFile Image { get; set; }
 
-        [DisplayName("Link Ảnh ")]
-        public string FeatureImageUrl { get; set; }
+        [DisplayName("Đường Dẫn Của Ảnh")]
+        public string ImageURL { get; set; }
 
         [Required]
         [DisplayName("Địa chỉ")]
@@ -38,11 +38,11 @@ namespace DTOs.Models.Venue
         public string CloseTime { get; set; }
 
         [Required]
-        [DisplayName("Gía dưới")]
+        [DisplayName("Giá dưới")]
         public float LowerPrice { get; set; }
 
         [Required]
-        [DisplayName("Gía trên")]
+        [DisplayName("Giá trên")]
         public float UpperPrice { get; set; }
 
         [Required]

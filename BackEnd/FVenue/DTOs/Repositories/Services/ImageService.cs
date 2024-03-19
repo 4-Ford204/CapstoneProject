@@ -3,20 +3,17 @@ using CloudinaryDotNet;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using DTOs.Models;
 using System.Net;
+using BusinessObjects;
 
 namespace DTOs.Repositories.Services
 {
     public class ImageService : IImageService
     {
-        private readonly string _imagePath = @"Data\Images\Venues";
-        private readonly IConfiguration configuration;
         private readonly Account account;
 
         public ImageService(IConfiguration configuration)
         {
-            this.configuration = configuration;
             account = new Account(
                  configuration.GetSection("Cloudinary")["CloudName"],
                  configuration.GetSection("Cloudinary")["ApiKey"],
@@ -24,60 +21,38 @@ namespace DTOs.Repositories.Services
                 );
         }
 
-
-
-        public string GetImagePath(IFormFile uFile)
-            => Path.Combine(_imagePath, uFile.FileName);
-
-        //public bool UploadImage(IFormFile uFile, string filePath)
-        //{
-        //    try
-        //    {
-        //        using var fileStream = new FileStream(Path.Combine(Environment.CurrentDirectory, filePath), FileMode.Create);
-        //        uFile.CopyTo(fileStream);
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        return false;
-        //    }
-        //}
-        public ResponseInfo UploadImage(IFormFile uFile)
+        public ResponseModel UploadImage(IFormFile uFile)
         {
-            
-            
-                var client = new Cloudinary(account);
-                var imageuploadParams = new ImageUploadParams()
+            try
+            {
+                var imageUploadResult = new Cloudinary(account).Upload(new ImageUploadParams()
                 {
                     File = new FileDescription(uFile.FileName, uFile.OpenReadStream()),
                     DisplayName = uFile.FileName
+                }) ?? throw new Exception("Lỗi không xác định! Không thể nhận được kết quả từ Cloudinary");
+                return new ResponseModel
+                {
+                    Code = (int)imageUploadResult.StatusCode,
+                    Message = imageUploadResult.StatusCode != HttpStatusCode.OK ? imageUploadResult.Error.Message : "Tệp Tải Lên Thành Công",
+                    Data = imageUploadResult.SecureUrl.ToString()
                 };
-                var uploadResult = client.Upload(imageuploadParams);
-                if (uploadResult.StatusCode != System.Net.HttpStatusCode.OK)
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel
                 {
-                    return new ResponseInfo()
-                    {
-                        Code = (int)uploadResult.StatusCode,
-                        Message = uploadResult.Error.Message
-                    };
-                }
-                if (uploadResult == null)
-                {
-                    return new ResponseInfo()
-                    {
-                        Code = (int)HttpStatusCode.InternalServerError,
-                        Message = "Loi khong xac dinh"
-                    };
-                }
-                return new ResponseInfo()
-                {
-                    Code = (int)HttpStatusCode.OK,
-                    Message = "Upload thanh cong",
-                    Data = uploadResult.SecureUrl.ToString()
+                    Code = (int)EnumModel.ResultCode.InternalServerError,
+                    Message = ex.Message,
+                    Data = String.Empty
                 };
-
-
+            }
         }
+    }
+
+    public class ResponseModel
+    {
+        public int Code { get; set; }
+        public string Message { get; set; }
+        public string Data { get; set; }
     }
 }

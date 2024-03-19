@@ -1,9 +1,5 @@
 ﻿@model DTOs.Models.Venue.VenueInsertDTO
 
-@section scripts {
-    <script type="text/javascript" src="/Views/Venues/insert.js"></script>
-}
-
 <div class="modal show display-popup" id="myModal" role="dialog" style="font-size: 15px">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="padding: 10px;">
@@ -25,25 +21,27 @@
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="Image"></label>
                                 <div class="k-form-field-wrap">
-                                    <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input type="file" id="featureImageUpload" class="form-control" asp-for="Image" />
-                                        <img src="" id="featureImageDisplay" style="display:none; width:300px;" />
-                                    </span>
+                                    <div style="display: flex;">
+                                        <div id="imageReview" class="kendo-cell-photo"></div>
+                                        <div style="flex-grow: 1">
+                                            <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
+                                                <input id="image" style="width: 100%" class="k-input-inner" type="file" asp-for="Image" />
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="k-form-hint">
                                         <span>Chọn ảnh đúng định dạng.</span>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="k-label k-form-label k-form-field">
-                                <label class="k-label k-form-label" asp-for="FeatureImageUrl"></label>
+                                <label class="k-label k-form-label" asp-for="ImageURL"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input type="text" class="form-control" id="featureImageUrl" asp-for="FeatureImageUrl" />
+                                        <input class="k-input-inner" id="imageURL" type="text" asp-for="ImageURL" readonly />
                                     </span>
                                 </div>
                             </div>
-
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="Street"></label>
                                 <div class="k-form-field-wrap">
@@ -104,4 +102,3 @@
         </div>
     </div>
 </div>
-

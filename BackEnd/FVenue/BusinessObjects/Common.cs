@@ -6,6 +6,7 @@ namespace BusinessObjects
     public static class Common
     {
         #region Algorithm
+
         public static Dictionary<char, int> GetDictionary(string source)
         {
             source = FilterVietNamChar(source).ToLower().Replace(" ", String.Empty);

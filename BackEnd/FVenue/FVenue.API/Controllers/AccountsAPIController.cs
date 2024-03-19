@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BusinessObjects;
+﻿using BusinessObjects;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
@@ -13,7 +12,6 @@ namespace FVenue.API.Controllers
     [ApiController]
     public class AccountsAPIController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
         private readonly ITokenService _tokenService;

@@ -58,10 +58,7 @@ namespace FVenue.API
             builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
             builder.Services.AddScoped<IVenueService, VenueService>();
-            builder.Services.AddScoped<IWardService, WardService>();
-            builder.Services.AddScoped<IImageVenueService, ImageVenueService>();
             builder.Services.AddScoped(
-
                 provider => new MapperConfiguration(
                     config =>
                     {
@@ -73,7 +70,6 @@ namespace FVenue.API
                             ));
                     })
                 .CreateMapper());
-
 
             var app = builder.Build();
 

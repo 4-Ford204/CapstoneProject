@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using BusinessObjects;
 using BusinessObjects.Models;
-using DTOs.Models;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
-using DTOs.Repositories.Services;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,17 +13,14 @@ namespace FVenue.API.Controllers
     public class VenuesAPIController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IImageService _imageService;
         private readonly IVenueService _venueService;
 
-        private readonly IImageService _imageService;
-        
-        public VenuesAPIController(IMapper mapper, IVenueService venueService, IImageService imageService)
+        public VenuesAPIController(IMapper mapper, IImageService imageService, IVenueService venueService)
         {
             _mapper = mapper;
-            _venueService = venueService;
             _imageService = imageService;
-            
-
+            _venueService = venueService;
         }
 
         [HttpGet, Route("GetVenueDTOs/{pageIndex}/{pageSize}")]
@@ -86,9 +81,21 @@ namespace FVenue.API.Controllers
                     Message = $"Insert Venue Error",
                     Data = venueInsertDTO
                 };
+            if (String.IsNullOrEmpty(venueInsertDTO.ImageURL) && venueInsertDTO.Image != null)
+            {
+                var imageUploadResult = _imageService.UploadImage(venueInsertDTO.Image);
+                if (imageUploadResult.Code == (int)EnumModel.ResultCode.OK)
+                    venueInsertDTO.ImageURL = imageUploadResult.Data;
+                else
+                    return new JsonModel()
+                    {
+                        Code = EnumModel.ResultCode.InternalServerError,
+                        Message = imageUploadResult.Message,
+                        Data = venueInsertDTO
+                    };
+            }
             var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
             var result = _venueService.InsertVenue(venue);
-            var ImangeUpload = _imageVenueService.UploadImange(venueInsertDTO.Image);
             if (result.Key)
                 return new JsonModel()
                 {
@@ -152,13 +159,5 @@ namespace FVenue.API.Controllers
                     Data = result.Value
                 };
         }
-        [HttpPost, Route("ImageUpload")]
-        public IActionResult ImageUpload(IFormFile formFile)
-        {
-            var responseInfo = _imageService.UploadImage(formFile);
-            return StatusCode(responseInfo.Code, new { message = responseInfo.Message, url = responseInfo.Data });
-
-        }
-
     }
 }

@@ -12,7 +12,5 @@ namespace DTOs.Repositories.Interfaces
         public List<Account> GetAdministrators();
         string GetAccountName(int id);
         KeyValuePair<bool, string> Registration(AccountInsertDTO accountInsertDTO);
-
-        Task<List<Account>> GetListAccounts();
     }
 }

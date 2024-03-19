@@ -2,7 +2,6 @@
 using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace DTOs.Repositories.Services
 {
@@ -117,21 +116,6 @@ namespace DTOs.Repositories.Services
             catch (Exception ex)
             {
                 return new KeyValuePair<bool, string>(false, ex.Message);
-            }
-        }
-
-        public async Task<List<Account>> GetListAccounts()
-        {
-            try
-            {
-                using (var _context = new DatabaseContext())
-                {
-                    return await _context.Accounts.ToListAsync();
-                }
-            }
-            catch(Exception ex)
-            {
-                return new List<Account>();
             }
         }
     }
