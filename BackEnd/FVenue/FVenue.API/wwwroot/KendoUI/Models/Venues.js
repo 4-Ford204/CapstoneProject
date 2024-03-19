@@ -4,9 +4,6 @@
         VenuesGrid: $("#venuesGrid"),
         Popup: document.getElementById("popup")
     }
-    var editor = new FroalaEditor('#content', {
-        imageUploadUrl: '/API/VenuesAPI/ImageUpload'
-    });
 
     var globalData = {
         baseURL: "../"
@@ -331,12 +328,7 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
-<<<<<<< Updated upstream
-                    
-=======
-                    console.log(featureUploadElement);
->>>>>>> Stashed changes
-                    document.getElementById('featureImageUpload').addEventListener("change", uploadFeatureImage);
+                    document.getElementById("image").addEventListener("change", UploadImage);
                     WardsDropDownList();
                     AdministratorsDropDownList();
                     RemovePopup();
@@ -468,38 +460,19 @@
         });
     }
 
-<<<<<<< Updated upstream
-   
-=======
-    const featureUploadElement = document.getElementById('featureImageUpload');
-    const featureImageUrlElement = document.getElementById('featureImageUrl');
-    const featureImageDisplayElement = document.getElementById('featureImageDisplay');
->>>>>>> Stashed changes
-
-    async function uploadFeatureImage(e) {
-        let data = new FormData();
-
-        console.log(e.target.files[0]);
-        console.log("debug");
-        
-        data.append('formFile', e.target.files[0]);
-        await fetch('/API/VenuesAPI/ImageUpload', {
-            method: 'POST',
+    async function UploadImage(e) {
+        var data = new FormData();
+        data.append("uFile", e.target.files[0]);
+        await fetch("/API/ImageAPI/UploadImage", {
             headers: {
-                'Aceept': '*/*',
+                Accept: "*/*"
             },
+            method: "POST",
             body: data
         }).then(response => response.json())
             .then(result => {
-                console.log(result.url);
-                console.log(result);
-                document.getElementById('featureImageUrl').value = result.url;
-                document.getElementById('featureImageDisplay').src = result.url;
-<<<<<<< Updated upstream
-                document.getElementById('featureImageDisplay').style.display = 'inline-block';
-=======
-                document.getElementById('featureImageDisplay').style.display = 'block';
->>>>>>> Stashed changes
+                document.getElementById("imageURL").value = result.Data;
+                document.getElementById("imageReview").style.backgroundImage = "url(\"" + result.Data + "\")";
             });
     }
 

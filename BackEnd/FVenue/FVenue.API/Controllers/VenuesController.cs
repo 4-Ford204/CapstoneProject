@@ -53,7 +53,7 @@ namespace FVenue.API.Controllers
             {
                 Id = venue.Id,
                 Name = venue.Name,
-                Image = venue.Image,
+                ImageURL = venue.Image,
                 Description = venue.Description,
                 Street = venue.Street,
                 WardId = venue.WardId,
@@ -88,26 +88,26 @@ namespace FVenue.API.Controllers
                 try
                 {
                     var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
-                    if (venueInsertDTO.Image != null)
+                    if (String.IsNullOrEmpty(venueInsertDTO.ImageURL) && venueInsertDTO.Image != null)
                     {
                         // Upload Image Process + Insert Venue
                         var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
                         if (!imageValidation.Key)
                             throw new Exception(imageValidation.Value);
-                        var imagePath = _imageService.GetImagePath(venueInsertDTO.Image);
-                        venue.Image = imagePath;
+                        var imageUploadResult = _imageService.UploadImage(venueInsertDTO.Image);
+                        if (imageUploadResult.Code != (int)EnumModel.ResultCode.OK)
+                            throw new Exception(imageUploadResult.Message);
+                        venue.Image = imageUploadResult.Data;
                         venue.LowerPrice = 0;
                         venue.UpperPrice = 0;
                         venue.Status = true;
                         _context.Venues.Add(venue);
                         _context.SaveChanges();
-                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image, imagePath);
-                        if (!uploadImage)
-                            throw new Exception("Tệp tải lên thất bại");
                         //return "Thêm địa điểm thành công";
                     }
                     else
                     {
+                        venue.Image = venueInsertDTO.ImageURL;
                         venue.LowerPrice = 0;
                         venue.UpperPrice = 0;
                         venue.Status = true;

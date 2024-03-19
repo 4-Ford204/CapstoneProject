@@ -20,13 +20,13 @@
                                 </div>
                             </div>
                             <div class="k-label k-form-label k-form-field">
-                                <label class="k-label k-form-label" asp-for="ImageFile"></label>
+                                <label class="k-label k-form-label" asp-for="Image"></label>
                                 <div class="k-form-field-wrap">
                                     <div style="display: flex;">
-                                        <div class="kendo-cell-photo" style="background-image: url(@Model.Image);"></div>
+                                        <div class="kendo-cell-photo" style="background-image: url(@Model.ImageURL);"></div>
                                         <div style="flex-grow: 1">
                                             <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                                <input style="width: 100%" class="k-input-inner" type="file" asp-for="ImageFile" />
+                                                <input style="width: 100%" class="k-input-inner" type="file" asp-for="Image" />
                                             </span>
                                         </div>
                                     </div>
