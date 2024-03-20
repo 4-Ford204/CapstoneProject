@@ -24,20 +24,38 @@ namespace DTOs.Repositories.Services
             }
         }
 
-        public int GetSubCategoryNumber(int id)
+        public int GetSubCategoryActiveNumber(int id)
         {
             using (var _context = new DatabaseContext())
             {
-                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id).Count();
+                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id && x.Status).Count();
                 return subCategoryNumber;
             };
         }
 
-        public int GetVenueNumber(int id)
+        public int GetSubCategoryInactiveNumber(int id)
         {
             using (var _context = new DatabaseContext())
             {
-                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id).Count();
+                var subCategoryNumber = _context.SubCategories.Where(x => x.CategoryId == id && !x.Status).Count();
+                return subCategoryNumber;
+            };
+        }
+
+        public int GetVenueActiveNumber(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id && x.Status).Count();
+                return venueNumber;
+            };
+        }
+
+        public int GetVenueInactiveNumber(int id)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venueNumber = _context.VenueSubCategories.Where(x => x.SubCategoryId == id && !x.Status).Count();
                 return venueNumber;
             };
         }
@@ -55,6 +73,26 @@ namespace DTOs.Repositories.Services
                     .Where(x => x.AdministratorId == 0 && x.Status == (int)EnumModel.SubCategoryRequestStatus.Pending)
                     .ToList();
                 return subCategoryRequests;
+            };
+        }
+
+        public List<String> GetSimilaritySubCategories(string name)
+        {
+            int size = 2;
+            using (var _context = new DatabaseContext())
+            {
+                var similaritySubCategories = _context.SubCategories
+                    .Select(x => new
+                    {
+                        x.Name,
+                        SimilarityPercentage = Common.SimilarityPercentage(name, x.Name),
+                        LevenshteinDistance = Common.LevenshteinDistance(name, x.Name)
+                    })
+                    .AsEnumerable()
+                    .OrderByDescending(x => x.SimilarityPercentage)
+                    .ThenBy(x => x.LevenshteinDistance)
+                    .ToList();
+                return similaritySubCategories.Select(x => x.Name).Take(size).ToList();
             };
         }
     }

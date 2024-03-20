@@ -126,7 +126,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Số Điện Thoại</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:PhoneNumber#</div>",
                     width: 150,
-                    sortable: true,
+                    sortable: false,
                     filterable: false
                 },
                 {
@@ -142,6 +142,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày Cập Nhật</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:LastUpdateDate#</div>",
                     width: 150,
+                    sortable: false,
                     filterable: false
                 },
                 {
@@ -149,6 +150,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
                     width: 150,
+                    sortable: false,
                     filterable: {
                         extra: false,
                         showOperators: false,
@@ -194,6 +196,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Giới tính</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"genderTemplate\"></div></div>",
                     width: 150,
+                    sortable: false,
                     filterable: {
                         extra: false,
                         showOperators: false,
@@ -211,6 +214,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Ngày sinh</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:BirthDay#</div>",
                     width: 150,
+                    sortable: false,
                     filterable: false
                 },
                 {
@@ -225,6 +229,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Xác Thực Tài Khoản</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"isEmailConfirmedTemplate\"></div></div>",
                     width: 200,
+                    sortable: false,
                     filterable: {
                         extra: false,
                         showOperators: false,
@@ -243,7 +248,7 @@
                         "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
                         "</div>",
                     width: 100
-                },
+                }
             ]
         });
     }

@@ -146,7 +146,6 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Khu Vực</strong></div>",
                     template: "<div class=\"kendo-grid-cell\">#:Location#</div>",
                     width: 200,
-                    sortable: true,
                     filterable: {
                         extra: false,
                         showOperators: false,
@@ -232,6 +231,7 @@
                     headerTemplate: "<div class=\"kendo-grid-header\"><strong>Trạng Thái</strong></div>",
                     template: "<div class=\"kendo-grid-cell\"><div class=\"badgeTemplate\"></div></div>",
                     width: 150,
+                    sortable: false,
                     filterable: {
                         extra: false,
                         showOperators: false,
@@ -269,7 +269,7 @@
                         className: "kendo-grid-btn"
                     },
                     width: 100
-                },
+                }
             ]
         });
 
@@ -328,6 +328,7 @@
                 type: "GET",
                 success: function (result) {
                     DOM.Popup.innerHTML = result;
+                    document.getElementById("image").addEventListener("change", UploadImage);
                     WardsDropDownList();
                     AdministratorsDropDownList();
                     RemovePopup();
@@ -457,6 +458,22 @@
                 console.log(result);
             }
         });
+    }
+
+    async function UploadImage(e) {
+        var data = new FormData();
+        data.append("uFile", e.target.files[0]);
+        await fetch("/API/ImageAPI/UploadImage", {
+            headers: {
+                Accept: "*/*"
+            },
+            method: "POST",
+            body: data
+        }).then(response => response.json())
+            .then(result => {
+                document.getElementById("imageURL").value = result.Data;
+                document.getElementById("imageReview").style.backgroundImage = "url(\"" + result.Data + "\")";
+            });
     }
 
     return {

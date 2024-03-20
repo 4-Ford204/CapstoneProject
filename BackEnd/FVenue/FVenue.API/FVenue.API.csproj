@@ -11,6 +11,11 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Quartz.AspNetCore" Version="3.8.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -19,10 +24,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Data\Images\Venues\" />
+		<Folder Include="Data\" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="wwwroot\Custom\Home.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Update="wwwroot\Custom\LoginPage.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Update="wwwroot\KendoUI\kendo.custom.css">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>

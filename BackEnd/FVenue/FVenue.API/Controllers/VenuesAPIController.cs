@@ -13,11 +13,13 @@ namespace FVenue.API.Controllers
     public class VenuesAPIController : ControllerBase
     {
         private readonly IMapper _mapper;
+        private readonly IImageService _imageService;
         private readonly IVenueService _venueService;
 
-        public VenuesAPIController(IMapper mapper, IVenueService venueService)
+        public VenuesAPIController(IMapper mapper, IImageService imageService, IVenueService venueService)
         {
             _mapper = mapper;
+            _imageService = imageService;
             _venueService = venueService;
         }
 
@@ -70,7 +72,7 @@ namespace FVenue.API.Controllers
         }
 
         [HttpPost, Route("InsertVenue")]
-        public ActionResult<JsonModel> InsertVenue([FromBody] VenueInsertDTO venueInsertDTO)
+        public ActionResult<JsonModel> InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {
             if (!ModelState.IsValid)
                 return new JsonModel()
@@ -79,6 +81,19 @@ namespace FVenue.API.Controllers
                     Message = $"Insert Venue Error",
                     Data = venueInsertDTO
                 };
+            if (String.IsNullOrEmpty(venueInsertDTO.ImageURL) && venueInsertDTO.Image != null)
+            {
+                var imageUploadResult = _imageService.UploadImage(venueInsertDTO.Image);
+                if (imageUploadResult.Code == (int)EnumModel.ResultCode.OK)
+                    venueInsertDTO.ImageURL = imageUploadResult.Data;
+                else
+                    return new JsonModel()
+                    {
+                        Code = EnumModel.ResultCode.InternalServerError,
+                        Message = imageUploadResult.Message,
+                        Data = venueInsertDTO
+                    };
+            }
             var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
             var result = _venueService.InsertVenue(venue);
             if (result.Key)

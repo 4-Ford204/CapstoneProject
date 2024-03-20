@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BusinessObjects;
+﻿using BusinessObjects;
 using DTOs.Models.Account;
 using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
@@ -13,16 +12,21 @@ namespace FVenue.API.Controllers
     [ApiController]
     public class AccountsAPIController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
         private readonly ITokenService _tokenService;
+        private readonly string environment;
 
-        public AccountsAPIController(IAccountService accountService, IEmailService emailService, ITokenService tokenService)
+        public AccountsAPIController(
+            IConfiguration configuration,
+            IAccountService accountService,
+            IEmailService emailService,
+            ITokenService tokenService)
         {
             _accountService = accountService;
             _emailService = emailService;
             _tokenService = tokenService;
+            environment = configuration["Environment"];
         }
 
         [Authorize(Roles = nameof(EnumModel.Role.Administrator))]
@@ -189,33 +193,45 @@ namespace FVenue.API.Controllers
         }
 
         [HttpGet, Route("GoogleRegistrationHandler")]
-        public async Task<JsonModel> GoogleRegistrationHandler([FromQuery] string code)
+        public async Task<dynamic> GoogleRegistrationHandler([FromQuery] string code)
         {
             var accessToken = await _tokenService.GetGoogleAccessToken(code);
             if (string.IsNullOrEmpty(accessToken))
-                return new JsonModel()
-                {
-                    Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"Access Token Error",
-                    Data = code
-                };
+                if (environment.Equals("Developing"))
+                    return new JsonModel()
+                    {
+                        Code = EnumModel.ResultCode.InternalServerError,
+                        Message = $"Access Token Error",
+                        Data = code
+                    };
+                else
+                    return "Access Token Error";
             else
             {
                 var user = await _tokenService.GetGoogleUser(accessToken);
                 if ((object)user != null)
-                    return new JsonModel()
-                    {
-                        Code = EnumModel.ResultCode.OK,
-                        Message = $"Please close this window and return to application.",
-                        Data = user
-                    };
+                    if (environment.Equals("Developing"))
+                        return new JsonModel()
+                        {
+                            Code = EnumModel.ResultCode.OK,
+                            Message = $"Please close this window and return to application.",
+                            Data = user
+                        };
+                    else
+                        return "Please close this window and return to application.";
                 else
-                    return new JsonModel()
-                    {
-                        Code = EnumModel.ResultCode.InternalServerError,
-                        Message = $"User Information Error",
-                        Data = accessToken
-                    };
+                {
+                    if (environment.Equals("Developing"))
+                        return new JsonModel()
+                        {
+                            Code = EnumModel.ResultCode.InternalServerError,
+                            Message = $"User Information Error",
+                            Data = accessToken
+                        };
+
+                    else
+                        return $"User Information Error";
+                }
             }
         }
 

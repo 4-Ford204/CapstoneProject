@@ -12,7 +12,11 @@ namespace FVenue.API
 {
     public class ProgramMapper : Profile
     {
-        public ProgramMapper(IAccountService accountService, ICategoryService categoryService, ILocationService locationService)
+        public ProgramMapper(
+            IAccountService accountService,
+            ICategoryService categoryService,
+            ILocationService locationService,
+            ISubCategoryService subCategoryService)
         {
             #region Account
 
@@ -43,16 +47,20 @@ namespace FVenue.API
 
             #region SubCategory
 
-            CreateMap<SubCategory, SubCategoryDTO>();
-
-            #endregion
-
-            #region SubCategoryRequest
-
+            CreateMap<SubCategory, SubCategoryDTO>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)));
             CreateMap<SubCategoryRequest, SubCategoryRequestDTO>()
                 .ForMember(dest => dest.RequestUserName, opt => opt.MapFrom(src => accountService.GetAccountName(src.RequestUserId)))
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => categoryService.GetCategoryName(src.CategoryId)))
-                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)));
+                .ForMember(dest => dest.Badge, opt => opt.MapFrom(src => Common.SetBadgeBaseOnCreateDate(src.CreateDate)))
+                .ForMember(dest => dest.SimilaritySubCategories, opt => opt.MapFrom(src => subCategoryService.GetSimilaritySubCategories(src.Name)));
+            CreateMap<SubCategoryInsertDTO, SubCategory>()
+                .ForMember(dest => dest.CreateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => true));
+            CreateMap<SubCategoryUpdateDTO, SubCategory>()
+                .ForMember(dest => dest.LastUpdateDate, opt => opt.MapFrom(src => DateTime.Now));
+            CreateMap<SubCategory, SubCategoryUpdateDTO>();
 
             #endregion
 
@@ -65,9 +73,11 @@ namespace FVenue.API
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertDateTimeToTimeOnly(src.CloseTime)))
                 .ForMember(dest => dest.AccountName, opt => opt.MapFrom(src => accountService.GetAccountName(src.AccountId)));
             CreateMap<VenueInsertDTO, Venue>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageURL))
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
             CreateMap<VenueUpdateDTO, Venue>()
+                .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.ImageURL))
                 .ForMember(dest => dest.OpenTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.OpenTime)))
                 .ForMember(dest => dest.CloseTime, opt => opt.MapFrom(src => Common.ConvertTimeOnlyToDateTime(src.CloseTime)));
 

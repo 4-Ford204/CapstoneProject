@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusinessObjects;
+using BusinessObjects.Models;
 using DTOs.Models.Category;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -41,12 +42,18 @@ namespace FVenue.API.Controllers
             {
                 Id = x.Id,
                 Name = x.Name,
-                SubCategoryNumber = _subCategoryService.GetSubCategoryNumber(x.Id),
-                VenueNumber = _categoryService.GetVenueNumber(x.Id)
+                SubCategoryActiveNumber = _subCategoryService.GetSubCategoryActiveNumber(x.Id),
+                SubCategoryInactiveNumber = _subCategoryService.GetSubCategoryInactiveNumber(x.Id),
+                VenueActiveNumber = _categoryService.GetVenueActiveNumber(x.Id),
+                VenueInactiveNumber = _categoryService.GetVenueInactiveNumber(x.Id)
             })
                 .ToList();
             return result;
         }
+
+        [HttpGet, Route("Categories/GetCategoryDTOs")]
+        public List<CategoryDTO> GetCategoryDTOs()
+            => _mapper.Map<List<Category>, List<CategoryDTO>>(_context.Categories.ToList());
 
         #endregion
     }

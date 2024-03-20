@@ -5,7 +5,9 @@ using DTOs.Repositories.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using System.Text;
+using FVenue.API.Jobs;
 
 namespace FVenue.API
 {
@@ -53,6 +55,7 @@ namespace FVenue.API
             builder.Services.AddScoped<IEmailService, EmailService>();
             builder.Services.AddScoped<IImageService, ImageService>();
             builder.Services.AddScoped<ILocationService, LocationService>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IRoleService, RoleService>();
             builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
@@ -64,10 +67,24 @@ namespace FVenue.API
                         config.AddProfile(new ProgramMapper(
                             provider.GetService<IAccountService>(),
                             provider.GetService<ICategoryService>(),
-                            provider.GetService<ILocationService>()
+                            provider.GetService<ILocationService>(),
+                            provider.GetService<ISubCategoryService>()
                             ));
                     })
                 .CreateMapper());
+
+            // Quartz Scheduler
+            builder.Services.AddQuartz(quartz =>
+            {
+                var jobKey = new JobKey("DeleteUnusedImagesJob");
+                quartz.AddJob<DeleteUnusedImagesJob>(options => options.WithIdentity(jobKey));
+                quartz.AddTrigger(options => options
+                    .ForJob(jobKey)
+                    .WithIdentity("DeleteUnusedImagesJob-Trigger")
+                    .WithCronSchedule("0 0 0 ? * * *")
+                );
+            });
+            builder.Services.AddQuartzHostedService(quartz => quartz.WaitForJobsToComplete = true);
 
             var app = builder.Build();
 

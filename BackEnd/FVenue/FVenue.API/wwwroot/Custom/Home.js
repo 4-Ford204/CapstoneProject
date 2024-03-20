@@ -13,18 +13,20 @@
     function bindControls() { }
 
     function initSubCategoryRequestTable() {
-        $.ajax({
-            url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/1",
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                DOM.SubCategoryRequestTable.innerHTML = result;
-                SubCategoryRequestTableEvent();
-            },
-            error: function (result) {
-                console.log(result);
-            }
-        });
+        if (DOM.SubCategoryRequestTable != null) {
+            $.ajax({
+                url: globalData.baseURL + "SubCategories/SubCategoryRequestTable/1",
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    DOM.SubCategoryRequestTable.innerHTML = result;
+                    SubCategoryRequestTableEvent();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }
     }
 
     function SubCategoryRequestTableEvent() {
@@ -65,19 +67,19 @@
         $("#subCategoryRequestApproved").on("click", (function () {
             var ids = [];
             $("input[id^=\"subCategoryRequest\"]").each(function (index, element) {
-                if (element.checked) ids.push(element.value);
+                if (element.checked) ids.push(Number(element.value));
             });
             $.ajax({
                 url: globalData.baseURL + "SubCategories/UpdateSubCategoryRequestStatus",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
-                dataType: "JSON",
-                data: {
-                    ids: ids,
-                    status: "Approved"
-                },
+                data: JSON.stringify({
+                    Ids: ids,
+                    Status: "Approved"
+                }),
                 success: function (result) {
-                    console.log(result);
+                    DOM.SubCategoryRequestTable.innerHTML = result;
+                    SubCategoryRequestTableEvent();
                 },
                 error: function (result) {
                     console.log(result);

@@ -1,12 +1,137 @@
-﻿using System.Security.Cryptography;
+﻿using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BusinessObjects
 {
     public static class Common
     {
+        public static HttpClient GenerateHttpClient()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return client;
+        }
+
+        #region Algorithm
+
+        public static Dictionary<char, int> GetDictionary(string source)
+        {
+            source = FilterVietNamChar(source).ToLower().Replace(" ", String.Empty);
+            Dictionary<char, int> result = new Dictionary<char, int>();
+            for (int i = 0; i < source.Length; i++)
+            {
+                if (result.TryGetValue(source[i], out int value))
+                    result[source[i]] = value++;
+                else
+                    result.Add(source[i], 1);
+            }
+            return result;
+        }
+
         public static int GetFirstPageInPagination(int indexPage, int paginationPage, int totalPages)
             => totalPages <= paginationPage ? 1 : indexPage + paginationPage <= totalPages ? indexPage : totalPages - paginationPage + 1;
+
+        public static string HmacSHA512(string key, string input)
+        {
+            var hash = new StringBuilder();
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            using (var hmacSHA512 = new HMACSHA512(keyBytes))
+            {
+                byte[] hashValue = hmacSHA512.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                    hash.Append(theByte.ToString("x2"));
+            }
+            return hash.ToString();
+        }
+
+        /// <summary>
+        /// Fuzzy Search (Approximate Search) sử dụng 
+        /// thuật toán Levenshtein Distance (số bước ngắn nhất để biến đổi từ chuỗi nguồn thành chuỗi đích)
+        /// </summary>
+        /// <param name="destination">Chuỗi Đích</param>
+        /// <param name="source">Chuỗi Nguồn</param>
+        /// <returns>Số bước ngắn nhất (thêm, sửa, xóa) để biến đổi từ chuỗi nguồn thành chuỗi đích</returns>
+        public static int LevenshteinDistance(string destination, string source)
+        {
+            destination = FilterVietNamChar(destination).ToLower().Replace(" ", String.Empty);
+            source = FilterVietNamChar(source).ToLower().Replace(" ", String.Empty);
+            int destinationLength = destination.Length;
+            int sourceLength = source.Length;
+            int[,] LevenshteinDistanceTable = new int[destinationLength + 1, sourceLength + 1];
+            if (destinationLength == 0)
+                return sourceLength;
+            else if (sourceLength == 0)
+                return destinationLength;
+            else
+            {
+                for (int i = 0; i <= destinationLength; LevenshteinDistanceTable[i, 0] = i++) ;
+                for (int i = 0; i <= sourceLength; LevenshteinDistanceTable[0, i] = i++) ;
+                for (int i = 1; i <= destinationLength; i++)
+                {
+                    for (int j = 1; j <= sourceLength; j++)
+                    {
+                        int cost = source[j - 1] == destination[i - 1] ? 0 : 1;
+                        LevenshteinDistanceTable[i, j] =
+                            Math.Min(
+                                Math.Min(
+                                    LevenshteinDistanceTable[i - 1, j] + 1,
+                                    LevenshteinDistanceTable[i, j - 1] + 1
+                                    ),
+                                LevenshteinDistanceTable[i - 1, j - 1] + cost
+                                );
+                    }
+                }
+                return LevenshteinDistanceTable[destinationLength, sourceLength];
+            }
+        }
+
+        public static float SimilarityPercentage(string stringValue, string stringSource)
+        {
+            Task<Dictionary<char, int>> stringValueTask = Task.Run(() => { return GetDictionary(stringValue); });
+            Task<Dictionary<char, int>> stringSourceTask = Task.Run(() => { return GetDictionary(stringSource); });
+            Task.WaitAny(stringValueTask, stringSourceTask);
+            Dictionary<char, int> stringValueDictionary = stringValueTask.Result;
+            Dictionary<char, int> stringSourceDictionary = stringSourceTask.Result;
+            float similarityChars = 0;
+            float sumChars = 0;
+            foreach (var kpv in stringValueDictionary)
+            {
+                sumChars += kpv.Value;
+                if (stringSourceDictionary.TryGetValue(kpv.Key, out int value))
+                    similarityChars = Math.Max(kpv.Key, value);
+            }
+            return similarityChars / sumChars;
+        }
+
+        public static string FilterVietNamChar(string value)
+        {
+            string[] VietNamChar = new string[]
+            {
+                "aAeEoOuUiIdDyY",
+                "áàạảãâấầậẩẫăắằặẳẵ",
+                "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+                "éèẹẻẽêếềệểễ",
+                "ÉÈẸẺẼÊẾỀỆỂỄ",
+                "óòọỏõôốồộổỗơớờợởỡ",
+                "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+                "úùụủũưứừựửữ",
+                "ÚÙỤỦŨƯỨỪỰỬỮ",
+                "íìịỉĩ",
+                "ÍÌỊỈĨ",
+                "đ",
+                "Đ",
+                "ýỳỵỷỹ",
+                "ÝỲỴỶỸ"
+            };
+            for (int i = 1; i < VietNamChar.Length; i++)
+                for (int j = 0; j < VietNamChar[i].Length; j++) value = value.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+            return value;
+        }
+
+        #endregion
 
         #region Account
 
@@ -107,24 +232,6 @@ namespace BusinessObjects
 
         #endregion
 
-        #region GeoLocation
-
-        public static void ConvertGeoLocationToLatLong(string geoLocation, out float Latitude, out float Longitude)
-        {
-            var geo = geoLocation.Split(',');
-            Latitude = float.Parse(geo[0]);
-            Longitude = float.Parse(geo[1]);
-        }
-
-        public static string FormatGeoLocation(string geoLocation)
-        {
-            float Latitude, Longitude;
-            ConvertGeoLocationToLatLong(geoLocation, out Latitude, out Longitude);
-            return $"{Latitude.ToString("0.00")},{Longitude.ToString("0.00")}";
-        }
-
-        #endregion
-
         #region DateTime
 
         public static DateOnly ConvertDateTimeToDateOnly(DateTime dateTime)
@@ -145,10 +252,30 @@ namespace BusinessObjects
         /// <returns></returns>
         public static DateTime ConvertTimeOnlyToDateTime(string time)
             => DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse(time));
+        public static DateTime ConvertStringToDateTime(string dateTime)
+            => DateTime.Parse(dateTime);
         public static string FormatDateTime(DateTime dateTime)
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
         public static string FormatDateTime(DateTime? dateTime)
             => dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+
+        #endregion
+
+        #region GeoLocation
+
+        public static void ConvertGeoLocationToLatLong(string geoLocation, out float Latitude, out float Longitude)
+        {
+            var geo = geoLocation.Split(',');
+            Latitude = float.Parse(geo[0]);
+            Longitude = float.Parse(geo[1]);
+        }
+
+        public static string FormatGeoLocation(string geoLocation)
+        {
+            float Latitude, Longitude;
+            ConvertGeoLocationToLatLong(geoLocation, out Latitude, out Longitude);
+            return $"{Latitude.ToString("0.00")},{Longitude.ToString("0.00")}";
+        }
 
         #endregion
 
@@ -189,6 +316,36 @@ namespace BusinessObjects
                 return new KeyValuePair<string, string>("badge-warning", $"{(int)result / day} ngày");
             else
                 return new KeyValuePair<string, string>("badge-danger", $"{(int)result / 604800} tuần");
+        }
+
+        #endregion
+
+        #region VNPAYPayment
+
+        public static string GetVNP_Response(string vnp_ResponseCode)
+        {
+            Dictionary<string, string> response = new Dictionary<string, string>()
+            {
+                { "00", "Giao dịch thành công." },
+                { "07", "Trừ tiền thành công. Giao dịch bị nghi ngờ (liên quan tới lừa đảo, giao dịch bất thường)." },
+                { "09", "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking tại ngân hàng." },
+                { "10", "Giao dịch không thành công do: Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần." },
+                { "11", "Giao dịch không thành công do: Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "12", "Giao dịch không thành công do: Thẻ/Tài khoản của khách hàng bị khóa." },
+                { "13", "Giao dịch không thành công do: Quý khách nhập sai mật khẩu xác thực giao dịch (OTP). Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "24", "Giao dịch không thành công do: Khách hàng hủy giao dịch." },
+                { "51", "Giao dịch không thành công do: Tài khoản của quý khách không đủ số dư để thực hiện giao dịch." },
+                { "65", "Giao dịch không thành công do: Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày." },
+                { "75", "Ngân hàng thanh toán đang bảo trì." },
+                { "79", "Giao dịch không thành công do: KH nhập sai mật khẩu thanh toán quá số lần quy định. Xin quý khách vui lòng thực hiện lại giao dịch." },
+                { "99", "Các lỗi khác (lỗi còn lại, không có trong danh sách mã lỗi đã liệt kê)." }
+            };
+            foreach (var kpv in response)
+            {
+                if (kpv.Key.Equals(vnp_ResponseCode))
+                    return kpv.Value;
+            }
+            return String.Empty;
         }
 
         #endregion
