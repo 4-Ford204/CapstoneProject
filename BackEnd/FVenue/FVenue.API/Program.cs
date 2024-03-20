@@ -81,7 +81,7 @@ namespace FVenue.API
                 quartz.AddTrigger(options => options
                     .ForJob(jobKey)
                     .WithIdentity("DeleteUnusedImagesJob-Trigger")
-                    .WithCronSchedule("0 0 * * *")
+                    .WithCronSchedule("0 0 0 ? * * *")
                 );
             });
             builder.Services.AddQuartzHostedService(quartz => quartz.WaitForJobsToComplete = true);
