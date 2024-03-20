@@ -1,10 +1,19 @@
-﻿using System.Security.Cryptography;
+﻿using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BusinessObjects
 {
     public static class Common
     {
+        public static HttpClient GenerateHttpClient()
+        {
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            return client;
+        }
+
         #region Algorithm
 
         public static Dictionary<char, int> GetDictionary(string source)
@@ -243,6 +252,8 @@ namespace BusinessObjects
         /// <returns></returns>
         public static DateTime ConvertTimeOnlyToDateTime(string time)
             => DateOnly.FromDateTime(DateTime.Now).ToDateTime(TimeOnly.Parse(time));
+        public static DateTime ConvertStringToDateTime(string dateTime)
+            => DateTime.Parse(dateTime);
         public static string FormatDateTime(DateTime dateTime)
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
         public static string FormatDateTime(DateTime? dateTime)

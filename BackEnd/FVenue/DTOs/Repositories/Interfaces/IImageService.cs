@@ -5,6 +5,8 @@ namespace DTOs.Repositories.Interfaces
 {
     public interface IImageService
     {
+        dynamic GetImages(string nextCursor = null);
         ResponseModel UploadImage(IFormFile uFile);
+        dynamic DeleteUnusedImages();
     }
 }

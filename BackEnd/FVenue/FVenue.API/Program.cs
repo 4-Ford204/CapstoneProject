@@ -5,7 +5,9 @@ using DTOs.Repositories.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using System.Text;
+using FVenue.API.Jobs;
 
 namespace FVenue.API
 {
@@ -70,6 +72,19 @@ namespace FVenue.API
                             ));
                     })
                 .CreateMapper());
+
+            // Quartz Scheduler
+            builder.Services.AddQuartz(quartz =>
+            {
+                var jobKey = new JobKey("DeleteUnusedImagesJob");
+                quartz.AddJob<DeleteUnusedImagesJob>(options => options.WithIdentity(jobKey));
+                quartz.AddTrigger(options => options
+                    .ForJob(jobKey)
+                    .WithIdentity("DeleteUnusedImagesJob-Trigger")
+                    .WithCronSchedule("0 0 * * *")
+                );
+            });
+            builder.Services.AddQuartzHostedService(quartz => quartz.WaitForJobsToComplete = true);
 
             var app = builder.Build();
 
