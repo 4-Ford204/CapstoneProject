@@ -5,6 +5,8 @@ using DTOs;
 using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace FVenue.API.Controllers
 {
@@ -76,6 +78,33 @@ namespace FVenue.API.Controllers
         public List<VenueDTO> GetVenueDTOs()
             => _mapper.Map<List<Venue>, List<VenueDTO>>(_context.Venues.OrderByDescending(x => x.Id).ToList());
 
+        [HttpGet, Route("Venues/GetPublicVenue")]
+        public List<Venue> GetPublicVenueDTOs() {
+           List<Venue> listPublicVenue =   new List<Venue>();
+           var getPublicVenueID = _context.VenueSubCategories.Where(x => x.SubCategoryId == 1);
+            foreach (var item in getPublicVenueID)
+            {
+                var publicVenue = _venueService.GetVenue(item.VenueId);
+                listPublicVenue.Add(publicVenue);
+            }
+            return listPublicVenue;
+        }
+
+        [HttpGet, Route("Venues/GetNonPublicVenue")]
+        public List<Venue> GetNonPublicVenueDTOs() {
+           List<Venue> listNonPublicVenue =   new List<Venue>();
+           var getNonPublicVenueID = _context.VenueSubCategories.Where(x => x.SubCategoryId != 1);
+            foreach (var item in getNonPublicVenueID)
+            {
+                var nonPublicVenue = _venueService.GetVenue(item.VenueId);
+                listNonPublicVenue.Add(nonPublicVenue);
+            }
+            return listNonPublicVenue;
+        }
+        
+
+        
+
         [HttpGet, Route("Venues/GetVenueDescription/{id}")]
         public string GetVenueDescription(int id)
             => _context.Venues.Find(id).Description ?? "Chưa có mô tả về địa điểm này";
@@ -103,6 +132,9 @@ namespace FVenue.API.Controllers
                         venue.Status = true;
                         _context.Venues.Add(venue);
                         _context.SaveChanges();
+                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image);
+                        if (uploadImage.Code != 200)
+                            throw new Exception("Tệp tải lên thất bại");
                         //return "Thêm địa điểm thành công";
                     }
                     else
