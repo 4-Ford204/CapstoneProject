@@ -7,10 +7,10 @@ export type IResponse<T> = {
   }
   Message?: string
   Code?: number
-  _pagination?: {
-    total: number
-    totalPage: number
-  }
+  // _pagination?: {
+  //   total: number
+  //   totalPage: number
+  // }
 }
 
 export type IErrorResponse = {

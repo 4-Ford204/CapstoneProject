@@ -1,5 +1,6 @@
 import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+const VenueTable = React.lazy(() => import('src/components/venue-crud/venue-table'))
 const MainLayout = React.lazy(() => import('../pages/layout/MainLayout'))
 const LandingPage = React.lazy(() => import('src/pages/landing'))
 const VenueDetailPage = React.lazy(() => import('src/pages/venue/VenueDetailPage'))
@@ -31,6 +32,11 @@ export const ROUTES = createBrowserRouter([
     path: '/profile',
     element: <Profile />,
   },
+  {
+    path: '/venueManager',
+    element: <VenueTable />,
+  },
+
   {
     element: <AuthLayout />,
     children: [

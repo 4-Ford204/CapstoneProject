@@ -10,7 +10,7 @@ export type GetManyVenuesParams = {
 } & Partial<IDefaultQuery>
 async function venueApi(params: GetManyVenuesParams) {
   try {
-    const response = await axiosClient.get(`VenuesAPI/GetVenueDTOs/${params.page || 1}/${params.perPage || 8}`, {
+    const response = await axiosClient.get(`VenuesAPI/GetVenueDTOs/${params.PageIndex}/${params.PageSize}`, {
       params,
     })
     return response.data

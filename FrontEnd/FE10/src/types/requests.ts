@@ -1,6 +1,6 @@
 export interface IQueryPagination {
-  perPage: number
-  page: number
+  PageIndex: number
+  PageSize: number
 }
 
 export interface IQuerySearch {
