@@ -14,6 +14,5 @@
         public float UpperPrice { get; set; }
         public bool Status { get; set; }
         public string AccountName { get; set; }
-        public string FeatureImageUrl { get; set; }
     }
 }
