@@ -17,7 +17,7 @@ namespace FVenue.API.Controllers
         private readonly IImageService _imageService;
         private readonly ILocationService _locationService;
         private readonly IVenueService _venueService;
-
+        
         public VenuesController(
             DatabaseContext context,
             IMapper mapper,
