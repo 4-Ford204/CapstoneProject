@@ -71,6 +71,70 @@ namespace FVenue.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Author: PhucHV
+        /// </summary>
+        /// <returns>Danh sách những địa điểm miễn phí</returns>
+        [HttpGet, Route("GetPublicVenueDTOs/{pageIndex}/{pageSize}")]
+        public ActionResult<JsonModel> GetPublicVenueDTOs(int pageIndex, int pageSize)
+        {
+            try
+            {
+                var publicVenues = _venueService.GetVenuesBySubCategory(1)
+                    .Where(x => x.LowerPrice == 0 && x.UpperPrice == 0 && x.Status)
+                    .OrderBy(x => x.Name).ToList();
+                var publicVenueDTOs = _mapper.Map<List<Venue>, List<VenueDTO>>(publicVenues);
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"{publicVenues.Count} public venues",
+                    Data = new PaginationModel<VenueDTO>(publicVenueDTOs, pageIndex, pageSize)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
+        }
+
+        /// <summary>
+        /// Author: PhucHV
+        /// </summary>
+        /// <returns>Danh sách những địa điểm trả phí</returns>
+        [HttpGet, Route("GetNonPublicVenueDTOs/{pageIndex}/{pageSize}")]
+        public ActionResult<JsonModel> GetNonPublicVenueDTOs(int pageIndex, int pageSize)
+        {
+            try
+            {
+                using (var _context = new DatabaseContext())
+                {
+                    List<Venue> nonPublicVenues = new List<Venue>();
+                    var venueSubCategories = _context.VenueSubCategories.Where(x => x.SubCategoryId != 1);
+                    foreach (var venueSubCategory in venueSubCategories)
+                        nonPublicVenues.Add(_venueService.GetVenue(venueSubCategory.VenueId));
+                    var nonPublicVenueDTOs = _mapper.Map<List<Venue>, List<VenueDTO>>(nonPublicVenues.Where(x => x.Status).ToList());
+                    return new JsonModel
+                    {
+                        Code = EnumModel.ResultCode.OK,
+                        Message = $"{nonPublicVenueDTOs.Count} non public venues",
+                        Data = new PaginationModel<VenueDTO>(nonPublicVenueDTOs, pageIndex, pageSize)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}"
+                };
+            }
+        }
+
         [HttpPost, Route("InsertVenue")]
         public ActionResult<JsonModel> InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {

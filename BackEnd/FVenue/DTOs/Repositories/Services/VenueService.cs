@@ -24,6 +24,24 @@ namespace DTOs.Repositories.Services
             }
         }
 
+        public List<Venue> GetVenuesBySubCategory(int subCategoryId)
+        {
+            using (var _context = new DatabaseContext())
+            {
+                var venues = _context.Venues.Join(_context.VenueSubCategories,
+                    venue => venue.Id,
+                    venueSubCategory => venueSubCategory.VenueId,
+                    (venue, venueSubCategory) => new
+                    {
+                        Venue = venue,
+                        VenueSubCategory = venueSubCategory
+                    })
+                    .Where(x => x.VenueSubCategory.SubCategoryId == subCategoryId)
+                    .Select(x => x.Venue).ToList();
+                return venues;
+            }
+        }
+
         public KeyValuePair<bool, string> InsertVenue(Venue venue)
         {
             try
