@@ -132,9 +132,6 @@ namespace FVenue.API.Controllers
                         venue.Status = true;
                         _context.Venues.Add(venue);
                         _context.SaveChanges();
-                        var uploadImage = _imageService.UploadImage(venueInsertDTO.Image);
-                        if (uploadImage.Code != 200)
-                            throw new Exception("Tệp tải lên thất bại");
                         //return "Thêm địa điểm thành công";
                     }
                     else
