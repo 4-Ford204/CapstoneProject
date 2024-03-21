@@ -2,12 +2,12 @@ import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 const MainLayout = React.lazy(() => import('../pages/layout/MainLayout'))
 const LandingPage = React.lazy(() => import('src/pages/landing'))
-const BookPage = React.lazy(() => import('src/pages/book/BookPage'))
 const VenueDetailPage = React.lazy(() => import('src/pages/venue/VenueDetailPage'))
 const AuthLayout = React.lazy(() => import('src/pages/layout/AuthLayout'))
 const LoginPage = React.lazy(() => import('src/pages/(auth)/login/SignInPage'))
 const SignUpPage = React.lazy(() => import('src/pages/(auth)/register/SignUpPage'))
 const Profile = React.lazy(() => import('src/pages/(auth)/profile/Profile'))
+const Venues = React.lazy(() => import('src/pages/venue/Venues'))
 
 export const ROUTES = createBrowserRouter([
   {
@@ -24,6 +24,14 @@ export const ROUTES = createBrowserRouter([
     element: <VenueDetailPage />,
   },
   {
+    path: '/venues',
+    element: <Venues />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />,
+  },
+  {
     element: <AuthLayout />,
     children: [
       {
@@ -33,10 +41,6 @@ export const ROUTES = createBrowserRouter([
       {
         path: '/register',
         element: <SignUpPage />,
-      },
-      {
-        path: '/profile',
-        element: <Profile />,
       },
     ],
   },

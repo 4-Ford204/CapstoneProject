@@ -15,7 +15,7 @@ function TopVenue() {
   useEffect(() => {
     AOS.init()
   }, [])
-  const { data } = useQuery<IResponse<IVenue[]>, AxiosError>([], () => venueApi(), {
+  const { data } = useQuery<IResponse<IVenue[]>, AxiosError>(['venues'], () => venueApi({}), {
     keepPreviousData: true,
   })
 

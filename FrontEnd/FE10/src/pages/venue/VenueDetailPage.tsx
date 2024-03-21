@@ -53,7 +53,7 @@ function VenueDetailPage() {
   useEffect(() => {
     const fetchVenue = async () => {
       try {
-        const venueData = await getVenueId(id) // Lấy dữ liệu venue từ API thật
+        const venueData = await getVenueId(id) 
         setVenue(venueData.Data)
       } catch (error) {
         console.error('Error fetching venue:', error)
@@ -74,11 +74,11 @@ function VenueDetailPage() {
     const review: IReview = {
       _id: (venue?.Reviews?.length || 0 + 1).toString(),
       user_id: {
-        fullName: 'John Doe', // Replace with actual user data from authentication
+        fullName: 'John Doe',
         email: 'john@example.com',
         avatar: 'fake-avatar-url',
       },
-      rating: 5, // Replace with actual user rating input
+      rating: 5,
       updatedAt: formattedDate,
       details: reviewText,
     }
@@ -143,6 +143,19 @@ function VenueDetailPage() {
               </article>
             </section>
           )}
+        </div>
+      </div>
+
+      <div className="mx-auto my-2 max-w-6xl bg-white px-2 sm:my-4 sm:px-4 lg:my-6 lg:px-6">
+        <div style={{ width: '100%', height: '100vh' }}>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15331.790790614381!2d108.26564614143506!3d16.120006267224266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31423d71a211a64f%3A0xb65a8033e2183c23!2zxJHhu4luaCBCw6BuIEPhu50!5e0!3m2!1svi!2s!4v1710762744414!5m2!1svi!2s"
+            width="100%"
+            height="100%"
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
 

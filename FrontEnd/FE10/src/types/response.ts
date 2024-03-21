@@ -1,8 +1,8 @@
 export type IResponse<T> = {
   Data?: {
     PageIndex: number
-    PageSize: 30
-    TotalPages: 2
+    PageSize: number
+    TotalPages: number
     Result: T
   }
   Message?: string

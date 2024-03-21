@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import { ROUTES } from './lib/router'
 import { AuthProvider } from './components/auth/auth-provider'
 import PageLoader from './components/page-loader'
+import { Toaster } from './components/ui/toast-ter'
 
 export default function App() {
   const queryClient = useMemo(() => new QueryClient({}), [])
@@ -15,6 +16,7 @@ export default function App() {
           <RouterProvider router={ROUTES} />
         </Suspense>
       </AuthProvider>
+      <Toaster />
       <ReactQueryDevtools />
     </QueryClientProvider>
   )

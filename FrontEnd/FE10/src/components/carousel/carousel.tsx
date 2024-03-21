@@ -2,6 +2,7 @@ import { CarouselContent, Carousel, CarouselItem, CarouselNext, CarouselPrevious
 import React from 'react'
 import Autoplay from 'embla-carousel-autoplay'
 import { Search } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function CarouselLD() {
   const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
@@ -42,7 +43,7 @@ function CarouselLD() {
                         style={{ width: '700px' }}
                       />
                       <button className="absolute right-4 top-2 rounded-xl bg-blue-500 px-4 py-2 text-white">
-                        Khám phá
+                        <Link to={'/venues'}>Khám phá</Link>
                       </button>
                     </div>
                   </div>
