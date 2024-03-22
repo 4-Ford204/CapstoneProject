@@ -20,6 +20,8 @@ namespace BusinessObjects
         public DbSet<SubCategoryRequest> SubCategoryRequests { get; set; }
         public DbSet<Venue> Venues { get; set; }
         public DbSet<VenueSubCategory> VenueSubCategories { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<ScheduleDetail> ScheduleDetails { get; set; }
         public DbSet<VNPAYPayment> VNPAYPayments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -52,6 +54,7 @@ namespace BusinessObjects
             modelBuilder.Entity<SubCategory>().HasData(GetSubCategories());
             modelBuilder.Entity<SubCategoryRequest>().HasData(GetSubCategoryRequests());
             modelBuilder.Entity<Venue>().HasData(GetVenues(ref defaultAccountNumber, out int defaultVenueNumber));
+            modelBuilder.Entity<Schedule>().HasData(GetSchedules());
             modelBuilder.Entity<VenueSubCategory>().HasData(GetVenueSubCategories(ref defaultVenueNumber));
         }
 
@@ -484,6 +487,10 @@ namespace BusinessObjects
             {
                 return new List<Venue>();
             }
+        }
+        private List<Schedule> GetSchedules()
+        {
+            return new List<Schedule>();
         }
         private List<VenueSubCategory> GetVenueSubCategories(ref int defaultVenueNumber)
         {

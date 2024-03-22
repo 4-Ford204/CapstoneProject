@@ -24,5 +24,6 @@ namespace BusinessObjects.Models
         public Account Account { get; set; }
 
         public virtual ICollection<VenueSubCategory> VenueSubCategories { get; set; }
+        public virtual ICollection<ScheduleDetail> ScheduleDetails { get; set; }
     }
 }

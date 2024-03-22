@@ -26,6 +26,7 @@ namespace BusinessObjects.Models
         public bool IsEmailConfirmed { get; set; }
 
         public virtual ICollection<SubCategoryRequest> SubCategoryRequests { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
         public virtual ICollection<VNPAYPayment> VNPAYPayments { get; set; }
     }
 }
