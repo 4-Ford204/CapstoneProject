@@ -2,7 +2,9 @@
 using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Category;
+using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
+using DTOs.Repositories.Services;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 

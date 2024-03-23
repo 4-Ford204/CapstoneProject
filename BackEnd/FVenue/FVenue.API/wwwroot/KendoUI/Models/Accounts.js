@@ -9,7 +9,10 @@
         baseURL: "../"
     }
 
-    function bindEvents() { }
+    function bindEvents() {
+        InsertButton();
+        DeleteButton();
+    }
 
     function bindControls() { }
 
@@ -243,10 +246,11 @@
                     }
                 },
                 {
-                    template:
-                        "<div class=\"kendo-grid-cell\">" +
-                        "<button type=\"button\" class=\"btn btn-info kendo-grid-btn\">Cập Nhật</button>" +
-                        "</div>",
+                    command: {
+                        text: "Cập nhật",
+                        click: UpdateAccount,
+                        className: "kendo-grid-btn"
+                    },
                     width: 100
                 }
             ]
@@ -290,6 +294,80 @@
                 text: dataItem.IsEmailConfirmed ? "Đã Xác Thực" : "Chưa Xác Thực"
             });
         });
+    }
+    function InsertButton() {
+        $(".k-grid-add:first").on("click", (function () {
+            $.ajax({
+                url: globalData.baseURL + "Accounts/InsertAccountPopup",
+                type: "GET",
+                success: function (result) {
+                    DOM.Popup.innerHTML = result;
+                    document.getElementById("image").addEventListener("change", UploadImage);
+                    RemovePopup();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }));
+    }
+
+    function DeleteButton() {
+        $(".k-grid-cancel-changes:first").on("click", (function () {
+            var ids = DOM.AccountsGrid.data("kendoGrid").selectedKeyNames();
+            $.ajax({
+                url: globalData.baseURL + "Accounts/ChangeAccountStatus",
+                type: "PUT",
+                data: {
+                    ids: ids
+                },
+                success: function (result) {
+                    DOM.AccountsGrid.data("kendoGrid").dataSource.read();
+                    DOM.AccountsGrid.data("kendoGrid").refresh();
+                },
+                error: function (result) {
+                    console.log(result);
+                }
+            });
+        }));
+    }
+
+    function UpdateAccount(e) {
+        e.preventDefault();
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $.ajax({
+            url: globalData.baseURL + "Accounts/UpdateAccountPopup/" + dataItem.Id,
+            type: "GET",
+            success: function (result) {
+                DOM.Popup.innerHTML = result;
+                RemovePopup();
+            },
+            error: function (result) {
+                console.log(result);
+            }
+        });
+    }
+
+    async function UploadImage(e) {
+        var data = new FormData();
+        data.append("uFile", e.target.files[0]);
+        await fetch("/API/ImageAPI/UploadImage", {
+            headers: {
+                Accept: "*/*"
+            },
+            method: "POST",
+            body: data
+        }).then(response => response.json())
+            .then(result => {
+                document.getElementById("imageURL").value = result.Data;
+                document.getElementById("imageReview").style.backgroundImage = "url(\"" + result.Data + "\")";
+            });
+    }
+
+    function RemovePopup() {
+        $("#removePopup").on("click", (function () {
+            DOM.Popup.innerHTML = "";
+        }));
     }
 
     return {
