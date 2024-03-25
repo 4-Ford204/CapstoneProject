@@ -176,33 +176,36 @@ namespace BusinessObjects
                         IsEmailConfirmed = true
                     }
                 };
-                //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
-                //{
-                //    using (StreamReader streamReader = new StreamReader(fileStream))
-                //    {
-                //        defaultAccountNumber = accounts.Count;
-                //        string account;
-                //        while ((account = streamReader.ReadLine()) != null)
-                //        {
-                //            string[] accountField = account.Split(',');
-                //            accounts.Add(new Account
-                //            {
-                //                Id = int.Parse(accountField[0].Trim()) + defaultAccountNumber,
-                //                Email = $"manager{int.Parse(accountField[0].Trim())}@gmail.com",
-                //                SaltPassword = salt,
-                //                HashPassword = hashPassword,
-                //                Image = "",
-                //                PhoneNumber = Common.RandomPhoneNumber(),
-                //                CreateDate = DateTime.Now,
-                //                LastUpdateDate = DateTime.Now,
-                //                Status = true,
-                //                RoleId = 2,
-                //                FirstName = accountField[1].Trim(),
-                //                LastName = "Quản Lý"
-                //            });
-                //        }
-                //    };
-                //};
+                defaultAccountNumber = accounts.Count;
+                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        string account;
+                        while ((account = streamReader.ReadLine()) != null)
+                        {
+                            string[] accountField = account.Split(',');
+                            accounts.Add(new Account
+                            {
+                                Id = int.Parse(accountField[0].Trim()) + defaultAccountNumber,
+                                Email = $"manager{int.Parse(accountField[0].Trim())}@gmail.com",
+                                SaltPassword = salt,
+                                HashPassword = hashPassword,
+                                Image = accountField[2].Trim(),
+                                PhoneNumber = Common.RandomPhoneNumber(),
+                                CreateDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true,
+                                RoleId = 2,
+                                FirstName = "Quản Lý",
+                                LastName = accountField[1].Trim(),
+                                FullName = $"Quản Lý {accountField[1].Trim()}",
+                                LoginMethod = (int)EnumModel.LoginMethod.Email,
+                                IsEmailConfirmed = false
+                            });
+                        }
+                    };
+                };
                 return accounts;
             }
             catch
@@ -451,36 +454,36 @@ namespace BusinessObjects
                                 AccountId = int.Parse(venueField[12].Trim())
                             });
                         }
-                        defaultVenueNumber = venues.Count;
                     };
                 };
-                //using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
-                //{
-                //    using (StreamReader streamReader = new StreamReader(fileStream))
-                //    {
-                //        string venue;
-                //        while ((venue = streamReader.ReadLine()) != null)
-                //        {
-                //            string[] venueField = venue.Split(',');
-                //            venues.Add(new Venue
-                //            {
-                //                Id = int.Parse(venueField[0].Trim()) + defaultVenueNumber
-                //                Name = venueField[1].Trim(),
-                //                Image = venueField[2].Trim(),
-                //                Description = $"Đây là mô tả về {venueField[1].Trim()}",
-                //                Street = venueField[3].Trim(),
-                //                WardId = int.Parse(venueField[4].Trim()),
-                //                GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
-                //                OpenTime = Common.ConvertTimeOnlyToDateTime(venueField[7].Trim()),
-                //                CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
-                //                LowerPrice = float.Parse(venueField[9].Trim()),
-                //                UpperPrice = float.Parse(venueField[10].Trim()),
-                //                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false,
-                //                AccountId = int.Parse(venueField[0].Trim()) + defaultAccountNumber
-                //            });
-                //        }
-                //    };
-                //};
+                defaultVenueNumber = venues.Count;
+                using (FileStream fileStream = new FileStream("Data/Venue.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        string venue;
+                        while ((venue = streamReader.ReadLine()) != null)
+                        {
+                            string[] venueField = venue.Split(',');
+                            venues.Add(new Venue
+                            {
+                                Id = int.Parse(venueField[0].Trim()) + defaultVenueNumber,
+                                Name = venueField[1].Trim(),
+                                Image = venueField[2].Trim(),
+                                Description = $"Đây là mô tả về {venueField[1].Trim()}",
+                                Street = venueField[3].Trim(),
+                                WardId = int.Parse(venueField[4].Trim()),
+                                GeoLocation = venueField[5].Trim() + "," + venueField[6].Trim(),
+                                OpenTime = Common.ConvertTimeOnlyToDateTime(venueField[7].Trim()),
+                                CloseTime = Common.ConvertTimeOnlyToDateTime(venueField[8].Trim()),
+                                LowerPrice = float.Parse(venueField[9].Trim()),
+                                UpperPrice = float.Parse(venueField[10].Trim()),
+                                Status = venueField[11].Trim().ToLower().Equals("true") ? true : false,
+                                AccountId = int.Parse(venueField[0].Trim()) + defaultAccountNumber
+                            });
+                        }
+                    };
+                };
                 return venues;
             }
             catch
@@ -516,22 +519,25 @@ namespace BusinessObjects
                         }
                     };
                 };
-                //using (FileStream fileStream = new FileStream("Data/VenueSubCategory.txt", FileMode.Open))
-                //{
-                //    using (StreamReader streamReader = new StreamReader(fileStream))
-                //    {
-                //        string venueCategory;
-                //        while ((venueCategory = streamReader.ReadLine()) != null)
-                //        {
-                //            string[] venueCategoryField = venueCategory.Split(',');
-                //            venueCategories.Add(new VenueSubCategory
-                //            {
-                //                VenueId = int.Parse(venueCategoryField[0].Trim()),
-                //                SubCategoryId = int.Parse(venueCategoryField[1].Trim())
-                //            });
-                //        }
-                //    };
-                //};
+                using (FileStream fileStream = new FileStream("Data/VenueSubCategory.txt", FileMode.Open))
+                {
+                    using (StreamReader streamReader = new StreamReader(fileStream))
+                    {
+                        string venueSubCategory;
+                        while ((venueSubCategory = streamReader.ReadLine()) != null)
+                        {
+                            string[] venueSubCategoryField = venueSubCategory.Split(',');
+                            venueSubCategories.Add(new VenueSubCategory
+                            {
+                                VenueId = int.Parse(venueSubCategoryField[0].Trim()),
+                                SubCategoryId = int.Parse(venueSubCategoryField[1].Trim()),
+                                CreateDate = DateTime.Now,
+                                LastUpdateDate = DateTime.Now,
+                                Status = true
+                            });
+                        }
+                    };
+                };
                 return venueSubCategories;
             }
             catch
