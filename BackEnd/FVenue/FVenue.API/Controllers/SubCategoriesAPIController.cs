@@ -5,6 +5,8 @@ using DTOs.Repositories.Interfaces;
 using FVenue.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using DTOs.Models.SubCategory;
+using DTOs.Models.Venue;
+using DTOs.Repositories.Services;
 
 namespace FVenue.API.Controllers
 {

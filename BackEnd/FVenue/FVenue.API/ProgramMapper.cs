@@ -36,6 +36,7 @@ namespace FVenue.API
                 .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => Common.FormatDateTime(src.BirthDay)))
                 .ForMember(dest => dest.LoginMethod, opt => opt.MapFrom(src => src.LoginMethod))
                 .ForMember(dest => dest.IsEmailConfirmed, opt => opt.MapFrom(src => src.IsEmailConfirmed));
+            CreateMap<AccountInsertDTO, Account>();
 
             #endregion
 
