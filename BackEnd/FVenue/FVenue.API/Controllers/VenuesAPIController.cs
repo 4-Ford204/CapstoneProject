@@ -223,5 +223,30 @@ namespace FVenue.API.Controllers
                     Data = result.Value
                 };
         }
+
+        [HttpPost, Route("SearchVenue")]
+        public ActionResult<JsonModel> SearchVenue([FromBody] VenueSearchDTO venueSearchDTO)
+        {
+            try
+            {
+                var venues = _venueService.SearchVenue(venueSearchDTO);
+                var venueDTOs = _mapper.Map<List<Venue>, List<VenueDTO>>(venues);
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.OK,
+                    Message = $"{venueDTOs.Count} venues",
+                    Data = new PaginationModel<VenueDTO>(venueDTOs, venueSearchDTO.PageIndex, venueSearchDTO.PageSize)
+                };
+            }
+            catch (Exception ex)
+            {
+                return new JsonModel()
+                {
+                    Code = EnumModel.ResultCode.InternalServerError,
+                    Message = $"{ex.Message}",
+                    Data = venueSearchDTO
+                };
+            }
+        }
     }
 }

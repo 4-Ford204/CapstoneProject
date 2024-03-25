@@ -69,7 +69,7 @@ namespace DTOs.Repositories.Services
             {
                 using (var _context = new DatabaseContext())
                 {
-                    var name = _context.Accounts.Where(x => x.Id == id).Select(x => $"{x.FirstName} {x.LastName}").FirstOrDefault();
+                    var name = _context.Accounts.Where(x => x.Id == id).Select(x => x.FullName).FirstOrDefault();
                     return name;
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using DTOs.Models.Venue;
 
 namespace DTOs.Repositories.Interfaces
 {
@@ -10,5 +11,6 @@ namespace DTOs.Repositories.Interfaces
         KeyValuePair<bool, string> InsertVenue(Venue venue);
         KeyValuePair<bool, string> UpdateVenue(Venue venue);
         KeyValuePair<bool, string> DeleteVenue(int id);
+        List<Venue> SearchVenue(VenueSearchDTO venueSearchDTO);
     }
 }
