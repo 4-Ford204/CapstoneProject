@@ -73,3 +73,17 @@
 73, Chuối nếp nướng, 2
 74, Cơm tấm, 2
 75, Sữa đậu nành, 3
+76, Cafe, 3
+77, Cơm nhà, 2
+78, Bia, 3
+79, Trà, 3
+80, Bánh, 2
+81, Bánh mì, 2
+82, Mì xào, 2
+83, Cơm chiên dương châu, 2
+84, Đồ nướng, 2
+85, Bánh tráng thịt heo, 2
+86, Gỏi cá, 2
+87, Bún thịt nướng, 2
+88, Bún mắm, 2
+89, Ẩm thực Hàn Quốc, 2

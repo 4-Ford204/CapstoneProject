@@ -39,6 +39,13 @@
             User = 3
         }
 
+        public enum ScheduleType
+        {
+            Morning = 1,
+            Afternoon = 2,
+            Evening = 3
+        }
+
         public enum SubCategoryRequestStatus
         {
             Pending = 1,

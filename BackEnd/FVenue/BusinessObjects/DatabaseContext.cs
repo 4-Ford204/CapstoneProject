@@ -28,7 +28,7 @@ namespace BusinessObjects
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.EnableSensitiveDataLogging();
+                optionsBuilder.EnableSensitiveDataLogging();
 
                 var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
@@ -529,7 +529,7 @@ namespace BusinessObjects
                             string[] venueSubCategoryField = venueSubCategory.Split(',');
                             venueSubCategories.Add(new VenueSubCategory
                             {
-                                VenueId = int.Parse(venueSubCategoryField[0].Trim()),
+                                VenueId = int.Parse(venueSubCategoryField[0].Trim()) + defaultVenueNumber,
                                 SubCategoryId = int.Parse(venueSubCategoryField[1].Trim()),
                                 CreateDate = DateTime.Now,
                                 LastUpdateDate = DateTime.Now,

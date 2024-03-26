@@ -33,7 +33,7 @@ namespace DTOs.Repositories.Services
                     subCategory => subCategory.Id,
                     venueSubCategory => venueSubCategory.SubCategoryId,
                     (subCategory, venueSubCategory) => venueSubCategory.VenueId)
-                    .Count();
+                    .Distinct().Count();
                 return venueNumber;
             }
         }
@@ -47,7 +47,7 @@ namespace DTOs.Repositories.Services
                     subCategory => subCategory.Id,
                     venueSubCategory => venueSubCategory.SubCategoryId,
                     (subCategory, venueSubCategory) => venueSubCategory.VenueId)
-                    .Count();
+                    .Distinct().Count();
                 return venueNumber;
             }
         }
