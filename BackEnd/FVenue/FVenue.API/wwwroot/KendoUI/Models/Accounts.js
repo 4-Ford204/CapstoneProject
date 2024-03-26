@@ -78,7 +78,7 @@
             toolbar: [
                 {
                     name: "create",
-                    text: "Thêm Tài Khoản",
+                    text: "Thêm Quản Trị Viên",
                 },
                 {
                     name: "cancel",
@@ -295,8 +295,9 @@
             });
         });
     }
+
     function InsertButton() {
-        $(".k-grid-add:first").on("click", (function () {
+        $("#accountsGrid .k-grid-add:first").on("click", (function () {
             $.ajax({
                 url: globalData.baseURL + "Accounts/InsertAccountPopup",
                 type: "GET",
@@ -313,7 +314,7 @@
     }
 
     function DeleteButton() {
-        $(".k-grid-cancel-changes:first").on("click", (function () {
+        $("#accountsGrid .k-grid-cancel-changes:first").on("click", (function () {
             var ids = DOM.AccountsGrid.data("kendoGrid").selectedKeyNames();
             $.ajax({
                 url: globalData.baseURL + "Accounts/ChangeAccountStatus",

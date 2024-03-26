@@ -289,7 +289,7 @@
     }
 
     function InsertButton() {
-        $(".k-grid-add:first").on("click", (function () {
+        $("#categoriesGrid .k-grid-add:first").on("click", (function () {
             $.ajax({
                 url: globalData.baseURL + "SubCategories/InsertSubCategoryPopup",
                 type: "GET",
@@ -343,7 +343,7 @@
     }
 
     function DeleteButton() {
-        $(".k-grid-cancel-changes:first").on("click", (function () {
+        $("#categoriesGrid .k-grid-cancel-changes:first").on("click", (function () {
             var selectedItems = $("#categoriesGrid tr.k-selected");
             var ids = [];
             $.each(selectedItems, function (e) {

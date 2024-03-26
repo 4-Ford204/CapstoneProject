@@ -14,7 +14,7 @@ namespace DTOs.Models.Account
         public string Password { get; set; }
         [DisplayName("Ảnh")]
         public IFormFile Image { get; set; }
-        [DisplayName("Đường Dẫn Của Ảnh")]
+        [DisplayName("Đường dẫn của ảnh")]
         public string ImageURL { get; set; }
         [DisplayName("Số điện thoại")]
         public string PhoneNumber { get; set; }
@@ -25,12 +25,10 @@ namespace DTOs.Models.Account
         public string FirstName { get; set; }
         [DisplayName("Họ")]
         public string LastName { get; set; }
-        public string FullName { get; set; }
         [DisplayName("Giới tính")]
         public bool? Gender { get; set; }
         [DisplayName("Ngày sinh")]
+        [DataType(DataType.Date)]
         public DateTime? BirthDay { get; set; }
-        public int? LoginMethod { get; set; }
-        public bool IsEmailConfirmed { get; set; }
     }
 }

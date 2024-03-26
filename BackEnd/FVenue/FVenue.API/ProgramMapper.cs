@@ -3,6 +3,7 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs.Models.Account;
 using DTOs.Models.Category;
+using DTOs.Models.Schedule;
 using DTOs.Models.SubCategory;
 using DTOs.Models.SubCategoryRequest;
 using DTOs.Models.Venue;
@@ -43,6 +44,13 @@ namespace FVenue.API
             #region Category
 
             CreateMap<Category, CategoryDTO>();
+
+            #endregion
+
+            #region Schedule
+
+            CreateMap<Schedule, ScheduleDTO>()
+                .ForMember(dest => dest.AccountName, opt => opt.MapFrom(src => accountService.GetAccountName(src.AccountId)));
 
             #endregion
 

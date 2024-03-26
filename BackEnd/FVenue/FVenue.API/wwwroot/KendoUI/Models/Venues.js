@@ -322,7 +322,7 @@
     }
 
     function InsertButton() {
-        $(".k-grid-add:first").on("click", (function () {
+        $("#venuesGrid .k-grid-add:first").on("click", (function () {
             $.ajax({
                 url: globalData.baseURL + "Venues/InsertVenuePopup",
                 type: "GET",
@@ -417,7 +417,7 @@
     }
 
     function DeleteButton() {
-        $(".k-grid-cancel-changes:first").on("click", (function () {
+        $("#venuesGrid .k-grid-cancel-changes:first").on("click", (function () {
             var ids = DOM.VenuesGrid.data("kendoGrid").selectedKeyNames();
             $.ajax({
                 url: globalData.baseURL + "Venues/ChangeVenueStatus",
