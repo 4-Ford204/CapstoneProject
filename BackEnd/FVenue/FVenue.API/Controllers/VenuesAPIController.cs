@@ -135,38 +135,6 @@ namespace FVenue.API.Controllers
             }
         }
 
-        [HttpGet, Route("SearchVenueBySubCategoryNameDTOs/{pageIndex}/{pageSize}")]
-        public ActionResult<JsonModel> SearchVenueBySubCategoryNameDTOs(string subCategoryName, int pageIndex, int pageSize)
-        {
-            try
-            {
-                var resultVenue = _venueService.SearchVenueBySubCategoryName(subCategoryName);
-                var venueDTOs = _mapper.Map<List<Venue>, List<VenueDTO>>(resultVenue);
-                if (venueDTOs.Count == 0)
-                {
-                    return new JsonModel
-                    {
-                        Code = EnumModel.ResultCode.NotFound,
-                        Message = $"No venues found for subcategory: {subCategoryName}"
-                    };
-                }
-                return new JsonModel
-                {
-                    Code = EnumModel.ResultCode.OK,
-                    Message = $"{venueDTOs.Count} venues found for subcategory: {subCategoryName}",
-                    Data = venueDTOs
-                };
-            }
-            catch (Exception ex)
-            {
-                return new JsonModel
-                {
-                    Code = EnumModel.ResultCode.InternalServerError,
-                    Message = $"{ex.Message}"
-                };
-            }
-        }
-
         [HttpPost, Route("InsertVenue")]
         public ActionResult<JsonModel> InsertVenue([FromForm] VenueInsertDTO venueInsertDTO)
         {

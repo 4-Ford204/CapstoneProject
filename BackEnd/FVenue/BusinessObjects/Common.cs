@@ -258,6 +258,8 @@ namespace BusinessObjects
             => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
         public static string FormatDateTime(DateTime? dateTime)
             => dateTime.HasValue ? dateTime.Value.ToString("dd/MM/yyyy HH:mm:ss") : "";
+        public static string FormatDateTimeInput(DateTime? dateTime)
+            => dateTime.HasValue ? dateTime.Value.ToString("yyyy-MM-ddThh:mm:ss") : "";
 
         #endregion
 

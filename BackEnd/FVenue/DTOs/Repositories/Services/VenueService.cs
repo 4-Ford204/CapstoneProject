@@ -43,31 +43,6 @@ namespace DTOs.Repositories.Services
                 return venues;
             }
         }
-        public List<Venue> SearchVenueBySubCategoryName(string subCategoryName)
-        {
-            using (var _context = new DatabaseContext())
-            {
-                var venues = _context.Venues.Join(_context.VenueSubCategories,
-                    venue => venue.Id,
-                    venueSubCategory => venueSubCategory.VenueId,
-                    (venue, venueSubCategory) => new
-                    {
-                        Venue = venue,
-                        VenueSubCategory = venueSubCategory
-                    })
-                    .Join(_context.SubCategories,
-                    vsc => vsc.VenueSubCategory.SubCategoryId,
-                    sc => sc.Id,
-                    (vsc, sc) => new
-                    {
-                        Venue = vsc.Venue,
-                        SubCategory = sc
-                    })
-                    .Where(x => x.SubCategory.Name == subCategoryName)
-                    .Select(x => x.Venue).ToList();
-                return venues;
-            }
-        }
 
         public KeyValuePair<bool, string> InsertVenue(Venue venue)
         {

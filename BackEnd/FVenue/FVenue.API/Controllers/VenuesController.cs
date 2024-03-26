@@ -17,7 +17,7 @@ namespace FVenue.API.Controllers
         private readonly IImageService _imageService;
         private readonly ILocationService _locationService;
         private readonly IVenueService _venueService;
-        
+
         public VenuesController(
             DatabaseContext context,
             IMapper mapper,
@@ -88,9 +88,12 @@ namespace FVenue.API.Controllers
                 try
                 {
                     var venue = _mapper.Map<VenueInsertDTO, Venue>(venueInsertDTO);
+                    venue.LowerPrice = 0;
+                    venue.UpperPrice = 0;
+                    venue.Status = true;
                     if (String.IsNullOrEmpty(venueInsertDTO.ImageURL) && venueInsertDTO.Image != null)
                     {
-                        // Upload Image Process + Insert Venue
+                        // Upload Image Process
                         var imageValidation = ValidationService.ImageValidation(venueInsertDTO.Image);
                         if (!imageValidation.Key)
                             throw new Exception(imageValidation.Value);
@@ -98,22 +101,12 @@ namespace FVenue.API.Controllers
                         if (imageUploadResult.Code != (int)EnumModel.ResultCode.OK)
                             throw new Exception(imageUploadResult.Message);
                         venue.Image = imageUploadResult.Data;
-                        venue.LowerPrice = 0;
-                        venue.UpperPrice = 0;
-                        venue.Status = true;
-                        _context.Venues.Add(venue);
-                        _context.SaveChanges();
                         //return "Thêm địa điểm thành công";
                     }
                     else
-                    {
                         venue.Image = venueInsertDTO.ImageURL;
-                        venue.LowerPrice = 0;
-                        venue.UpperPrice = 0;
-                        venue.Status = true;
-                        _context.Venues.Add(venue);
-                        _context.SaveChanges();
-                    }
+                    _context.Venues.Add(venue);
+                    _context.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)

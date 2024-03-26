@@ -14,7 +14,7 @@
                                 <label class="k-label k-form-label" asp-for="Email"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Email" />
+                                        <input class="k-input-inner" type="text" asp-for="Email" />
                                     </span>
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                                 <label class="k-label k-form-label" asp-for="Password"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Password" />
+                                        <input class="k-input-inner" type="password" asp-for="Password" />
                                     </span>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                         <div id="imageReview" class="kendo-cell-photo"></div>
                                         <div style="flex-grow: 1">
                                             <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                                <input id="image" style="width: 100%" class="k-input-inner" type="file" asp-for="Image" />
+                                                <input id="image" class="k-input-inner" type="file" asp-for="Image" />
                                             </span>
                                         </div>
                                     </div>
@@ -54,14 +54,8 @@
                                 <label class="k-label k-form-label" asp-for="PhoneNumber"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="PhoneNumber" />
+                                        <input class="k-input-inner" type="text" asp-for="PhoneNumber" />
                                     </span>
-                                </div>
-                            </div>
-                            <div class="k-label k-form-label k-form-field">
-                                <label class="k-label k-form-label" asp-for="RoleId"></label>
-                                <div class="k-form-field-wrap">
-                                    <input style ="width: 100%" class="k-input-inner" value="1" asp-for="RoleId" />
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
@@ -69,7 +63,7 @@
                                     <label class="k-label k-form-label" asp-for="FirstName"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="text" asp-for="FirstName"  />
+                                            <input class="k-input-inner" type="text" asp-for="FirstName" />
                                         </span>
                                     </div>
                                 </div>
@@ -77,27 +71,34 @@
                                     <label class="k-label k-form-label" asp-for="LastName"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="text" asp-for="LastName"  />
+                                            <input class="k-input-inner" type="text" asp-for="LastName" />
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="Gender"></label>
-                                <div class="k-form-field-wrap">
-                                    <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input class="k-input-inner" value="@ViewBag.AdministratorId" asp-for="Gender" />
-                                    </span>
-                                    <div class="k-form-hint">
-                                        <span>True: Nam, False: Nữ</span>
-                                    </div>
-                                    
-                                </div>
+                                <ul class="k-radio-list k-list-horizontal">
+                                    <li class="k-radio-item">
+                                        <span class="k-radio-wrap">
+                                            <input class="k-radio k-radio-md" type="radio" asp-for="Gender" value="true" />
+                                            <span style="margin-left: 5px;" class="k-radio-label"> Nam</span>
+                                        </span>
+                                    </li>
+                                    <li class="k-radio-item">
+                                        <span class="k-radio-wrap">
+                                            <input class="k-radio k-radio-md" type="radio" asp-for="Gender" value="false" checked="checked" />
+                                            <span style="margin-left: 5px;" class="k-radio-label"> Nữ</span>
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="k-label k-form-label k-form-field">
+                            <div class=" k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="BirthDay"></label>
                                 <div class="k-form-field-wrap">
-                                    <input class="k-input-inner" value="@ViewBag.AdministratorId" asp-for="BirthDay" />
+                                    <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
+                                        <input class="k-input-inner" asp-for="BirthDay" />
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
-﻿@model DTOs.Models.Account.AccountUpdateDTO
+﻿@using BusinessObjects
+@model DTOs.Models.Account.AccountUpdateDTO
 
 <div class="modal show display-popup" id="myModal" role="dialog" style="font-size: 15px">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -15,14 +16,16 @@
                                 <label class="k-label k-form-label" asp-for="Email"></label>
                                 <div class="k-form-field-wrap">
                                     <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                        <input style="width: 100%" class="k-input-inner" type="text" asp-for="Email" value="@Model.Email" />
+                                        <input class="k-input-inner" type="text" asp-for="Email" value="@Model.Email" />
                                     </span>
                                 </div>
                             </div>
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="PhoneNumber"></label>
                                 <div class="k-form-field-wrap">
-                                    <input style="width: 100%" class="k-input-inner" type="text" asp-for="PhoneNumber" value="@Model.PhoneNumber" />
+                                    <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
+                                        <input class="k-input-inner" type="text" asp-for="PhoneNumber" value="@Model.PhoneNumber" />
+                                    </span>
                                 </div>
                             </div>
                             <div style="display: flex; justify-content: space-between;">
@@ -30,7 +33,7 @@
                                     <label class="k-label k-form-label" asp-for="FirstName"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="text" asp-for="FirstName" value="@Model.FirstName" />
+                                            <input class="k-input-inner" type="text" asp-for="FirstName" value="@Model.FirstName" />
                                         </span>
                                     </div>
                                 </div>
@@ -38,21 +41,34 @@
                                     <label class="k-label k-form-label" asp-for="LastName"></label>
                                     <div class="k-form-field-wrap">
                                         <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
-                                            <input style="width: 100%" class="k-input-inner" type="text" asp-for="LastName" value="@Model.LastName" />
+                                            <input class="k-input-inner" type="text" asp-for="LastName" value="@Model.LastName" />
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="Gender"></label>
-                                <div class="k-form-field-wrap">
-                                    <input style="width: 100%" class="k-input-inner" asp-for="Gender" value="@Model.Gender" />
-                                </div>
+                                <ul class="k-radio-list k-list-horizontal">
+                                    <li class="k-radio-item">
+                                        <span class="k-radio-wrap">
+                                            <input class="k-radio k-radio-md" type="radio" asp-for="Gender" value="true" />
+                                            <span style="margin-left: 5px;" class="k-radio-label"> Nam</span>
+                                        </span>
+                                    </li>
+                                    <li class="k-radio-item">
+                                        <span class="k-radio-wrap">
+                                            <input class="k-radio k-radio-md" type="radio" asp-for="Gender" value="false" />
+                                            <span style="margin-left: 5px;" class="k-radio-label"> Nữ</span>
+                                        </span>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="k-label k-form-label k-form-field">
                                 <label class="k-label k-form-label" asp-for="BirthDay"></label>
                                 <div class="k-form-field-wrap">
-                                    <input style="width: 100%" class="k-input-inner" type="datetime" asp-for="BirthDay" value="@Model.BirthDay" />
+                                    <span class="k-input k-textbox k-input-solid k-input-md k-rounded-md">
+                                        <input class="k-input-inner" asp-for="BirthDay" value="@Common.FormatDateTimeInput(Model.BirthDay)" />
+                                    </span>
                                 </div>
                             </div>
                         </div>

@@ -3,11 +3,8 @@ using BusinessObjects;
 using BusinessObjects.Models;
 using DTOs;
 using DTOs.Models.Account;
-using DTOs.Models.Venue;
 using DTOs.Repositories.Interfaces;
-using DTOs.Repositories.Services;
 using Microsoft.AspNetCore.Mvc;
-using static BusinessObjects.EnumModel;
 
 namespace FVenue.API.Controllers
 {
@@ -19,7 +16,11 @@ namespace FVenue.API.Controllers
         private readonly IAccountService _accountService;
         private readonly IImageService _imageService;
 
-        public AccountsController(DatabaseContext context, IMapper mapper, IAccountService accountService, IImageService imageService)
+        public AccountsController(
+            DatabaseContext context,
+            IMapper mapper,
+            IAccountService accountService,
+            IImageService imageService)
         {
             _context = context;
             _mapper = mapper;
@@ -81,6 +82,16 @@ namespace FVenue.API.Controllers
                 try
                 {
                     var account = _mapper.Map<AccountInsertDTO, Account>(accountInsertDTO);
+                    byte[] salt;
+                    account.HashPassword = Common.HashPassword(accountInsertDTO.Password, out salt);
+                    account.SaltPassword = salt;
+                    account.CreateDate = DateTime.Now;
+                    account.LastUpdateDate = DateTime.Now;
+                    account.Status = true;
+                    account.RoleId = (int)EnumModel.Role.Administrator;
+                    account.FullName = $"{account.FirstName} {account.LastName}";
+                    account.LoginMethod = (int)EnumModel.LoginMethod.Email;
+                    account.IsEmailConfirmed = false;
                     if (String.IsNullOrEmpty(accountInsertDTO.ImageURL) && accountInsertDTO.Image != null)
                     {
                         var imageValidation = ValidationService.ImageValidation(accountInsertDTO.Image);
@@ -90,29 +101,11 @@ namespace FVenue.API.Controllers
                         if (imageUploadResult.Code != (int)EnumModel.ResultCode.OK)
                             throw new Exception(imageUploadResult.Message);
                         account.Image = imageUploadResult.Data;
-                        account.CreateDate = DateTime.Now;
-                        account.LastUpdateDate = DateTime.Now;
-                        account.Status = true;
-                        account.RoleId = 1;
-                        account.LoginMethod = 1;
-                        account.IsEmailConfirmed = false;
-                        _context.Accounts.Add(account);
-                        _context.SaveChanges();
-                        //return "Thêm địa điểm thành công";
                     }
                     else
-                    {
                         account.Image = accountInsertDTO.ImageURL;
-                        account.CreateDate = DateTime.Now;
-                        account.LastUpdateDate = DateTime.Now;
-                        account.Status = true;
-                        account.RoleId = 1;
-                        account.FullName = account.FirstName + " " + account.LastName;
-                        account.LoginMethod = 1;
-                        account.IsEmailConfirmed = false;
-                        _context.Accounts.Add(account);
-                        _context.SaveChanges();
-                    }
+                    _context.Accounts.Add(account);
+                    _context.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
@@ -138,10 +131,9 @@ namespace FVenue.API.Controllers
                         Id = accountUpdateDTO.Id,
                         Email = accountUpdateDTO.Email,
                         //Image = venueUpdateDTO.ImageFile != null ? _imageService.GetImagePath(venueUpdateDTO.ImageFile) : venue.Image,
-                        //Description = venueUpdateDTO.Description,
                         PhoneNumber = accountUpdateDTO.PhoneNumber,
                         CreateDate = account.CreateDate,
-                        LastUpdateDate = account.LastUpdateDate,
+                        LastUpdateDate = DateTime.Now,
                         Status = account.Status,
                         RoleId = account.RoleId,
                         FirstName = accountUpdateDTO.FirstName,
@@ -150,7 +142,7 @@ namespace FVenue.API.Controllers
                         Gender = accountUpdateDTO.Gender,
                         BirthDay = accountUpdateDTO.BirthDay,
                         LoginMethod = account.LoginMethod,
-                        IsEmailConfirmed = account.IsEmailConfirmed,
+                        IsEmailConfirmed = account.IsEmailConfirmed
                     });
                     _context.SaveChanges();
                     transaction.Commit();

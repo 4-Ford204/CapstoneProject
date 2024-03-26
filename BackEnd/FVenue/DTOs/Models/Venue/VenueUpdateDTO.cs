@@ -12,7 +12,7 @@ namespace DTOs.Models.Venue
         public string Name { get; set; }
         [DisplayName("Ảnh")]
         public IFormFile Image { get; set; }
-        [DisplayName("Đường Dẫn Của Ảnh")]
+        [DisplayName("Đường dẫn của ảnh")]
         public string ImageURL { get; set; }
         [DisplayName("Mô Tả")]
         public string Description { get; set; }
