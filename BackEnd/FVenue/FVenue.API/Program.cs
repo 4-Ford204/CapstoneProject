@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using BusinessObjects;
 using DTOs.Repositories.Interfaces;
 using DTOs.Repositories.Services;
@@ -76,6 +76,11 @@ namespace FVenue.API
             // Quartz Scheduler
             builder.Services.AddQuartz(quartz =>
             {
+                /*
+                 * B1: Tạo khóa (JobKey) cho công việc
+                 * B2: Đăng kí công việc cần thực thi vào DI container với khóa vừa tạo
+                 * B3: Thêm trigger cho công việc với cấu hình thời gian thực thi (Cron Expression)
+                 */
                 var jobKey = new JobKey("DeleteUnusedImagesJob");
                 quartz.AddJob<DeleteUnusedImagesJob>(options => options.WithIdentity(jobKey));
                 quartz.AddTrigger(options => options
